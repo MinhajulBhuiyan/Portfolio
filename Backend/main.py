@@ -19,7 +19,7 @@ if not api_key:
 
 # 1. Load the document content
 try:
-    with open("./data/prabhu_data.md", "r", encoding="utf-8") as f:
+    with open("./data/minhaj_data.md", "r", encoding="utf-8") as f:
         document_text = f.read()
     
     # This is the critical fix: We split the document by the "---" separator.
@@ -28,7 +28,7 @@ try:
     
     print(f"Knowledge base loaded successfully with {len(chunks)} semantic chunks.")
 except FileNotFoundError:
-    raise FileNotFoundError("prabhu_data.md not found in the 'data' directory.")
+    raise FileNotFoundError("minhaj_data.md not found in the 'data' directory.")
 
 # 2. Load a local model for finding relevant text (embeddings)
 # This model runs efficiently on your CPU.
@@ -80,15 +80,15 @@ async def chat(request: ChatRequest):
 
         identity_keywords = ["who are you", "what is your name", "your name"]
         if any(keyword in user_message for keyword in identity_keywords):
-            return {"reply": "My name is PRAXIS. I am a custom AI assistant created by Prabhu for his portfolio."}
+            return {"reply": "My name is PRAXIS. I am a custom AI assistant created by Minhajul for his portfolio."}
         
         praxis_keywords = ["praxis means", "what is praxis", "what does praxis stand for"]
         if any(keyword in user_message for keyword in praxis_keywords):
-            return {"reply": "PRAXIS stands for Prabhu's Reactive Analytical & Experiential Intelligence System."}
+            return {"reply": "PRAXIS stands for Portfolio Reactive Analytical & Experiential Intelligence System."}
         
         simple_greetings = ["hi", "hello", "hlo", "hey", "what's up", "yo"]
         if user_message in simple_greetings:
-            return {"reply": "Hello! How can I assist you with information about Prabhu today?"}
+            return {"reply": "Hello! How can I assist you with information about Minhajul today?"}
 
         # --- RAG Process: If it's not a simple question, proceed with the main logic ---
 
@@ -100,12 +100,12 @@ async def chat(request: ChatRequest):
         # Step 2: Construct a clear and direct prompt for the Gemini API
         # --- THIS IS THE EDITED SECTION FOR YOUR SPECIFIC NEED ---
         prompt = (
-            "You are PRAXIS, a helpful AI assistant for Prabhu Charan's portfolio.\n"
-            "Your task is to answer the user's 'Query' about Prabhu Charan based ONLY on the provided 'Context'.\n"
+            "You are PRAXIS, a helpful AI assistant for Minhajul Bhuiyan's portfolio.\n"
+            "Your task is to answer the user's 'Query' about Minhajul Bhuiyan based ONLY on the provided 'Context'.\n"
             "Follow these rules strictly:\n"
             "1. Speak in a natural, direct tone. Do not mention that you are referencing the context.\n"
-            "2. **Always refer to the subject in the third person (e.g., 'Prabhu's GPA was...', NOT 'Your GPA was...'). This is a strict rule.**\n"
-            "3. If the context does not contain the answer, you MUST say 'That's a detail Prabhu hasn't shared with me yet.'\n\n"
+            "2. **Always refer to the subject in the third person (e.g., 'Minhajul's experience was...', NOT 'Your experience was...'). This is a strict rule.**\n"
+            "3. If the context does not contain the answer, you MUST say 'That's a detail Minhajul hasn't shared with me yet.'\n\n"
             f"Context: {context}\n\n"
             f"Query: {user_message}\n\n"
             "Answer:"

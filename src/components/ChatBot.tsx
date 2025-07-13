@@ -14,7 +14,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hi! I'm PRAXIS, Prabhu's intelligent system. Feel free to ask me anything about his work, or even a creative or technical question.",
+      text: "Hi! I'm PRAXIS, Minhajul's intelligent system. Feel free to ask me anything about his work, or even a creative or technical question.",
       sender: 'bot',
       timestamp: new Date(),
     },

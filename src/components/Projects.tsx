@@ -15,7 +15,6 @@ interface Project {
   tech: string[];
   github: string;
   live: string;
-  video: string;
   gradient: string;
 }
 
@@ -49,7 +48,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
 
   return (
     <AnimatePresence>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -74,19 +73,19 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
           {/* Decorative border gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 rounded-3xl blur-sm"></div>
           <div className="absolute inset-[1px] bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 rounded-3xl"></div>
-          
+
           <div className="relative max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent">
             {/* Hero Image Section */}
             <div className="relative h-80 overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title} 
-                className="w-full h-full object-cover" 
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
               />
               {/* Multi-layer gradients for depth */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-transparent to-blue-900/30"></div>
-              
+
               {/* Floating close button */}
               <motion.button
                 initial={{ opacity: 0, scale: 0 }}
@@ -113,7 +112,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                     <h3 className="text-5xl font-bold text-white mb-2 drop-shadow-2xl" style={{ fontFamily: "'Poppins', sans-serif" }}>
                       {project.title}
                     </h3>
-                    <motion.span 
+                    <motion.span
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4, duration: 0.4 }}
@@ -126,7 +125,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                 </motion.div>
               </div>
             </div>
-            
+
             {/* Content Section */}
             <div className="p-10 space-y-10">
               {/* Action Buttons - Moved before Description */}
@@ -136,12 +135,12 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="flex flex-wrap gap-4 pt-2"
               >
-                <motion.a 
-                  whileHover={{ scale: 1.05, y: -3 }} 
-                  whileTap={{ scale: 0.95 }} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href={project.live} 
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={project.live}
                   className="group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
@@ -150,13 +149,13 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                     <span style={{ fontFamily: "'Inter', sans-serif" }}>Live Demo</span>
                   </div>
                 </motion.a>
-                
-                <motion.a 
-                  whileHover={{ scale: 1.05, y: -3 }} 
-                  whileTap={{ scale: 0.95 }} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  href={project.github} 
+
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={project.github}
                   className="group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-600 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
@@ -181,7 +180,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                   </p>
                 </div>
               </motion.div>
-              
+
               {/* Technologies Section */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -197,7 +196,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                     Technologies & Tools
                   </h4>
                 </div>
-                
+
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {project.tech.map((tech: string, index: number) => (
                     <motion.div
@@ -243,84 +242,6 @@ const Projects = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: 'Biped Robot V 1.0',
-      category: 'desktop',
-      description: 'Radio-controlled Biped Robot.',
-      detailedDescription: 'A Robot which powered by single motor and controlled via radio control remote. It can walk forward and backward.',
-      image: 'src//components//images//robot_0.png',
-      tech: ['DC motor', 'Bicycle Spokes', 'L - Crankshaft'],
-      github: 'https://github.com/developer-prabhu-charan',
-      live: '',
-      video: 'https://youtu.be/PNT3fIZqBPU?si=hfd4Mp5u1eRpaVsK',
-      gradient: 'from-green-500 to-purple-600',
-    },
-    {
-      id: 2,
-      title: 'Mummy - Voice Assistant V 1.0',
-      category: 'ai',
-      description: 'Intelligent assistant with opening applications and playing music.',
-      detailedDescription: 'An advanced AI voice assistant built with Python, featuring applications opening, playing songs. Includes voice recognition.',
-      image: 'src//components//images//mummy_voice_assistant.png',
-      tech: ['Python', 'Gemini API', 'PyQt5', 'Tkinter'],
-      github: 'https://github.com/developer-prabhu-charan',
-      live: '',
-      video: 'https://drive.google.com/file/d/1eiID1WDJJ133DeiauAS8k8HSYTxDd2mY/view?usp=sharing',
-      gradient: 'from-green-500 to-teal-600',
-    },
-    {
-      id: 3,
-      title: 'YAMUNA - Voice Assistant V 2.0',
-      category: 'ai',
-      description: 'Intelligent assistant with natural language processing, context awareness, and highly-scalable.',
-      detailedDescription: 'An advanced AI voice assistant built with Google Gemini API, featuring context retention, sentiment analysis. Includes voice recognition, text-to-speech, and integration capabilities for various platforms.',
-      image: 'src//components//images//Yamuna_voice_assistant.jpg',
-      tech: ['Python', 'Gemini API', 'PyQt5', 'Tkinter'],
-      github: 'https://github.com/developer-prabhu-charan',
-      live: '',
-      video: 'https://www.instagram.com/reel/DGZv7QlPNWZ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      gradient: 'from-green-500 to-teal-600',
-    },
-    {
-      id: 4,
-      title: '3D Sci-Fi Robot in Blender',
-      category: 'desktop',
-      description: 'Sci-Fi Robot completely modeled from scratch in Blender 3D.',
-      detailedDescription: 'Computer Generated Image technology based Sci-Fi robot is crafted in Blender 3D and Animated with bones and added stunning audio effects.',
-      image: 'src//components//images//CGI1.jpg',
-      tech: ['Blender 3D', 'Cap Cut'],
-      github: 'https://github.com/developer-prabhu-charan',
-      live: '',
-      video: 'https://www.instagram.com/reel/DKYZkdLvbKm/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      gradient: 'from-cyan-500 to-blue-600',
-    },
-    {
-      id: 5,
-      title: 'Mobile Fitness App',
-      category: 'mobile',
-      description: 'Cross-platform fitness tracking app with workout plans, progress analytics, and social features.',
-      detailedDescription: 'A comprehensive fitness application built with React Native, featuring workout tracking, custom exercise plans, progress analytics, social sharing, and integration with wearable devices for health monitoring.',
-      image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['Flutter', 'Dart','React Native', 'Firebase',],
-      github: 'https://github.com/developer-prabhu-charan',
-      live: '',
-      video: 'https://www.youtube.com/@ppcprogrammerprabhucharan6691',
-      gradient: 'from-orange-500 to-red-600',
-    },
-    {
-      id: 6,
-      title: 'Biped Robot(CGI)',
-      category: 'desktop',
-      description: 'Two-leged biped robot walk based on the voice commands.',
-      detailedDescription: 'A powerful Robot powered by ESP32 and Python works on voice commands. It can walk, sit, turn, run, etc.',
-      image: 'src//components//images//robot.png',
-      tech: ['Blender 3D'],
-      github: 'https://github.com/developer-prabhu-charan',
-      live: '',
-      video: 'https://www.instagram.com/reel/DK30fHxP7dC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-      gradient: 'from-purple-500 to-indigo-600',
-    },
-    {
-      id: 7,
       title: '3D Portfolio Website',
       category: 'web',
       description: 'Interactive 3D portfolio with WebGL animations, particle effects, and smooth scroll interactions.',
@@ -329,7 +250,78 @@ const Projects = () => {
       tech: ['React', 'Three.js', 'GSAP', 'WebGL', 'Framer Motion'],
       github: 'https://github.com/MinhajulBhuiyan/Portfolio',
       live: '',
-      video: 'https://www.youtube.com/@ppcprogrammerprabhucharan6691',
+      gradient: 'from-pink-500 to-rose-600',
+    },
+    {
+      id: 2,
+      title: 'Prescripto',
+      category: 'web',
+      description: 'A full-stack Hospital Management System featuring admin, doctor, and patient panels, secure authentication, and integrated machine learning for disease prediction.',
+      detailedDescription: 'A full-stack Hospital Management System featuring admin, doctor, and patient panels, secure authentication, and integrated machine learning for disease prediction. This project streamlines hospital resource and patient management with a modern, user-friendly interface.',
+      image: 'src//components//images//hms_preview.png',
+      tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Python', 'TensorFlow', 'JWT Authentication', 'CSS'],
+      github: 'https://github.com/MinhajulBhuiyan/HMS',
+      live: '',
+      gradient: 'from-green-500 to-teal-600',
+    },
+    {
+      id: 3,
+      title: 'Machine Learning Project Collection',
+      category: 'ai',
+      description: 'A collection of practical machine learning projects built with Python, Scikit-learn, TensorFlow, and Keras.',
+      detailedDescription: 'A collection of practical machine learning projects built with Python, Scikit-learn, TensorFlow, and Keras. This repository features hands-on examples of data preprocessing, model development, and evaluation, covering both classical and deep learning techniques for real-world problems.',
+      image: 'src//components//images//hand-gesture-rec-ML.png',
+      tech: ['Python', 'Scikit-learn', 'TensorFlow', 'Keras'],
+      github: 'https://github.com/MinhajulBhuiyan/Machine-Learning-Project',
+      live: '',
+      gradient: 'from-green-500 to-teal-600',
+    },
+    {
+      id: 4,
+      title: 'HomeSeek',
+      category: 'web',
+      description: 'A property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages.',
+      detailedDescription: 'HomeSeek is a property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages. It includes secure user authentication, profile management, and real-time chat via Socket.IO, providing a streamlined and engaging experience for property seekers and owners alike.',
+      image: 'src//components//images//real-estate.png',
+      tech: ['React', 'Node.js', 'MongoDB', 'Prisma', 'JWT', 'Socket.IO', 'React Router'],
+      github: 'https://github.com/MinhajulBhuiyan/HomeSeek',
+      live: '',
+      gradient: 'from-cyan-500 to-blue-600',
+    },
+    {
+      id: 5,
+      title: 'Parkspace',
+      category: 'web',
+      description: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface.',
+      detailedDescription: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface. The application provides a seamless experience by connecting a robust backend API with a responsive frontend, featuring role management and comprehensive parking management functionality.',
+      image: 'src//components//images//parkspace.png',
+      tech: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Authentication'],
+      github: 'https://github.com/MinhajulBhuiyan/Parkspace',
+      live: '',
+      gradient: 'from-orange-500 to-red-600',
+    },
+    {
+      id: 6,
+      title: 'Medibot',
+      category: 'desktop',
+      description: 'Medibot is a Hospital Management System developed in C# using the .NET Framework with a Windows Forms user interface. The application streamlines hospital operations by providing modules for patient management, disease identification, and medicine inventory.',
+      detailedDescription: 'Medibot is a Hospital Management System developed in C# using the .NET Framework with a Windows Forms user interface. The application streamlines hospital operations by providing modules for patient management, disease identification, and medicine inventory. It enables efficient tracking of patient records, supports basic disease identification, and helps manage medicine stocks through an intuitive desktop interface.',
+      image: 'src//components//images//medobot.gif',
+      tech: ['C#', '.NET Framework', 'Windows Forms', 'Visual Studio'],
+      github: 'https://github.com/MinhajulBhuiyan/Medibot',
+      live: '',
+      gradient: 'from-purple-500 to-indigo-600',
+    },
+    {
+      id: 7,
+      title: 'AnimeInsights',
+      category: 'web',
+      description: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations.',
+      detailedDescription: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations, and integrates data from the AniList API. Built with ASP.NET MVC framework for robust web application development.',
+      image: 'src//components//images//anime-insights.png',
+      tech: ['ASP.NET MVC', 'C#', 'CSHTML', 'Oracle SQL Developer', 'AniList API'],
+      github: 'https://github.com/MinhajulBhuiyan/AnimeInsights',
+      live: '',
       gradient: 'from-pink-500 to-rose-600',
     },
     {
@@ -342,9 +334,21 @@ const Projects = () => {
       tech: ['Unity', 'C#', 'Voxel Engine', 'Game Development'],
       github: 'https://github.com/MinhajulBhuiyan/PixelForge.git',
       live: '',
-      video: '',
       gradient: 'from-emerald-500 to-teal-600',
     },
+
+    {
+      id: 9,
+      title: 'MathHub',
+      category: 'desktop',
+      description: 'MathHub is a console-based learning platform for math enthusiasts. It offers a variety of mathematical operations and tools, including arithmetic, trigonometry, statistics, graph plotting, matrix manipulation, and physics formulas.',
+      detailedDescription: 'MathHub is a console-based learning platform for math enthusiasts. It offers a variety of mathematical operations and tools, including arithmetic, trigonometry, statistics, graph plotting, matrix manipulation, and physics formulas, all accessible through a simple command-line interface. Built with modular architecture using C++ and STL for optimal performance.',
+      image: 'src//components//images//mathhub.jpg',
+      tech: ['C++', 'Console Application', 'STL', 'Modular Architecture', 'Visual Studio Code'],
+      github: 'https://github.com/MinhajulBhuiyan/MathHub',
+      live: '',
+      gradient: 'from-blue-500 to-indigo-600',
+    }
 
   ];
 
@@ -354,7 +358,7 @@ const Projects = () => {
     { id: 'mobile', label: 'Mobile Apps' },
     { id: 'ai', label: 'AI Projects' },
     { id: 'desktop', label: 'Desktop Software' },
-    { id: 'games', label: 'Games'},
+    { id: 'games', label: 'Games' },
   ];
 
   const filteredProjects = filter === 'all'
@@ -383,7 +387,7 @@ const Projects = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/10"></div>
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           ref={ref}
@@ -403,16 +407,16 @@ const Projects = () => {
               <span className="w-2 h-2 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full animate-pulse"></span>
               <span className="text-purple-300 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>Portfolio Showcase</span>
             </motion.div>
-            
+
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
               My{' '}
               <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
                 Projects
               </span>
             </h2>
-            
+
             <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
-              Discover my journey through innovative solutions, creative designs, and cutting-edge technologies. 
+              Discover my journey through innovative solutions, creative designs, and cutting-edge technologies.
               Each project represents a unique challenge conquered with passion and precision.
             </p>
           </motion.div>
@@ -425,11 +429,10 @@ const Projects = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setFilter(category.id)}
-                className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 backdrop-blur-sm ${
-                  filter === category.id 
-                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg shadow-purple-500/25 border border-purple-400/50' 
+                className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 backdrop-blur-sm ${filter === category.id
+                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg shadow-purple-500/25 border border-purple-400/50'
                     : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50 hover:border-gray-600/50'
-                }`}
+                  }`}
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {category.label}
@@ -450,12 +453,12 @@ const Projects = () => {
                   layout
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="group relative cursor-pointer w-full"
+                  className="group relative cursor-pointer w-full h-[520px]"
                   onClick={() => setSelectedProject(project)}
                 >
-                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-lg border border-gray-700/30 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20">
+                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-lg border border-gray-700/30 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 h-full flex flex-col">
                     {/* Project Image */}
-                    <div className="relative overflow-hidden h-56">
+                    <div className="relative overflow-hidden h-56 flex-shrink-0">
                       <motion.img
                         src={project.image}
                         alt={project.title}
@@ -464,17 +467,17 @@ const Projects = () => {
                         transition={{ duration: 0.6, ease: "easeOut" }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                      
+
                       {/* Enhanced Hover Overlay */}
-                      <motion.div 
+                      <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30"
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
                       />
-                      
+
                       {/* Category Badge */}
-                      <motion.div 
+                      <motion.div
                         className="absolute top-4 left-4"
                         whileHover={{ scale: 1.1, y: -2 }}
                         transition={{ duration: 0.2 }}
@@ -504,65 +507,69 @@ const Projects = () => {
                         </motion.div>
                       </motion.div>
                     </div>
-                    
+
                     {/* Content */}
-                    <div className="p-6 space-y-4">
-                      <motion.h3 
-                        className="text-xl font-bold transition-colors duration-300" 
-                        style={{ fontFamily: "'Poppins', sans-serif" }}
-                        whileHover={{ color: "#a855f7" }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {project.title}
-                      </motion.h3>
-                      
-                      <p className="text-gray-400 text-sm leading-relaxed line-clamp-3" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        {project.description}
-                      </p>
-                      
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {project.tech.slice(0, 3).map((tech, index) => (
-                          <motion.span 
-                            key={tech}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.1, duration: 0.3 }}
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            className="px-3 py-1 text-xs bg-gray-700/50 text-purple-300 rounded-full border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300" 
-                            style={{ fontFamily: "'Inter', sans-serif" }}
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                        {project.tech.length > 3 && (
-                          <motion.span 
-                            className="px-3 py-1 text-xs bg-gray-700/50 text-gray-400 rounded-full border border-gray-600/50"
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            +{project.tech.length - 3}
-                          </motion.span>
-                        )}
+                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-4">
+                        <motion.h3
+                          className="text-xl font-bold transition-colors duration-300 h-14 flex items-center"
+                          style={{ fontFamily: "'Poppins', sans-serif" }}
+                          whileHover={{ color: "#a855f7" }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <span className="line-clamp-2">{project.title}</span>
+                        </motion.h3>
+
+                        <div className="h-16">
+                          <p className="text-gray-400 text-sm leading-relaxed line-clamp-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+                            {project.description}
+                          </p>
+                        </div>
+
+                        {/* Tech Stack */}
+                        <div className="flex flex-wrap gap-2 pt-2 min-h-[2.5rem]">
+                          {project.tech.slice(0, 3).map((tech, index) => (
+                            <motion.span
+                              key={tech}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.1, duration: 0.3 }}
+                              whileHover={{ scale: 1.05, y: -2 }}
+                              className="px-3 py-1 text-xs bg-gray-700/50 text-purple-300 rounded-full border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300"
+                              style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                              {tech}
+                            </motion.span>
+                          ))}
+                          {project.tech.length > 3 && (
+                            <motion.span
+                              className="px-3 py-1 text-xs bg-gray-700/50 text-gray-400 rounded-full border border-gray-600/50"
+                              whileHover={{ scale: 1.05, y: -2 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              +{project.tech.length - 3}
+                            </motion.span>
+                          )}
+                        </div>
                       </div>
-                      
+
                       {/* Enhanced View More Indicator */}
-                      <motion.div 
-                        className="flex items-center justify-between pt-4"
+                      <motion.div
+                        className="flex items-center justify-between pt-4 mt-auto"
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                       >
-                        <motion.span 
+                        <motion.span
                           className="text-purple-400 text-sm font-medium transition-colors duration-300"
                           whileHover={{ color: "#c084fc" }}
                         >
                           View Details
                         </motion.span>
-                        
-                        <motion.div 
+
+                        <motion.div
                           className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 flex items-center justify-center"
-                          whileHover={{ 
-                            scale: 1.2, 
+                          whileHover={{
+                            scale: 1.2,
                             rotate: 15,
                             background: "linear-gradient(to right, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.4))"
                           }}
@@ -577,10 +584,10 @@ const Projects = () => {
                         </motion.div>
                       </motion.div>
                     </div>
-                    
+
                     {/* Gradient Border Effect */}
                     <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${project.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500`}></div>
-                    
+
                     {/* Glow Effect */}
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                   </div>

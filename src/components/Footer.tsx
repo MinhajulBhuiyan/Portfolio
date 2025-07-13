@@ -58,7 +58,7 @@ const Footer = () => {
             <div className="space-y-4">
               <motion.div whileHover={{ scale: 1.05 }} className="cursor-pointer" onClick={scrollToTop}>
                 <span className="text-3xl font-poppins font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                  Prabhu Charan
+                  Minhajul Abedin Bhuiyan
                 </span>
               </motion.div>
               <p className="text-text-secondary font-inter leading-relaxed">
@@ -108,10 +108,9 @@ const Footer = () => {
               <h3 className="text-lg font-poppins font-semibold">Services</h3>
               <ul className="space-y-2 text-text-secondary font-inter">
                 <li>Web Development</li>
-                <li>Mobile Apps</li>
                 <li>UI/UX Design</li>
                 <li>AI Integration</li>
-                <li>3D Modelling CGI</li>
+                <li>Desktop Application</li>
                 <li>Consulting</li>
               </ul>
             </div>
@@ -120,9 +119,9 @@ const Footer = () => {
             <div className="space-y-4">
               <h3 className="text-lg font-poppins font-semibold">Get In Touch</h3>
               <div className="space-y-2 text-text-secondary font-inter">
-                <p>Gandipet, Hyderabad, 500075</p>
-                <p>developerprabhucharan@gmail.com</p>
-                <p>+91 9390094496</p>
+                <p>Banasree, Dhaka, 1219</p>
+                <p>minhajul@iut-dhaka.edu</p>
+                <p>+880 174 724 7276</p>
               </div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -178,35 +177,6 @@ const Footer = () => {
             </motion.button>
           </div>
         </div>
-
-        {/* Newsletter Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="py-8 border-t border-secondary/20"
-        >
-          <div className="text-center space-y-4">
-            <h3 className="text-xl font-poppins font-semibold">Stay Updated</h3>
-            <p className="text-text-secondary font-inter max-w-md mx-auto">
-              Subscribe to my newsletter for the latest updates on projects, tutorials, and tech insights.
-            </p>
-            <div className="flex flex-col sm:flex-row max-w-md mx-auto space-y-2 sm:space-y-0 sm:space-x-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-secondary/10 border border-secondary/20 rounded-lg text-text-primary placeholder-text-secondary focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all duration-300"
-              />
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 bg-gradient-to-r from-secondary to-accent rounded-lg font-manrope font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
-              >
-                Subscribe
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </footer>
   );

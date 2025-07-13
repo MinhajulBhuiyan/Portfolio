@@ -1,7 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, Palette, Cpu, Lightbulb, GraduationCap, School, BookOpen } from 'lucide-react';
+import { GraduationCap, School, BookOpen } from 'lucide-react';
 
 // Import institution images
 import iutImage from './images/iut-image.png';
@@ -33,29 +32,6 @@ const About = () => {
     },
   };
 
-  const highlights = [
-    {
-      icon: Code,
-      title: 'Full-Stack Development',
-      description: 'Building scalable web applications with modern technologies and best practices.',
-    },
-    {
-      icon: Palette,
-      title: 'UI/UX Design',
-      description: 'Creating intuitive and beautiful user interfaces that enhance user experience.',
-    },
-    {
-      icon: Cpu,
-      title: 'AI & Machine Learning',
-      description: 'Implementing intelligent solutions and automation using cutting-edge AI technologies.',
-    },
-    {
-      icon: Lightbulb,
-      title: 'Creative Problem Solving',
-      description: 'Turning complex challenges into elegant, innovative solutions.',
-    },
-  ];
-
   return (
     <section id="about" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,34 +55,34 @@ const About = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Content */}
-            <motion.div variants={itemVariants} className="space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            {/* My Journey */}
+            <motion.div variants={itemVariants} className="flex">
               <motion.div
-                className="space-y-8 p-6 rounded-xl bg-gradient-to-br from-secondary/15 to-accent/15 border border-secondary/30 hover:border-accent/50 transition-all duration-300"
-                whileHover={{ y: -2 }}
+                className="space-y-8 p-6 rounded-xl bg-gradient-to-br from-secondary/15 to-accent/15 border border-secondary/30 hover:border-accent/50 transition-all duration-300 w-full flex flex-col"
+                whileHover={{ y: -2, scale: 1.01 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <motion.h3
-                  className="text-2xl font-poppins font-semibold text-center mb-8 relative"
+                  className="text-2xl font-poppins font-bold text-center mb-6 relative bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
                 >
-                  My Journey
+                  ✨ My Journey
                   <motion.div
-                    className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-12 h-px bg-accent mt-2"
+                    className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-secondary to-accent rounded-full mt-2"
                     initial={{ width: 0 }}
-                    animate={{ width: 48 }}
+                    animate={{ width: 80 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                   ></motion.div>
                 </motion.h3>
 
-                <motion.div className="space-y-6">
+                <motion.div className="space-y-6 flex-1">
                   <motion.p
-                    className="text-text-secondary font-inter leading-7 text-justify tracking-normal"
+                    className="text-gray-100 font-inter leading-8 text-justify tracking-normal text-lg"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.8 }}
@@ -119,7 +95,7 @@ const About = () => {
                   </motion.p>
 
                   <motion.p
-                    className="text-text-secondary font-inter leading-7 text-justify tracking-normal"
+                    className="text-gray-100 font-inter leading-8 text-justify tracking-normal text-lg"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 1.0 }}
@@ -131,7 +107,7 @@ const About = () => {
                   </motion.p>
 
                   <motion.p
-                    className="text-text-secondary font-inter leading-7 text-justify tracking-normal font-medium"
+                    className="text-gray-100 font-inter leading-8 text-justify tracking-normal font-semibold text-lg"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 1.2 }}
@@ -141,10 +117,12 @@ const About = () => {
                   </motion.p>
                 </motion.div>
               </motion.div>
+            </motion.div>
 
-              {/* Education */}
+            {/* Education */}
+            <motion.div variants={itemVariants} className="flex">
               <motion.div
-                className="space-y-6 p-6 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-600/10 border border-blue-400/30 hover:border-purple-500/50 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="space-y-6 p-6 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-600/10 border border-blue-400/30 hover:border-purple-500/50 transition-all duration-300 shadow-lg hover:shadow-xl w-full flex flex-col"
                 whileHover={{ y: -2, scale: 1.01 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -316,30 +294,6 @@ const About = () => {
                   </div>
                 </motion.div>
               </motion.div>
-            </motion.div>
-
-            {/* Highlights Grid */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {highlights.map((highlight, index) => {
-                const Icon = highlight.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="p-6 rounded-xl bg-gradient-to-br from-secondary/10 to-accent/10 border border-secondary/20 hover:border-accent/40 transition-all duration-300"
-                  >
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="p-2 rounded-lg bg-gradient-to-r from-secondary to-accent">
-                        <Icon className="h-5 w-5 text-white" />
-                      </div>
-                      <h4 className="font-poppins font-semibold text-lg">{highlight.title}</h4>
-                    </div>
-                    <p className="text-text-secondary text-sm font-inter leading-relaxed">
-                      {highlight.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
             </motion.div>
           </div>
 
