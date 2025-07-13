@@ -4,64 +4,73 @@ import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
+import re
+from typing import List
 
 # --- SETUP ---
-# Load environment variables from .env file
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("GOOGLE_API_KEY not found. Please add it to your .env file.")
 
-# --- LOCAL KNOWLEDGE BASE SETUP ---
-
-# 1. Load the document content
+# --- KNOWLEDGE BASE SETUP ---
 try:
     with open("./data/minhaj_data.md", "r", encoding="utf-8") as f:
         document_text = f.read()
-    
-    # This is the critical fix: We split the document by the "---" separator.
-    # This creates meaningful chunks based on the sections you defined.
     chunks = [p.strip() for p in document_text.split("\n---\n") if p.strip()]
-    
-    print(f"Knowledge base loaded successfully with {len(chunks)} semantic chunks.")
+    print(f"Knowledge base loaded successfully with {len(chunks)} chunks.")
 except FileNotFoundError:
-    raise FileNotFoundError("minhaj_data.md not found in the 'data' directory.")
+    print("WARNING: Knowledge base file not found. Using minimal fallback data.")
+    chunks = [
+        "Minhajul Bhuiyan is a Full-Stack Developer and Software Engineer studying at Islamic University of Technology.",
+        "He has experience in React, TypeScript, Python, AI/ML, and modern web development.",
+        "His portfolio includes projects in web development, mobile apps, AI systems, and game development."
+    ]
 
-# 2. Load a local model for finding relevant text (embeddings)
-# This model runs efficiently on your CPU.
-print("Loading local embedding model for retrieval...")
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-print("Embedding model loaded.")
-
-# 3. Create embeddings for each chunk of your document
-print("Creating embeddings for the knowledge base...")
-chunk_embeddings = embedding_model.encode(chunks)
-print("Embeddings created.")
-
-
-# Function to find the most relevant chunks of text
-def get_relevant_context(query, top_k=2):
-    query_embedding = embedding_model.encode([query])
-    sim_scores = cosine_similarity(query_embedding, chunk_embeddings)[0]
+# --- LIGHTWEIGHT SEARCH FUNCTION ---
+def simple_keyword_search(query: str, chunks: List[str], top_k: int = 3) -> List[str]:
+    """Simple keyword-based search without heavy ML libraries"""
+    query_lower = query.lower()
+    query_words = set(re.findall(r'\w+', query_lower))
     
-    # Get the indices of the top_k most similar chunks
-    top_k_indices = np.argsort(sim_scores)[-top_k:][::-1]
+    scored_chunks = []
     
-    # Combine the top chunks into a single context string
-    context = "\n---\n".join([chunks[i] for i in top_k_indices])
-    return context
+    for chunk in chunks:
+        chunk_lower = chunk.lower()
+        chunk_words = set(re.findall(r'\w+', chunk_lower))
+        
+        # Calculate simple word overlap score
+        overlap = len(query_words & chunk_words)
+        
+        # Bonus for exact phrase matches
+        phrase_bonus = 0
+        if query_lower in chunk_lower:
+            phrase_bonus = 2
+        
+        # Bonus for key terms
+        key_terms = ["minhajul", "bhuiyan", "developer", "engineer", "project", "experience", "skill"]
+        key_bonus = sum(1 for term in key_terms if term in chunk_lower and term in query_lower)
+        
+        total_score = overlap + phrase_bonus + key_bonus
+        
+        if total_score > 0:
+            scored_chunks.append((total_score, chunk))
+    
+    # Sort by score and return top_k
+    scored_chunks.sort(key=lambda x: x[0], reverse=True)
+    return [chunk for _, chunk in scored_chunks[:top_k]]
 
+# --- FASTAPI SETUP ---
+app = FastAPI(title="Minhajul's Portfolio AI Assistant")
 
-# --- API SERVER (FastAPI) ---
-app = FastAPI()
-
-# CORS middleware allows your frontend website to talk to this backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://minhajul-bhuiyan.vercel.app", "http://localhost:3000", "http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173", 
+        "https://minhajul-bhuiyan.vercel.app",
+        "https://*.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -70,70 +79,99 @@ app.add_middleware(
 class ChatRequest(BaseModel):
     message: str
 
-@app.post("/api/chat")
-async def chat(request: ChatRequest):
-    try:
-        user_message = request.message.lower().strip()
-
-        # --- GUARDRAILS: For Identity and Simple Greetings ---
-        # Before doing any complex work, we handle these simple cases directly for speed and accuracy.
-
-        identity_keywords = ["who are you", "what is your name", "your name"]
-        if any(keyword in user_message for keyword in identity_keywords):
-            return {"reply": "My name is PRAXIS. I am a custom AI assistant created by Minhajul for his portfolio."}
-        
-        praxis_keywords = ["praxis means", "what is praxis", "what does praxis stand for"]
-        if any(keyword in user_message for keyword in praxis_keywords):
-            return {"reply": "PRAXIS stands for Portfolio Reactive Analytical & Experiential Intelligence System."}
-        
-        simple_greetings = ["hi", "hello", "hlo", "hey", "what's up", "yo"]
-        if user_message in simple_greetings:
-            return {"reply": "Hello! How can I assist you with information about Minhajul today?"}
-
-        # --- RAG Process: If it's not a simple question, proceed with the main logic ---
-
-        print(f"Received query: {user_message}")
-        
-        # Step 1: Find relevant context from your document (runs locally)
-        context = get_relevant_context(user_message)
-
-        # Step 2: Construct a clear and direct prompt for the Gemini API
-        # --- THIS IS THE EDITED SECTION FOR YOUR SPECIFIC NEED ---
-        prompt = (
-            "You are PRAXIS, a helpful AI assistant for Minhajul Bhuiyan's portfolio.\n"
-            "Your task is to answer the user's 'Query' about Minhajul Bhuiyan based ONLY on the provided 'Context'.\n"
-            "Follow these rules strictly:\n"
-            "1. Speak in a natural, direct tone. Do not mention that you are referencing the context.\n"
-            "2. **Always refer to the subject in the third person (e.g., 'Minhajul's experience was...', NOT 'Your experience was...'). This is a strict rule.**\n"
-            "3. If the context does not contain the answer, you MUST say 'That's a detail Minhajul hasn't shared with me yet.'\n\n"
-            f"Context: {context}\n\n"
-            f"Query: {user_message}\n\n"
-            "Answer:"
-        )
-
-        # Step 3: Make a single, efficient API call to Google Gemini
-        api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
-        
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": { "temperature": 0.3, "topK": 1, "topP": 1, "maxOutputTokens": 2048 }
-        }
-
-        async with httpx.AsyncClient() as client:
-            response = await client.post(api_url, json=payload, timeout=60.0)
-            response.raise_for_status()
-
-        result = response.json()
-        reply = result.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "Sorry, I could not generate a response.")
-        return {"reply": reply.strip()}
-    
-    except httpx.HTTPStatusError as e:
-        print(f"API Error: {e.response.status_code} - {e.response.text}")
-        return {"reply": "Sorry, I'm having trouble connecting to my core intelligence. This might be an API quota issue."}
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        return {"reply": "Sorry, an unexpected error occurred. Please check the server logs."}
+class ChatResponse(BaseModel):
+    response: str
 
 @app.get("/")
-def read_root():
-    return {"message": "PRAXIS AI Assistant API (Direct Gemini Version) is live."}
+async def root():
+    return {"message": "Minhajul's Portfolio AI Assistant is running!"}
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "knowledge_base_chunks": len(chunks)}
+
+@app.post("/api/chat", response_model=ChatResponse)
+async def chat_endpoint(request: ChatRequest):
+    try:
+        user_message = request.message.strip()
+        
+        if not user_message:
+            return ChatResponse(response="Please ask me something about Minhajul's work or experience!")
+        
+        # Handle simple greetings
+        simple_greetings = ["hi", "hello", "hey", "what's up", "yo"]
+        if user_message.lower() in simple_greetings:
+            return ChatResponse(response="Hello! I'm PRAXIS, Minhajul's AI assistant. How can I help you learn about his work and experience?")
+        
+        # Handle identity questions
+        if any(keyword in user_message.lower() for keyword in ["who are you", "what is your name", "your name"]):
+            return ChatResponse(response="I'm PRAXIS (Portfolio Reactive Analytical & Experiential Intelligence System), an AI assistant representing Minhajul Bhuiyan's portfolio. I'm here to help you learn about his work, projects, and experience!")
+        
+        # Find relevant context using lightweight search
+        relevant_chunks = simple_keyword_search(user_message, chunks, top_k=3)
+        
+        # Build context for the AI
+        if relevant_chunks:
+            context = "\n\n".join(relevant_chunks)
+        else:
+            context = "General information about Minhajul Bhuiyan's portfolio and experience."
+        
+        # Enhanced system prompt
+        system_prompt = f"""You are PRAXIS (Portfolio Reactive Analytical & Experiential Intelligence System), an AI assistant representing Minhajul Bhuiyan's portfolio. You have deep knowledge about his work, projects, skills, and experience.
+
+**Your Personality:**
+- Professional yet approachable
+- Enthusiastic about technology and innovation  
+- Knowledgeable about Minhajul's journey and achievements
+- Helpful in explaining technical concepts
+- Encouraging and inspiring
+
+**Context about Minhajul:**
+{context}
+
+**Guidelines:**
+- Always respond as if you're representing Minhajul's portfolio
+- Be specific about his projects, skills, and achievements when relevant
+- If asked about something not in your knowledge base, politely redirect to what you do know
+- Keep responses engaging and informative
+- Use "his" or "Minhajul's" when referring to the portfolio owner
+- Be encouraging about his growth and learning journey
+
+User question: {user_message}
+
+Provide a helpful, informative response:"""
+
+        # Call Google Gemini API
+        async with httpx.AsyncClient() as client:
+            gemini_response = await client.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}",
+                json={
+                    "contents": [{
+                        "parts": [{"text": system_prompt}]
+                    }],
+                    "generationConfig": {
+                        "temperature": 0.7,
+                        "topK": 40,
+                        "topP": 0.95,
+                        "maxOutputTokens": 500,
+                    }
+                },
+                timeout=30.0
+            )
+            
+            if gemini_response.status_code == 200:
+                result = gemini_response.json()
+                ai_response = result["candidates"][0]["content"]["parts"][0]["text"]
+                return ChatResponse(response=ai_response)
+            else:
+                print(f"Gemini API error: {gemini_response.status_code} - {gemini_response.text}")
+                return ChatResponse(response="I'm experiencing some technical difficulties right now. Please try again in a moment!")
+                
+    except Exception as e:
+        print(f"Error in chat endpoint: {str(e)}")
+        return ChatResponse(response="Sorry, I'm having trouble connecting to my brain right now. Please try again later.")
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

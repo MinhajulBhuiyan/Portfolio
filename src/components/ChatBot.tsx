@@ -50,8 +50,9 @@ const ChatBot = () => {
     setIsTyping(true);
 
     try {
-      // Step 1: Call your production FastAPI backend
-      const response = await fetch('https://portfolio-backend-ol16.onrender.com/api/chat', {
+      // Step 1: Call your local development backend for testing
+      const apiUrl = import.meta.env.DEV ? 'http://localhost:8000/api/chat' : 'https://portfolio-backend-ol16.onrender.com/api/chat';
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ const ChatBot = () => {
       // Step 2: Create a new bot message with the reply from the API
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: data.reply, // Use the intelligent reply from the API
+        text: data.response, // Use the response field from our FastAPI backend
         sender: 'bot',
         timestamp: new Date(),
       };

@@ -2,10 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { GraduationCap, School, BookOpen } from 'lucide-react';
 
-// Import institution images
-import iutImage from './images/iut-image.png';
-import ndcImage from './images/ndc-image.png';
-import iscImage from './images/isc-image.png';
+// Institution images are in the public folder
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -150,7 +147,7 @@ const About = () => {
                       address: 'Gazipur, Dhaka',
                       detail: 'B.Sc in Software Engineering',
                       icon: GraduationCap,
-                      image: iutImage,
+                      image: '/images/iut-image.png',
                       gradient: 'from-emerald-500 to-teal-600',
                       bgGradient: 'from-emerald-500/10 to-teal-600/10',
                       hoverGradient: 'hover:from-emerald-500/20 hover:to-teal-600/20',
@@ -162,7 +159,7 @@ const About = () => {
                       address: 'Motijheel, Dhaka',
                       detail: 'Higher Secondary Certificate (Science)',
                       icon: School,
-                      image: ndcImage,
+                      image: '/images/ndc-image.png',
                       gradient: 'from-blue-500 to-indigo-600',
                       bgGradient: 'from-blue-500/10 to-indigo-600/10',
                       hoverGradient: 'hover:from-blue-500/20 hover:to-indigo-600/20',
@@ -174,7 +171,7 @@ const About = () => {
                       address: 'Motijheel, Dhaka',
                       detail: 'Secondary School Certificate (Science)',
                       icon: BookOpen,
-                      image: iscImage,
+                      image: '/images/isc-image.png',
                       gradient: 'from-violet-500 to-purple-600',
                       bgGradient: 'from-violet-500/10 to-purple-600/10',
                       hoverGradient: 'hover:from-violet-500/20 hover:to-purple-600/20',

@@ -2,31 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-// Import all skill images
-import reactImg from './images/skills/react.png';
-import typescriptImg from './images/skills/typescript.png';
-import tailwindImg from './images/skills/tailwind.png';
-import threejsImg from './images/skills/threejs.png';
-import nodejsImg from './images/skills/nodejs.png';
-import mongodbImg from './images/skills/mongodb.png';
-import postgresqlImg from './images/skills/postgresql.png';
-import expressImg from './images/skills/express.png';
-import graphqlImg from './images/skills/graphql.png';
-import dockerImg from './images/skills/docker.png';
-import csharpImg from './images/skills/csharp.png';
-import dotnetImg from './images/skills/dotnet.png';
-import javaImg from './images/skills/java.png';
-import junitImg from './images/skills/junit.png';
-import xunitImg from './images/skills/xunit.png';
-import pythonImg from './images/skills/python.png';
-import tensorflowImg from './images/skills/tensorflow.png';
-import kerasImg from './images/skills/keras.png';
-import scikitImg from './images/skills/scikit-learn.png';
-import pandasImg from './images/skills/pandas-numpy.png';
-import vscodeImg from './images/skills/vscode.png';
-import intellijImg from './images/skills/intellij.png';
-import gitImg from './images/skills/git-github.png';
-import figmaImg from './images/skills/figma.png';
+// All skill images are now in the public folder
 
 // Define the structure for a single skill
 interface Skill {
@@ -47,50 +23,50 @@ const skillCategories: SkillCategory[] = [
   {
     title: 'Frontend Development',
     skills: [
-      { name: 'React', level: 'Competent', description: 'Comfortable with building UIs using hooks and component patterns.', image: reactImg },
-      { name: 'TypeScript', level: 'Foundation', description: 'Applying static typing to improve code reliability.', image: typescriptImg },
-      { name: 'Tailwind CSS', level: 'Intermediate', description: 'Using utility classes for consistent and responsive styling.', image: tailwindImg },
-      { name: 'Three.js', level: 'Beginner', description: 'Exploring basic 3D graphics and simple scenes.', image: threejsImg },
+      { name: 'React', level: 'Competent', description: 'Comfortable with building UIs using hooks and component patterns.', image: '/images/skills/react.png' },
+      { name: 'TypeScript', level: 'Foundation', description: 'Applying static typing to improve code reliability.', image: '/images/skills/typescript.png' },
+      { name: 'Tailwind CSS', level: 'Intermediate', description: 'Using utility classes for consistent and responsive styling.', image: '/images/skills/tailwind.png' },
+      { name: 'Three.js', level: 'Beginner', description: 'Exploring basic 3D graphics and simple scenes.', image: '/images/skills/threejs.png' },
     ],
   },
   {
     title: 'Backend & Database',
     skills: [
-      { name: 'Node.js', level: 'Competent', description: 'Developing backend services and simple APIs.', image: nodejsImg },
-      { name: 'MongoDB', level: 'Intermediate', description: 'Handling NoSQL data and basic CRUD operations.', image: mongodbImg },
-      { name: 'PostgreSQL', level: 'Intermediate', description: 'Managing relational data with SQL.', image: postgresqlImg },
-      { name: 'Express.js', level: 'Competent', description: 'Building APIs with routing and middleware.', image: expressImg },
-      { name: 'GraphQL', level: 'Foundation', description: 'Learning flexible data querying for APIs.', image: graphqlImg },
-      { name: 'Docker', level: 'Foundation', description: 'Understanding containers and simple deployments.', image: dockerImg },
+      { name: 'Node.js', level: 'Competent', description: 'Developing backend services and simple APIs.', image: '/images/skills/nodejs.png' },
+      { name: 'MongoDB', level: 'Intermediate', description: 'Handling NoSQL data and basic CRUD operations.', image: '/images/skills/mongodb.png' },
+      { name: 'PostgreSQL', level: 'Intermediate', description: 'Managing relational data with SQL.', image: '/images/skills/postgresql.png' },
+      { name: 'Express.js', level: 'Competent', description: 'Building APIs with routing and middleware.', image: '/images/skills/express.png' },
+      { name: 'GraphQL', level: 'Foundation', description: 'Learning flexible data querying for APIs.', image: '/images/skills/graphql.png' },
+      { name: 'Docker', level: 'Foundation', description: 'Understanding containers and simple deployments.', image: '/images/skills/docker.png' },
     ]
   },
   {
     title: 'Software Development & Testing',
     skills: [
-      { name: 'C#', level: 'Competent', description: 'Developing robust desktop and web applications with .NET technologies.', image: csharpImg },
-      { name: '.NET Framework', level: 'Competent', description: 'Building and maintaining scalable enterprise solutions.', image: dotnetImg },
-      { name: 'Java', level: 'Intermediate', description: 'Writing and maintaining cross-platform software solutions.', image: javaImg },
-      { name: 'JUnit', level: 'Foundation', description: 'Writing and executing unit tests for Java applications.', image: junitImg },
-      { name: 'xUnit', level: 'Foundation', description: 'Testing .NET applications to ensure code reliability.', image: xunitImg },
+      { name: 'C#', level: 'Competent', description: 'Developing robust desktop and web applications with .NET technologies.', image: '/images/skills/csharp.png' },
+      { name: '.NET Framework', level: 'Competent', description: 'Building and maintaining scalable enterprise solutions.', image: '/images/skills/dotnet.png' },
+      { name: 'Java', level: 'Intermediate', description: 'Writing and maintaining cross-platform software solutions.', image: '/images/skills/java.png' },
+      { name: 'JUnit', level: 'Foundation', description: 'Writing and executing unit tests for Java applications.', image: '/images/skills/junit.png' },
+      { name: 'xUnit', level: 'Foundation', description: 'Testing .NET applications to ensure code reliability.', image: '/images/skills/xunit.png' },
     ]
   },
   {
     title: 'AI & Machine Learning',
     skills: [
-      { name: 'Python', level: 'Competent', description: 'Using Python for data tasks and scripting.', image: pythonImg },
-      { name: 'TensorFlow', level: 'Intermediate', description: 'Experimenting with basic neural network models.', image: tensorflowImg },
-      { name: 'Keras', level: 'Intermediate', description: 'Building simple deep learning models.', image: kerasImg },
-      { name: 'Scikit-learn', level: 'Intermediate', description: 'Working with standard machine learning techniques.', image: scikitImg },
-      { name: 'Pandas & NumPy', level: 'Competent', description: 'Handling and exploring data in Python.', image: pandasImg },
+      { name: 'Python', level: 'Competent', description: 'Using Python for data tasks and scripting.', image: '/images/skills/python.png' },
+      { name: 'TensorFlow', level: 'Intermediate', description: 'Experimenting with basic neural network models.', image: '/images/skills/tensorflow.png' },
+      { name: 'Keras', level: 'Intermediate', description: 'Building simple deep learning models.', image: '/images/skills/keras.png' },
+      { name: 'Scikit-learn', level: 'Intermediate', description: 'Working with standard machine learning techniques.', image: '/images/skills/scikit-learn.png' },
+      { name: 'Pandas & NumPy', level: 'Competent', description: 'Handling and exploring data in Python.', image: '/images/skills/pandas-numpy.png' },
     ]
   },
   {
     title: 'Softwares and Tools',
     skills: [
-      { name: 'Visual Studio Code', level: 'Competent', description: 'Using as a code editor for multiple languages.', image: vscodeImg },
-      { name: 'IntelliJ IDEA', level: 'Competent', description: 'Editing and managing Java projects.', image: intellijImg },
-      { name: 'Git & GitHub', level: 'Foundation', description: 'Managing version control and collaborating on projects.', image: gitImg },
-      { name: 'Figma', level: 'Beginner', description: 'Exploring basic UI/UX design concepts.', image: figmaImg },
+      { name: 'Visual Studio Code', level: 'Competent', description: 'Using as a code editor for multiple languages.', image: '/images/skills/vscode.png' },
+      { name: 'IntelliJ IDEA', level: 'Competent', description: 'Editing and managing Java projects.', image: '/images/skills/intellij.png' },
+      { name: 'Git & GitHub', level: 'Foundation', description: 'Managing version control and collaborating on projects.', image: '/images/skills/git-github.png' },
+      { name: 'Figma', level: 'Beginner', description: 'Exploring basic UI/UX design concepts.', image: '/images/skills/figma.png' },
     ]
   }
 ];
