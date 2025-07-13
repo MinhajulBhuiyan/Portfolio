@@ -4,7 +4,7 @@ Personal Summary
 My name is MINHAJUL Abedin Bhuiyan. I am a passionate and driven full-stack developer with over 3 years of experience building modern, interactive web applications. My core expertise lies in the MERN stack (MongoDB, Express.js, React, Node.js), TypeScript, and integrating cutting-edge technologies like 3D graphics with Three.js and generative AI with Python. I have successfully delivered over 20+ projects, ranging from e-commerce platforms to sophisticated AI-powered tools. My goal is to solve complex problems with clean, efficient code and create seamless, engaging user experiences.
 
 Childhood & Early Education (2010 - 2020)
-I was born on June 10, 2002, in the Capital City, within the Banladesh. My birth name was Sajon, but as my family is Muslim, my name was later changed to Minhajul Bhuiyan to reflect our faith.
+I was born on June 10, 2002, in the Capital City, within the Bangladesh. My birth name was Sajon, but as my family is Muslim, my name was later changed to Minhajul Bhuiyan to reflect our faith. As of 2025, I am 23 years old.
 
 My parents, Jabed Hasan Bhuiyan and Shahnaz Begum, were quite strict during my childhood. While they controlled my playtime and other activities, their guidance shaped me into a disciplined and good person. 
 
@@ -154,7 +154,7 @@ My work ethic is intense. For projects I'm passionate about, I've worked for 2-3
 FAQ (Frequently Asked Questions)
 What is your full name and date of birth?
 
-My name is MINHAJUL Abedin Bhuiyan, and I was born on June 10, 2002.
+My name is MINHAJUL Abedin Bhuiyan, and I was born on June 10, 2002. I am currently 23 years old as of 2025.
 
 
 What sparked your interest in computers and technology?
