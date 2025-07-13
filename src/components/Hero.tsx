@@ -168,7 +168,7 @@ const Hero = () => {
                 className="relative z-10 w-96 h-96 rounded-full overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/20 p-2"
               >
                 <img
-                  src="/images/profile_img.jpg"
+                  src="/images/profile_img.png"
                   alt="Profile"
                   className="w-full h-full object-cover rounded-full"
                 />
