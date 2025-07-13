@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import re
 from typing import List
 
@@ -76,12 +75,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class ChatRequest(BaseModel):
-    message: str
-
-class ChatResponse(BaseModel):
-    response: str
-
 @app.get("/")
 async def root():
     return {"message": "Minhajul's Portfolio AI Assistant is running!"}
@@ -90,22 +83,22 @@ async def root():
 async def health_check():
     return {"status": "healthy", "knowledge_base_chunks": len(chunks)}
 
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat_endpoint(request: ChatRequest):
+@app.post("/api/chat")
+async def chat_endpoint(request: dict):
     try:
-        user_message = request.message.strip()
+        user_message = request.get("message", "").strip()
         
         if not user_message:
-            return ChatResponse(response="Please ask me something about Minhajul's work or experience!")
+            return {"response": "Please ask me something about Minhajul's work or experience!"}
         
         # Handle simple greetings
         simple_greetings = ["hi", "hello", "hey", "what's up", "yo"]
         if user_message.lower() in simple_greetings:
-            return ChatResponse(response="Hello! I'm PRAXIS, Minhajul's AI assistant. How can I help you learn about his work and experience?")
+            return {"response": "Hello! I'm PRAXIS, Minhajul's AI assistant. How can I help you learn about his work and experience?"}
         
         # Handle identity questions
         if any(keyword in user_message.lower() for keyword in ["who are you", "what is your name", "your name"]):
-            return ChatResponse(response="I'm PRAXIS (Portfolio Reactive Analytical & Experiential Intelligence System), an AI assistant representing Minhajul Bhuiyan's portfolio. I'm here to help you learn about his work, projects, and experience!")
+            return {"response": "I'm PRAXIS (Portfolio Reactive Analytical & Experiential Intelligence System), an AI assistant representing Minhajul Bhuiyan's portfolio. I'm here to help you learn about his work, projects, and experience!"}
         
         # Find relevant context using lightweight search
         relevant_chunks = simple_keyword_search(user_message, chunks, top_k=3)
@@ -162,14 +155,14 @@ Provide a helpful, informative response:"""
             if gemini_response.status_code == 200:
                 result = gemini_response.json()
                 ai_response = result["candidates"][0]["content"]["parts"][0]["text"]
-                return ChatResponse(response=ai_response)
+                return {"response": ai_response}
             else:
                 print(f"Gemini API error: {gemini_response.status_code} - {gemini_response.text}")
-                return ChatResponse(response="I'm experiencing some technical difficulties right now. Please try again in a moment!")
+                return {"response": "I'm experiencing some technical difficulties right now. Please try again in a moment!"}
                 
     except Exception as e:
         print(f"Error in chat endpoint: {str(e)}")
-        return ChatResponse(response="Sorry, I'm having trouble connecting to my brain right now. Please try again later.")
+        return {"response": "Sorry, I'm having trouble connecting to my brain right now. Please try again later."}
 
 if __name__ == "__main__":
     import uvicorn
