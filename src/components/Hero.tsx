@@ -98,7 +98,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('src/components/images/CV_Minhaj.pdf', '_blank')}
+                onClick={() => window.open('/src/components/images/CV_Minhaj.pdf', '_blank')}
                 className="px-8 py-4 border border-accent rounded-lg font-manrope font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:bg-accent/10 hover:shadow-lg hover:shadow-accent/25"
               >
                 View CV
@@ -168,7 +168,7 @@ const Hero = () => {
                 className="relative z-10 w-96 h-96 rounded-full overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/20 p-2"
               >
                 <img
-                  src="src\components\images\Profile_img.jpg"
+                  src="/src/components/images/profile_img.jpg"
                   alt="Profile"
                   className="w-full h-full object-cover rounded-full"
                 />
