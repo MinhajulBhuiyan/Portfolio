@@ -326,7 +326,7 @@ const About = () => {
               </div>
 
               {/* Elegant Stats Grid */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 {[
                   { 
                     number: '20+', 
@@ -351,14 +351,6 @@ const About = () => {
                     gradient: 'from-violet-400 via-purple-500 to-indigo-600',
                     shadowColor: 'shadow-violet-500/20',
                     bgColor: 'bg-gradient-to-br from-violet-500/5 to-indigo-600/5'
-                  },
-                  { 
-                    number: '100%', 
-                    label: 'Dedication',
-                    subtitle: 'to Learning',
-                    gradient: 'from-amber-400 via-orange-500 to-red-600',
-                    shadowColor: 'shadow-orange-500/20',
-                    bgColor: 'bg-gradient-to-br from-amber-500/5 to-red-600/5'
                   },
                 ].map((stat, index) => (
                   <motion.div 
