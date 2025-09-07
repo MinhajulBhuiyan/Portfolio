@@ -254,16 +254,17 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: 'Prescripto',
+      title: 'DocSchedule',
       category: 'web',
-      description: 'A full-stack Hospital Management System featuring admin, doctor, and patient panels, secure authentication, and integrated machine learning for disease prediction.',
-      detailedDescription: 'A full-stack Hospital Management System featuring admin, doctor, and patient panels, secure authentication, and integrated machine learning for disease prediction. This project streamlines hospital resource and patient management with a modern, user-friendly interface.',
-      image: '/images/hms_preview.png',
-      tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Python', 'TensorFlow', 'JWT Authentication', 'CSS'],
-      github: 'https://github.com/MinhajulBhuiyan/HMS',
+      description: 'A comprehensive doctor appointment scheduling system with secure authentication, role-based access, and real-time appointment management.',
+      detailedDescription: 'DocSchedule is a full-stack web application designed to simplify the process of booking and managing doctor appointments. It features role-based access for admins, doctors, and patients, secure authentication, and real-time scheduling. Built with modern technologies, it offers a seamless user experience with responsive design and efficient backend handling.',
+      image: '/images/docschedule.png',
+      tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'JWT Authentication', 'CSS'],
+      github: 'https://github.com/MinhajulBhuiyan/docschedule',
       live: '',
       gradient: 'from-green-500 to-teal-600',
     },
+
     {
       id: 3,
       title: 'Machine Learning Project Collection',
@@ -348,7 +349,20 @@ const Projects = () => {
       github: 'https://github.com/MinhajulBhuiyan/MathHub',
       live: '',
       gradient: 'from-blue-500 to-indigo-600',
+    },
+    {
+      id: 10,
+      title: 'LinkUp',
+      category: 'mobile',
+      description: 'A real-time mobile chat application built with React Native and Firebase, featuring user authentication, friend management, and seamless messaging experience.',
+      detailedDescription: 'LinkUp is a real-time mobile chat application developed with React Native and Expo. It provides features like secure Firebase authentication, real-time messaging with Firestore, and profile management. The app includes friend requests, dark and light theme support, and a modern, responsive UI to enhance user experience.',
+      image: '/images/linkup.jpg',
+      tech: ['React Native', 'Expo', 'Firebase', 'Firestore', 'Authentication'],
+      github: 'https://github.com/MinhajulBhuiyan/LinkUp',
+      live: '',
+      gradient: 'from-violet-500 to-purple-600',
     }
+
 
   ];
 
@@ -427,8 +441,8 @@ const Projects = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setFilter(category.id)}
                 className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 backdrop-blur-sm ${filter === category.id
-                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg shadow-purple-500/25 border border-purple-400/50'
-                    : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50 hover:border-gray-600/50'
+                  ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg shadow-purple-500/25 border border-purple-400/50'
+                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50 hover:border-gray-600/50'
                   }`}
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
