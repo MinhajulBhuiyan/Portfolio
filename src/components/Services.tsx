@@ -1,7 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code, Palette, Brain, Database } from 'lucide-react';
+import { Monitor, Palette, Brain, Database, Smartphone, Server, Cloud, Settings, Briefcase } from 'lucide-react';
 
 const Services = () => {
   const [ref, inView] = useInView({
@@ -9,75 +8,98 @@ const Services = () => {
     threshold: 0.1,
   });
 
-  const services = [
-    {
-      icon: Code,
-      title: 'Web Development',
-      description: 'I develop websites and web apps using simple tools.',
-      features: ['Responsive layouts', 'Clear navigation', 'Forms and interactivity', 'Organized structure'],
-      gradient: 'from-cyan-400 via-blue-500 to-purple-600',
-      bgGradient: 'from-cyan-500/5 via-blue-500/5 to-purple-600/5',
-      borderGradient: 'from-cyan-400/30 to-purple-600/30',
-      shadowColor: 'shadow-blue-500/20',
-      emoji: '💻'
-    },
-    {
-      icon: Palette,
-      title: 'UI/UX Design',
-      description: 'I design user interfaces that are clear and easy to use.',
-      features: ['Creating wireframes', 'Clean layouts', 'User-friendly buttons and menus', 'Improving user flow'],
-      gradient: 'from-pink-400 via-rose-500 to-orange-600',
-      bgGradient: 'from-pink-500/5 via-rose-500/5 to-orange-600/5',
-      borderGradient: 'from-pink-400/30 to-orange-600/30',
-      shadowColor: 'shadow-pink-500/20',
-      emoji: '🎨'
-    },
-    {
-      icon: Brain,
-      title: 'AI Integration',
-      description: 'I experiment with using AI in different projects.',
-      features: ['Data analysis', 'Machine learning projects', 'Using open-source AI libraries', 'Exploring AI applications'],
-      gradient: 'from-violet-400 via-purple-500 to-indigo-600',
-      bgGradient: 'from-violet-500/5 via-purple-500/5 to-indigo-600/5',
-      borderGradient: 'from-violet-400/30 to-indigo-600/30',
-      shadowColor: 'shadow-purple-500/20',
-      emoji: '🤖'
-    },
-    {
-      icon: Database,
-      title: 'Backend Solutions',
-      description: 'I set up features for web apps that run behind the scenes.',
-      features: ['Building APIs', 'Managing data storage', 'User authentication', 'Improving performance'],
-      gradient: 'from-emerald-400 via-teal-500 to-cyan-600',
-      bgGradient: 'from-emerald-500/5 via-teal-500/5 to-cyan-600/5',
-      borderGradient: 'from-emerald-400/30 to-cyan-600/30',
-      shadowColor: 'shadow-teal-500/20',
-      emoji: '⚡'
-    },
-  ];
+  // Clean, professional service offerings
+const services = [
+  {
+    icon: Monitor,
+    title: 'Web Development',
+    description: 'Enterprise-grade digital solutions',
+    features: ['Full-Stack Architecture', 'Cloud Deployment', 'API Integration', 'Performance Optimization', 'Scalable Systems'],
+  accentSolid: 'bg-teal-500',
+  accentOverlay: 'bg-teal-500/10',
+  },
+  {
+    icon: Smartphone,
+    title: 'Mobile Development',
+    description: 'Native cross-platform applications',
+    features: ['iOS & Android Development', 'App Store Deployment', 'Performance Tuning', 'Offline Functionality', 'Push Notifications'],
+  accentSolid: 'bg-emerald-500',
+  accentOverlay: 'bg-emerald-500/10',
+  },
+  {
+    icon: Palette,
+    title: 'UI/UX Design',
+    description: 'User-centered design systems',
+    features: ['Interface Design', 'User Research', 'Interactive Prototyping', 'Design Systems', 'Accessibility Compliance'],
+  accentSolid: 'bg-pink-500',
+  accentOverlay: 'bg-pink-500/10',
+  },
+  {
+    icon: Server,
+    title: 'Backend Development',
+    description: 'Robust server infrastructure',
+    features: ['Microservices Architecture', 'Database Design', 'API Development', 'System Security', 'Performance Optimization'],
+  accentSolid: 'bg-amber-500',
+  accentOverlay: 'bg-amber-500/10',
+  },
+  {
+    icon: Cloud,
+    title: 'Cloud Architecture',
+    description: 'Scalable cloud solutions',
+    features: ['Infrastructure Design', 'Auto-scaling Solutions', 'Cloud Migration', 'Cost Optimization', 'Disaster Recovery'],
+  accentSolid: 'bg-fuchsia-500',
+  accentOverlay: 'bg-fuchsia-500/10',
+  },
+  {
+    icon: Brain,
+    title: 'AI Integration',
+    description: 'Intelligent system automation',
+    features: ['Machine Learning Models', 'Predictive Analytics', 'Natural Language Processing', 'AI Automation', 'Model Deployment'],
+  accentSolid: 'bg-lime-500',
+  accentOverlay: 'bg-lime-500/10',
+  },
+  {
+    icon: Settings,
+    title: 'DevOps Engineering',
+    description: 'Streamlined development workflows',
+    features: ['CI/CD Pipelines', 'Containerization', 'Monitoring Systems', 'Infrastructure as Code', 'Deployment Automation'],
+  accentSolid: 'bg-orange-500',
+  accentOverlay: 'bg-orange-500/10',
+  },
+  {
+    icon: Database,
+    title: 'Database Solutions',
+    description: 'High-performance data management',
+    features: ['Database Architecture', 'Query Optimization', 'Data Modeling', 'Backup Strategies', 'Performance Monitoring'],
+  accentSolid: 'bg-yellow-400',
+  accentOverlay: 'bg-yellow-400/10',
+  },
+  {
+    icon: Briefcase,
+    title: 'Technical Consulting',
+    description: 'Strategic technology guidance',
+    features: ['Solution Architecture', 'Technology Strategy', 'System Audits', 'Performance Reviews', 'Best Practices'],
+  accentSolid: 'bg-rose-600',
+  accentOverlay: 'bg-rose-600/10',
+  },
+];
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.06 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
+    hidden: { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.36 } },
   };
 
   return (
     <section id="services" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
           ref={ref}
           variants={containerVariants}
@@ -85,121 +107,90 @@ const Services = () => {
           animate={inView ? 'visible' : 'hidden'}
           className="space-y-16"
         >
-          {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center space-y-6">
+          {/* Section Header - Minimal */}
+          <motion.div variants={itemVariants} className="text-center space-y-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <h2 className="text-5xl md:text-6xl font-poppins font-bold mb-6">
-                What I <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Create</span>
+              <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-4">
+                What I <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Create</span>
               </h2>
-              <div className="flex items-center justify-center space-x-4 mb-8">
-                <div className="h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent w-32"></div>
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
-                <div className="h-px bg-gradient-to-r from-transparent via-purple-400/40 to-transparent w-32"></div>
-              </div>
             </motion.div>
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto font-inter leading-relaxed">
-              I work on different types of digital projects and enjoy learning new things through each experience
+            
+            <p className="text-lg text-text-secondary max-w-3xl mx-auto font-inter">
+              Professional development services focused on delivering quality solutions
             </p>
           </motion.div>
 
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* Services Grid - Minimal Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
                 <motion.div
-                  key={index}
+                  key={service.title}
                   variants={itemVariants}
-                  whileHover={{ 
-                    y: -8,
-                    scale: 1.02,
-                  }}
-                  className="group relative cursor-pointer"
-                  initial={{ opacity: 0, y: 30 }}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: 0.3 + index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
+                  // clamp the animation delay so a long list of items doesn't
+                  // create a very long stagger time. This keeps entrance smooth.
+                  transition={{ duration: 0.5, delay: Math.min(index * 0.06, 0.6) }}
                 >
-                  {/* Floating glow effect */}
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-20 rounded-3xl blur-2xl transition-all duration-500`}></div>
-                  
-                  {/* Main card */}
-                  <div className={`relative h-full p-8 rounded-3xl bg-gradient-to-br ${service.bgGradient} backdrop-blur-xl border border-gradient-to-r ${service.borderGradient} hover:border-white/20 transition-all duration-500 ${service.shadowColor} shadow-xl group-hover:shadow-2xl overflow-hidden`}>
-                    {/* Background pattern */}
-                    <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
-                      <div className={`w-full h-full bg-gradient-to-br ${service.gradient} rounded-full blur-3xl`}></div>
-                    </div>
+                  {/* Card */}
+                    <div className="relative h-full p-6 rounded-3xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 hover:shadow-lg overflow-hidden flex flex-col">
 
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center space-x-4">
-                        {/* Icon container */}
-                        <motion.div 
-                          className={`p-4 rounded-2xl bg-gradient-to-r ${service.gradient} shadow-lg ${service.shadowColor}`}
-                          whileHover={{ 
-                            scale: 1.1,
-                            rotate: 5
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <Icon className="h-7 w-7 text-white" />
-                        </motion.div>
-                        
-                        {/* Title */}
-                        <div>
-                          <h3 className="text-2xl font-poppins font-bold text-white group-hover:text-gray-100 transition-colors duration-300">
-                            {service.title}
-                          </h3>
-                        </div>
+                      {/* Glossy border overlay - subtle iOS-like sheen */}
+                      <div aria-hidden className="absolute inset-0 pointer-events-none rounded-3xl z-20">
+                        {/* Soft border (slightly brighter) */}
+                        <div className="absolute inset-0 rounded-3xl border border-white/8 opacity-70"></div>
+
+                        {/* Thin glossy highlight on top edge */}
+                        <div className="absolute top-0 left-0 h-1.5 w-full rounded-t-3xl bg-gradient-to-r from-white/30 via-white/10 to-transparent opacity-70 blur-[2px]"></div>
+
+                        {/* Sheen bubble removed for minimal look */}
                       </div>
-                      
-                      {/* Emoji */}
-                      <motion.div 
-                        className="text-3xl opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
-                        whileHover={{ rotate: 10 }}
-                      >
-                        {service.emoji}
-                      </motion.div>
-                    </div>
+                        {/* Accent color overlay that appears on hover */}
+                        <div className={`absolute inset-0 rounded-3xl ${service.accentOverlay} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none z-0`}></div>
+                    
+                    {/* Content wrapper to sit above accent overlay */}
+                    <div className="relative z-10 space-y-6 flex-1">
+                      {/* Icon and Title */}
+                      <div className="flex items-center gap-4 mb-4">
+                      <div className={`p-3 rounded-xl ${service.accentSolid} shadow-sm ring-0`}> 
+                        <Icon className="h-6 w-6 text-white" strokeWidth={2.2} />
+                      </div>
+                        <h3 className={`text-xl font-poppins font-semibold text-white transition-colors duration-300 group-hover:text-white`}>
+                          {service.title}
+                        </h3>
+                        {/* Accent underline - subtle color on hover */}
+                        <div className={`mt-2 h-0.5 w-12 rounded-full ${service.accentSolid} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                      </div>
 
-                    {/* Description */}
-                    <p className="text-lg text-gray-300 font-inter leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                      {/* Description */}
+                    <p className="text-white/70 font-inter mb-5 leading-relaxed">
                       {service.description}
                     </p>
 
-                    {/* Features */}
-                    <div className="space-y-3">
-                      {service.features.map((feature, featureIndex) => (
-                        <motion.div 
-                          key={featureIndex} 
-                          className="flex items-center space-x-3"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.5 + featureIndex * 0.1 }}
-                        >
-                          <div className={`w-2 h-2 bg-gradient-to-r ${service.gradient} rounded-full flex-shrink-0 group-hover:scale-125 transition-transform duration-300`}></div>
-                          <span className="text-gray-400 text-base font-inter group-hover:text-gray-300 transition-colors duration-300">
-                            {feature}
-                          </span>
-                        </motion.div>
-                      ))}
+                    {/* Features - capsule pills (2 columns visually via wrap) */}
+                    <div className="pt-4 border-t border-white/[0.06]">
+                      <div className="flex flex-wrap gap-2 mt-3">
+                          {service.features.map((feature, i) => (
+                            <motion.span
+                              key={i}
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.12 + i * 0.03 }}
+                              className={`inline-flex items-center px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-sm text-white/80 font-inter shadow-sm transition-colors duration-200 hover:bg-white/8 hover:border-white/12`}
+                            >
+                              {feature}
+                            </motion.span>
+                          ))}
                     </div>
-
-                    {/* Bottom accent line */}
-                    <motion.div 
-                      className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient} rounded-b-3xl`}
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.4 }}
-                    />
+                    </div>
+                    </div>
                   </div>
                 </motion.div>
               );
@@ -209,48 +200,36 @@ const Services = () => {
           {/* CTA Section */}
           <motion.div
             variants={itemVariants}
-            className="relative max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
+            className="relative max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
-            {/* Background glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-3xl"></div>
-            
-            <div className="relative p-10 rounded-3xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl border border-white/10 text-center overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-pink-400/20 to-transparent rounded-full blur-3xl"></div>
-              
-              <div className="relative space-y-6">
-                <motion.div
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.6, delay: 1 }}
-                >
-                  <h3 className="text-3xl font-poppins font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
-                    Ready to Build Something Amazing?
-                  </h3>
-                </motion.div>
+            <div className="relative p-10 rounded-2xl bg-gradient-to-br from-secondary/10 to-accent/10 border border-secondary/20 text-center backdrop-blur-sm overflow-hidden">
+              {/* Glossy overlay for CTA */}
+              <div aria-hidden className="absolute inset-0 pointer-events-none rounded-2xl">
+                <div className="absolute inset-0 rounded-2xl border border-white/8 opacity-50"></div>
+                <div className="absolute top-0 left-0 h-1.5 w-full rounded-t-2xl bg-gradient-to-r from-white/30 via-white/10 to-transparent opacity-60 blur-[1px]"></div>
+              </div>
+              <div className="space-y-6">
+                <h3 className="text-3xl font-poppins font-semibold text-white">
+                  Let's Work Together
+                </h3>
                 
-                <p className="text-xl text-gray-300 font-inter leading-relaxed max-w-2xl mx-auto">
-                  Let's transform your vision into reality with cutting-edge technology
+                <p className="text-lg text-text-secondary font-inter max-w-lg mx-auto">
+                  Ready to bring your ideas to life? Let's create something amazing together
                 </p>
                 
                 <motion.button
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px rgba(168, 85, 247, 0.4)"
-                  }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => {
                     const element = document.querySelector('#contact');
                     element?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="relative px-10 py-4 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 rounded-2xl font-poppins font-semibold text-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
+                  className="px-8 py-4 bg-gradient-to-r from-accent-purple to-accent-pink rounded-lg font-manrope font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
                 >
-                  <span className="relative z-10">Let's Collaborate</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  Get in Touch
                 </motion.button>
               </div>
             </div>
