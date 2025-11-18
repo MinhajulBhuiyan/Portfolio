@@ -237,7 +237,7 @@ export default function Services() {
 
 
 				{/* Carousel Container */}
-				<motion.div variants={itemVariants} className="relative">
+				<motion.div variants={itemVariants} className="relative mt-2">
 					<div
 						ref={carouselRef}
 						className="overflow-hidden"
@@ -250,7 +250,7 @@ export default function Services() {
 								return (
 									<div
 										key={s.title}
-										className="flex-shrink-0"
+										className="flex-shrink-0 mt-6 md:mt-8 overflow-visible"
 										style={{ width: `calc(${100 / itemsPerView}% - ${((GAP * (itemsPerView - 1) + SIDE_REDUCTION) / itemsPerView).toFixed(2)}px)` }}
 									>
 										<motion.article

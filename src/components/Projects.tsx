@@ -1,8 +1,7 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { ExternalLink, Github, Play, X } from 'lucide-react';
-
+import { ExternalLink, Github, X } from 'lucide-react';
 // FIX 1: Define a type for a single project.
 // This ensures that all project objects have a consistent structure.
 interface Project {
@@ -413,10 +412,8 @@ const Projects = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full border border-purple-500/20"
-            >
-              <span className="w-2 h-2 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full animate-pulse"></span>
-              <span className="text-purple-300 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>Portfolio Showcase</span>
+              >
+
             </motion.div>
 
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
@@ -462,19 +459,19 @@ const Projects = () => {
                   animate="visible"
                   exit="exit"
                   layout
-                  whileHover={{ y: -8, scale: 1.02 }}
+                  whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="group relative cursor-pointer w-full h-[520px]"
                   onClick={() => setSelectedProject(project)}
                 >
-                  <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-lg border border-gray-700/30 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 h-full flex flex-col">
+                  <div className="relative overflow-hidden rounded-3xl bg-white/6 backdrop-blur-xl backdrop-saturate-125 border border-white/12 transition-all duration-500 hover:shadow-lg hover:shadow-indigo-500/6 h-full flex flex-col">
                     {/* Project Image */}
                     <div className="relative overflow-hidden h-56 flex-shrink-0">
                       <motion.img
                         src={project.image}
                         alt={project.title}
                         className="w-full h-full object-cover"
-                        whileHover={{ scale: 1.1 }}
+                        whileHover={{ scale: 1.03 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
@@ -483,50 +480,29 @@ const Projects = () => {
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30"
                         initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
+                        whileHover={{ opacity: 0.12 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
                       />
 
                       {/* Category Badge */}
                       <motion.div
                         className="absolute top-4 left-4"
-                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileHover={{ scale: 1.03, y: -1 }}
                         transition={{ duration: 0.2 }}
                       >
                         <span className="px-3 py-1 bg-black/70 backdrop-blur-sm text-purple-300 rounded-full text-xs font-medium border border-purple-500/30">
                           {project.category.toUpperCase()}
                         </span>
                       </motion.div>
-
-                      {/* Floating View Details Button */}
-                      <motion.div
-                        className="absolute inset-0 flex items-center justify-center"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileHover={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      >
-                        <motion.div
-                          className="px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white font-semibold"
-                          whileHover={{ scale: 1.1, backgroundColor: "rgba(139, 92, 246, 0.3)" }}
-                          whileTap={{ scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <span className="flex items-center gap-2">
-                            <ExternalLink className="w-4 h-4" />
-                            View Details
-                          </span>
-                        </motion.div>
-                      </motion.div>
                     </div>
 
                     {/* Content */}
                     <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-4">
+                        
                         <motion.h3
                           className="text-xl font-bold transition-colors duration-300 h-14 flex items-center"
-                          style={{ fontFamily: "'Poppins', sans-serif" }}
-                          whileHover={{ color: "#a855f7" }}
-                          transition={{ duration: 0.2 }}
+                          
                         >
                           <span className="line-clamp-2">{project.title}</span>
                         </motion.h3>
@@ -563,44 +539,38 @@ const Projects = () => {
                           )}
                         </div>
                       </div>
+                    </div>
 
-                      {/* Enhanced View More Indicator */}
-                      <motion.div
-                        className="flex items-center justify-between pt-4 mt-auto"
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      >
-                        <motion.span
-                          className="text-purple-400 text-sm font-medium transition-colors duration-300"
-                          whileHover={{ color: "#c084fc" }}
-                        >
-                          View Details
-                        </motion.span>
-
-                        <motion.div
-                          className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 flex items-center justify-center"
-                          whileHover={{
-                            scale: 1.2,
-                            rotate: 15,
-                            background: "linear-gradient(to right, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.4))"
-                          }}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                        >
-                          <motion.div
-                            whileHover={{ x: 2 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <ExternalLink className="w-4 h-4 text-purple-400" />
-                          </motion.div>
-                        </motion.div>
-                      </motion.div>
+                    {/* Folder Icon - Bottom Right */}
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setSelectedProject(project)}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedProject(project); } }}
+                      aria-label={`Open ${project.title} details`}
+                      className="absolute top-1/2 right-4 cursor-pointer opacity-60 group-hover:opacity-90 transition-all duration-300 z-30 -translate-y-1/2 sm:right-6 md:right-4"
+                    >
+                      <div className="relative group/file">
+                        <div className="file relative w-16 h-11 origin-bottom [perspective:1500px]">
+                          {/* Folder outer shell - amber */}
+                          <div className="work-5 bg-amber-600 w-full h-full origin-top rounded-xl rounded-tl-none group-hover:shadow-[0_8px_16px_rgba(217,119,6,.3)] transition-all ease duration-300 relative after:absolute after:content-[''] after:bottom-[99%] after:left-0 after:w-7 after:h-1.5 after:bg-amber-600 after:rounded-t-xl before:absolute before:content-[''] before:-top-[5px] before:left-[26px] before:w-1.5 before:h-1.5 before:bg-amber-600 before:[clip-path:polygon(0_35%,0%_100%,50%_100%);]"></div>
+                          
+                          {/* Inner papers - zinc colors */}
+                          <div className="work-4 absolute inset-0.5 bg-zinc-400 rounded-xl transition-all ease duration-300 origin-bottom select-none group-hover:[transform:rotateX(-20deg)]"></div>
+                          <div className="work-3 absolute inset-0.5 bg-zinc-300 rounded-xl transition-all ease duration-300 origin-bottom group-hover:[transform:rotateX(-30deg)]"></div>
+                          <div className="work-2 absolute inset-0.5 bg-zinc-200 rounded-xl transition-all ease duration-300 origin-bottom group-hover:[transform:rotateX(-38deg)]"></div>
+                          
+                          {/* Front paper - amber gradient */}
+                          <div className="work-1 absolute bottom-0 bg-gradient-to-t from-amber-500 to-amber-400 w-full h-[40px] rounded-xl rounded-tr-none after:absolute after:content-[''] after:bottom-[99%] after:right-0 after:w-[38px] after:h-[5px] after:bg-amber-400 after:rounded-t-xl before:absolute before:content-[''] before:-top-[3px] before:right-[36px] before:w-1.5 before:h-1.5 before:bg-amber-400 before:[clip-path:polygon(100%_14%,50%_100%,100%_100%);] transition-all ease duration-300 origin-bottom flex items-end group-hover:shadow-[inset_0_8px_16px_rgba(251,191,36,.4),_inset_0_-8px_16px_rgba(245,158,11,.3)] group-hover:[transform:rotateX(-46deg)_translateY(0.5px)]"></div>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Gradient Border Effect */}
                     <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${project.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500`}></div>
 
                     {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/8 to-blue-500/8 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></div>
                   </div>
                 </motion.div>
               ))}
