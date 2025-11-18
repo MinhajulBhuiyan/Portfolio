@@ -1,243 +1,364 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Monitor, Palette, Brain, Database, Smartphone, Server, Cloud, Settings, Briefcase } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+	Monitor,
+	Smartphone,
+	Palette,
+	Server,
+	Cloud,
+	Brain,
+	Settings,
+	Database,
+	Briefcase,
+} from 'lucide-react'
 
-const Services = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+type Service = {
+	icon: React.ComponentType<any>
+	title: string
+	description: string
+	color?: string
+	hoverColor?: string
+}
 
-  // Clean, professional service offerings
-const services = [
-  {
-    icon: Monitor,
-    title: 'Web Development',
-    description: 'Enterprise-grade digital solutions',
-    features: ['Full-Stack Architecture', 'Cloud Deployment', 'API Integration', 'Performance Optimization', 'Scalable Systems'],
-  accentSolid: 'bg-teal-500',
-  accentOverlay: 'bg-teal-500/10',
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile Development',
-    description: 'Native cross-platform applications',
-    features: ['iOS & Android Development', 'App Store Deployment', 'Performance Tuning', 'Offline Functionality', 'Push Notifications'],
-  accentSolid: 'bg-emerald-500',
-  accentOverlay: 'bg-emerald-500/10',
-  },
-  {
-    icon: Palette,
-    title: 'UI/UX Design',
-    description: 'User-centered design systems',
-    features: ['Interface Design', 'User Research', 'Interactive Prototyping', 'Design Systems', 'Accessibility Compliance'],
-  accentSolid: 'bg-pink-500',
-  accentOverlay: 'bg-pink-500/10',
-  },
-  {
-    icon: Server,
-    title: 'Backend Development',
-    description: 'Robust server infrastructure',
-    features: ['Microservices Architecture', 'Database Design', 'API Development', 'System Security', 'Performance Optimization'],
-  accentSolid: 'bg-amber-500',
-  accentOverlay: 'bg-amber-500/10',
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Architecture',
-    description: 'Scalable cloud solutions',
-    features: ['Infrastructure Design', 'Auto-scaling Solutions', 'Cloud Migration', 'Cost Optimization', 'Disaster Recovery'],
-  accentSolid: 'bg-fuchsia-500',
-  accentOverlay: 'bg-fuchsia-500/10',
-  },
-  {
-    icon: Brain,
-    title: 'AI Integration',
-    description: 'Intelligent system automation',
-    features: ['Machine Learning Models', 'Predictive Analytics', 'Natural Language Processing', 'AI Automation', 'Model Deployment'],
-  accentSolid: 'bg-lime-500',
-  accentOverlay: 'bg-lime-500/10',
-  },
-  {
-    icon: Settings,
-    title: 'DevOps Engineering',
-    description: 'Streamlined development workflows',
-    features: ['CI/CD Pipelines', 'Containerization', 'Monitoring Systems', 'Infrastructure as Code', 'Deployment Automation'],
-  accentSolid: 'bg-orange-500',
-  accentOverlay: 'bg-orange-500/10',
-  },
-  {
-    icon: Database,
-    title: 'Database Solutions',
-    description: 'High-performance data management',
-    features: ['Database Architecture', 'Query Optimization', 'Data Modeling', 'Backup Strategies', 'Performance Monitoring'],
-  accentSolid: 'bg-yellow-400',
-  accentOverlay: 'bg-yellow-400/10',
-  },
-  {
-    icon: Briefcase,
-    title: 'Technical Consulting',
-    description: 'Strategic technology guidance',
-    features: ['Solution Architecture', 'Technology Strategy', 'System Audits', 'Performance Reviews', 'Best Practices'],
-  accentSolid: 'bg-rose-600',
-  accentOverlay: 'bg-rose-600/10',
-  },
-];
+const services: Service[] = [
+	{
+		icon: Monitor,
+		title: 'Web Development',
+		description:
+			'Building responsive and scalable web applications with modern technologies and best practices for optimal performance.',
+		color: '#3b82f6',
+		hoverColor: '#1b71fbff',
+	},
+	{
+		icon: Smartphone,
+		title: 'Mobile Development',
+		description:
+			'Creating native and cross-platform mobile applications that deliver seamless user experiences across devices.',
+		color: '#06b6d4',
+		hoverColor: '#0bd3f6ff',
+	},
+	{
+		icon: Palette,
+		title: 'UI/UX Design',
+		description:
+			'Designing intuitive and engaging user interfaces with a focus on usability and aesthetic excellence.',
+		color: '#ec4899',
+		hoverColor: '#f156a3ff',
+	},
+	{
+		icon: Server,
+		title: 'Backend Development',
+		description:
+			'Developing robust server-side solutions with secure APIs and efficient database management systems.',
+		color: '#f59e0b',
+		hoverColor: '#edaa36ff',
+	},
+	{
+		icon: Cloud,
+		title: 'Cloud Solutions',
+		description: 'Implementing scalable cloud infrastructure and services for enhanced performance and reliability.',
+		color: '#8b5cf6',
+		hoverColor: '#8350f8ff',
+	},
+	{
+		icon: Brain,
+		title: 'AI Integration',
+		description: 'Integrating artificial intelligence and machine learning capabilities to automate and enhance business processes.',
+		color: '#06b6d4',
+		hoverColor: '#2fc7e1ff',
+	},
+	{
+		icon: Settings,
+		title: 'DevOps Engineering',
+		description: 'Streamlining development workflows with continuous integration, deployment, and infrastructure automation.',
+		color: '#fb923c',
+		hoverColor: '#f98b30ff',
+	},
+	{
+		icon: Database,
+		title: 'Database Solutions',
+		description: 'Designing and optimizing database architectures for high-performance data management and analytics.',
+		color: '#10b981',
+		hoverColor: '#1fc28cff',
+	},
+	{
+		icon: Briefcase,
+		title: 'Technical Consulting',
+		description: 'Providing expert guidance on technology strategy, architecture decisions, and digital transformation initiatives.',
+		color: '#f472b6',
+		hoverColor: '#f161acff',
+	},
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.06 },
-    },
-  };
+]
+export default function Services() {
+	const carouselRef = useRef<HTMLDivElement>(null)
+	const [currentIndex, setCurrentIndex] = useState(0)
+	const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+	const [hoveredIconIndex, setHoveredIconIndex] = useState<number | null>(null)
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 12 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.36 } },
-  };
+	// resume timeout ref used to auto-resume autoplay after user interaction
+	const resumeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+	// how long to wait (ms) after user interaction before resuming autoplay
+	// reduced to 800ms so resumption feels quicker
+	const AUTOPLAY_RESUME_DELAY = 800
 
-  return (
-    <section id="services" className="py-20 relative">
-  <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-12">
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="space-y-16"
-        >
-          {/* Section Header - Minimal */}
-          <motion.div variants={itemVariants} className="text-center space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-4">
-                What I <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Create</span>
-              </h2>
-            </motion.div>
-            
-            <p className="text-lg text-text-secondary max-w-3xl mx-auto font-inter">
-              Professional development services focused on delivering quality solutions
-            </p>
-          </motion.div>
+	const pauseAutoplayTemporarily = (delay = AUTOPLAY_RESUME_DELAY) => {
+		setIsAutoPlaying(false)
+		if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+		resumeTimeoutRef.current = setTimeout(() => {
+			setIsAutoPlaying(true)
+			resumeTimeoutRef.current = null
+		}, delay)
+	}
 
-          {/* Services Grid - Minimal Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <motion.div
-                  key={service.title}
-                  variants={itemVariants}
-                  className="group relative"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  // clamp the animation delay so a long list of items doesn't
-                  // create a very long stagger time. This keeps entrance smooth.
-                  transition={{ duration: 0.5, delay: Math.min(index * 0.06, 0.6) }}
-                >
-                  {/* Card */}
-                    <div className="relative h-full p-6 rounded-3xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 hover:shadow-lg overflow-hidden flex flex-col">
+	// template layout constants
+	const GAP = 30 // px gap between carousel items (template uses 30)
 
-                      {/* Glossy border overlay - subtle iOS-like sheen */}
-                      <div aria-hidden className="absolute inset-0 pointer-events-none rounded-3xl z-20">
-                        {/* Soft border (slightly brighter) */}
-                        <div className="absolute inset-0 rounded-3xl border border-white/8 opacity-70"></div>
+	const SIDE_REDUCTION = 100 // px to reduce each item's side-wise length (increased to make cards narrower)
+	const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
 
-                        {/* Thin glossy highlight on top edge */}
-                        <div className="absolute top-0 left-0 h-1.5 w-full rounded-t-3xl bg-gradient-to-r from-white/30 via-white/10 to-transparent opacity-70 blur-[2px]"></div>
+	const getItemsPerView = () => {
+		if (typeof window === 'undefined') return 3
+		if (window.innerWidth < 640) return 1
+		if (window.innerWidth < 1024) return 2
+		return 3
+	}
 
-                        {/* Sheen bubble removed for minimal look */}
-                      </div>
-                        {/* Accent color overlay that appears on hover */}
-                        <div className={`absolute inset-0 rounded-3xl ${service.accentOverlay} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none z-0`}></div>
-                    
-                    {/* Content wrapper to sit above accent overlay */}
-                    <div className="relative z-10 space-y-6 flex-1">
-                      {/* Icon and Title */}
-                      <div className="flex items-center gap-4 mb-4">
-                      <div className={`p-3 rounded-xl ${service.accentSolid} shadow-sm ring-0`}> 
-                        <Icon className="h-6 w-6 text-white" strokeWidth={2.2} />
-                      </div>
-                        <h3 className={`text-xl font-poppins font-semibold text-white transition-colors duration-300 group-hover:text-white`}>
-                          {service.title}
-                        </h3>
-                        {/* Accent underline - subtle color on hover */}
-                        <div className={`mt-2 h-0.5 w-12 rounded-full ${service.accentSolid} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                      </div>
+	const [itemsPerView, setItemsPerView] = useState(getItemsPerView)
 
-                      {/* Description */}
-                    <p className="text-white/70 font-inter mb-5 leading-relaxed">
-                      {service.description}
-                    </p>
+	useEffect(() => {
+		const handleResize = () => {
+			setItemsPerView(getItemsPerView())
+			setWindowWidth(window.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
 
-                    {/* Features - capsule pills (2 columns visually via wrap) */}
-                    <div className="pt-4 border-t border-white/[0.06]">
-                      <div className="flex flex-wrap gap-2 mt-3">
-                          {service.features.map((feature, i) => (
-                            <motion.span
-                              key={i}
-                              initial={{ opacity: 0, y: 6 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 0.12 + i * 0.03 }}
-                              className={`inline-flex items-center px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-sm text-white/80 font-inter shadow-sm transition-colors duration-200 hover:bg-white/8 hover:border-white/12`}
-                            >
-                              {feature}
-                            </motion.span>
-                          ))}
-                    </div>
-                    </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+	const getNavOffset = (w: number, side: 'left' | 'right') => {
+		// return sensible offsets for all sizes; small screens use inside offsets
+		if (w <= 480) return side === 'left' ? '8px' : '8px'
+		if (w <= 1005) return side === 'left' ? '-40px' : '-40px'
+		if (w <= 1085) return side === 'left' ? '-60px' : '-60px'
+		if (w <= 1200) return side === 'left' ? '-100px' : '-105px'
+		if (w <= 1300) return side === 'left' ? '-80px' : '-85px'
+		// desktop: place further out so buttons don't overlap cards
+		return side === 'left' ? '-120px' : '-125px'
+	}
 
-          {/* CTA Section */}
-          <motion.div
-            variants={itemVariants}
-            className="relative max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <div className="relative p-10 rounded-2xl bg-gradient-to-br from-secondary/10 to-accent/10 border border-secondary/20 text-center backdrop-blur-sm overflow-hidden">
-              {/* Glossy overlay for CTA */}
-              <div aria-hidden className="absolute inset-0 pointer-events-none rounded-2xl">
-                <div className="absolute inset-0 rounded-2xl border border-white/8 opacity-50"></div>
-                <div className="absolute top-0 left-0 h-1.5 w-full rounded-t-2xl bg-gradient-to-r from-white/30 via-white/10 to-transparent opacity-60 blur-[1px]"></div>
-              </div>
-              <div className="space-y-6">
-                <h3 className="text-3xl font-poppins font-semibold text-white">
-                  Let's Work Together
-                </h3>
-                
-                <p className="text-lg text-text-secondary font-inter max-w-lg mx-auto">
-                  Ready to bring your ideas to life? Let's create something amazing together
-                </p>
-                
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    const element = document.querySelector('#contact');
-                    element?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="px-8 py-4 bg-gradient-to-r from-accent-purple to-accent-pink rounded-lg font-manrope font-semibold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
-                >
-                  Get in Touch
-                </motion.button>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+	const maxIndex = Math.max(0, services.length - itemsPerView)
 
-export default Services;
+	// Use InView for section-level entrance animations (match other sections)
+	const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+	}
+
+	const itemVariants = {
+		hidden: { opacity: 0, y: 30 },
+		visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+	}
+
+	// Helper to scroll to a given item index and update state (does NOT clobber
+	// does NOT clobber other UI state. Selection is intentionally not
+	// persisted — cards are visually identical and only show hover styles.
+	const scrollToPosition = (index: number) => {
+		if (!carouselRef.current) return
+		const newIndex = Math.max(0, Math.min(index, maxIndex))
+		const itemWidth = carouselRef.current.scrollWidth / services.length
+		carouselRef.current.scrollTo({ left: itemWidth * newIndex, behavior: 'smooth' })
+		setCurrentIndex(newIndex)
+	}
+
+	// autoplay interval in ms (reduced to make automatic changing a bit faster)
+	const AUTOPLAY_INTERVAL = 2000
+
+	useEffect(() => {
+		if (!isAutoPlaying) return
+
+		const interval = setInterval(() => {
+			// advance one by one
+			scrollToPosition(currentIndex >= maxIndex ? 0 : currentIndex + 1)
+		}, AUTOPLAY_INTERVAL)
+
+		return () => clearInterval(interval)
+	}, [isAutoPlaying, maxIndex, currentIndex])
+
+	// clear resume timer on unmount
+	useEffect(() => {
+		return () => {
+			if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current)
+		}
+	}, [])
+
+	// keep legacy name for handlers
+	const scrollToIndex = (index: number) => scrollToPosition(index)
+
+	const handlePrev = () => {
+		pauseAutoplayTemporarily()
+		const target = currentIndex <= 0 ? maxIndex : currentIndex - 1
+		scrollToIndex(target)
+	}
+
+	const handleNext = () => {
+		pauseAutoplayTemporarily()
+		const target = currentIndex >= maxIndex ? 0 : currentIndex + 1
+		scrollToIndex(target)
+	}
+
+	// clamp currentIndex when itemsPerView changes
+	useEffect(() => {
+		if (currentIndex > maxIndex) scrollToPosition(maxIndex)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [itemsPerView])
+
+
+
+	return (
+		<section id="services" className="py-12">
+			<motion.div ref={ref} variants={containerVariants} initial="hidden" animate={inView ? 'visible' : 'hidden'} className="container mx-auto px-4">
+				{/* Section Header - styled to match other sections */}
+				<motion.div variants={itemVariants} className="mb-12 text-center">
+
+
+					<h2 className="text-4xl md:text-5xl font-poppins font-bold mb-3">
+						Professional <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">service</span>
+					</h2>
+
+					<p className="text-text-secondary max-w-2xl mx-auto">Professional development services focused on delivering quality solutions</p>
+				</motion.div>
+
+
+
+
+
+				{/* Carousel Container */}
+				<motion.div variants={itemVariants} className="relative">
+					<div
+						ref={carouselRef}
+						className="overflow-hidden"
+						onMouseEnter={() => setIsAutoPlaying(false)}
+						onMouseLeave={() => setIsAutoPlaying(true)}
+					>
+						<div className="flex transition-transform duration-500 ease-in-out" style={{ gap: `${GAP}px` }}>
+							{services.map((s, idx) => {
+								const Icon = s.icon
+								return (
+									<div
+										key={s.title}
+										className="flex-shrink-0"
+										style={{ width: `calc(${100 / itemsPerView}% - ${((GAP * (itemsPerView - 1) + SIDE_REDUCTION) / itemsPerView).toFixed(2)}px)` }}
+									>
+										<motion.article
+											className={`relative group p-10 transform-gpu transition-all duration-200 ease-in-out h-full cursor-pointer bg-white/6 border-4 border-accent/20 ring-1 ring-accent/8 shadow-sm hover:shadow-md hover:-translate-y-1 hover:scale-[1.02] hover:bg-accent/6 hover:border-accent hover:ring-2 hover:ring-accent/30`}
+											style={{ borderRadius: '20px', borderWidth: 4 }}
+											role="button"
+											tabIndex={0}
+											onMouseEnter={() => setHoveredIconIndex(idx)}
+											onMouseLeave={() => setHoveredIconIndex(null)}
+											onClick={() => {
+												pauseAutoplayTemporarily()
+												const target = Math.min(Math.max(idx - Math.floor(itemsPerView / 2), 0), maxIndex)
+												scrollToIndex(target)
+											}}
+											onKeyDown={(e) => {
+												if (e.key === 'Enter' || e.key === ' ') {
+													e.preventDefault()
+													pauseAutoplayTemporarily()
+													const target = Math.min(Math.max(idx - Math.floor(itemsPerView / 2), 0), maxIndex)
+													scrollToIndex(target)
+												}
+											}}
+											aria-labelledby={`service-${idx}`}
+										>
+											<div className="text-center">
+												<div
+													className="w-[60px] h-[60px] bg-white/14 mx-auto rounded-xl flex items-center justify-center transition-colors duration-200"
+													style={{ border: '2px solid', borderColor: hoveredIconIndex === idx ? (s.hoverColor ?? s.color) : (s.color ?? '#ffffff') }}
+												>
+													<Icon className="w-7 h-7" style={{ color: hoveredIconIndex === idx ? (s.hoverColor ?? s.color) : (s.color ?? '#ffffff') }} />
+												</div>
+												<h3 id={`service-${idx}`} className="text-[20px] md:text-[22px] font-semibold mt-4 text-white">
+													{s.title}
+												</h3>
+												<p className="mt-3 text-[14px] md:text-[15px] leading-relaxed text-white/80">{s.description}</p>
+											</div>
+										</motion.article>
+									</div>
+								)
+							})}
+						</div>
+					</div>
+
+					{/* Navigation Arrows */}
+					{services.length > itemsPerView && (
+						<>
+							<button
+								onClick={handlePrev}
+								disabled={currentIndex === 0}
+								className="absolute top-1/2 -translate-y-1/2 w-[50px] h-[50px] rounded-full bg-white text-gray-900 flex items-center justify-center shadow-lg transition-all duration-300 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+								style={{ left: getNavOffset(windowWidth, 'left') }}
+								aria-label="Previous services"
+							>
+								<ChevronLeft className="w-7 h-7" strokeWidth={2.5} />
+							</button>
+
+							<button
+								onClick={handleNext}
+								disabled={currentIndex >= maxIndex}
+								className="absolute top-1/2 -translate-y-1/2 w-[50px] h-[50px] rounded-full bg-white text-gray-900 flex items-center justify-center shadow-lg transition-all duration-300 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed z-10"
+								style={{ right: getNavOffset(windowWidth, 'right') }}
+								aria-label="Next services"
+								>
+								<ChevronRight className="w-7 h-7" strokeWidth={2.5} />
+							</button>
+						</>
+					)}
+
+					{/* Minimal styled dots below carousel */}
+					<div className="mt-6 flex items-center justify-center gap-2">
+						{Array.from({ length: maxIndex + 1 }).map((_, i) => {
+							// i is the carousel start index (page). Active when it equals `currentIndex`.
+							const isActive = i === currentIndex
+							return (
+								<button
+									key={`dot-${i}`}
+									onClick={() => {
+										pauseAutoplayTemporarily()
+										scrollToIndex(i)
+									}}
+									aria-label={`Show page ${i + 1}`}
+									className={`relative w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center transition-all duration-200 ${isActive ? 'scale-110' : ''}`}
+								>
+									{/* outer ring */}
+									<span className={`absolute inset-0 rounded-full ${isActive ? 'bg-accent/20' : 'bg-white/10'}`} />
+									{/* inner dot */}
+									<span className={`${isActive ? 'w-2 h-2 md:w-2 md:h-2 bg-accent rounded-full shadow-sm' : 'w-1.5 h-1.5 bg-white/60 rounded-full'}`} />
+								</button>
+							)
+						})}
+					</div>
+				</motion.div>
+
+				{/* CTA Banner: Let's Work Together (bottom of Services, no background) */}
+				<motion.div variants={itemVariants} className="mt-12 rounded-2xl overflow-hidden p-8 text-center">
+					<div className="max-w-4xl mx-auto">
+						<h3 className="text-4xl md:text-5xl font-poppins font-bold text-white mb-4">Let&apos;s Work Together</h3>
+						<p className="text-text-secondary max-w-2xl mx-auto mb-6">Ready to bring your ideas to life? Let&apos;s create something amazing together</p>
+						<button
+							onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+							className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-accent-purple to-accent-pink text-white font-semibold shadow-lg hover:opacity-95 transition-all duration-200"
+						>
+							GET IN TOUCH
+						</button>
+					</div>
+				</motion.div>
+			</motion.div>
+		</section>
+	)
+
+}
