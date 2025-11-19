@@ -24,6 +24,8 @@ const skillCategories: SkillCategory[] = [
     title: 'Frontend Development',
     skills: [
       { name: 'React', level: 'Competent', description: 'Comfortable with building UIs using hooks and component patterns.', image: '/images/skills/react.png' },
+      { name: 'JavaScript', level: 'Competent', description: 'Modern JavaScript (ES6+), DOM, async/await, and modern APIs.', image: '/images/skills/javascript.png' },
+      { name: 'Next.js', level: 'Foundation', description: 'Server-side rendering and full-stack React apps with Next.js.', image: '/images/skills/nextjs.png' },
       { name: 'TypeScript', level: 'Foundation', description: 'Applying static typing to improve code reliability.', image: '/images/skills/typescript.png' },
       { name: 'Tailwind CSS', level: 'Intermediate', description: 'Using utility classes for consistent and responsive styling.', image: '/images/skills/tailwind.png' },
       { name: 'Three.js', level: 'Beginner', description: 'Exploring basic 3D graphics and simple scenes.', image: '/images/skills/threejs.png' },
@@ -33,40 +35,56 @@ const skillCategories: SkillCategory[] = [
     title: 'Backend & Database',
     skills: [
       { name: 'Node.js', level: 'Competent', description: 'Developing backend services and simple APIs.', image: '/images/skills/nodejs.png' },
-      { name: 'MongoDB', level: 'Intermediate', description: 'Handling NoSQL data and basic CRUD operations.', image: '/images/skills/mongodb.png' },
-      { name: 'PostgreSQL', level: 'Intermediate', description: 'Managing relational data with SQL.', image: '/images/skills/postgresql.png' },
       { name: 'Express.js', level: 'Competent', description: 'Building APIs with routing and middleware.', image: '/images/skills/express.png' },
-      { name: 'GraphQL', level: 'Foundation', description: 'Learning flexible data querying for APIs.', image: '/images/skills/graphql.png' },
-      { name: 'Docker', level: 'Foundation', description: 'Understanding containers and simple deployments.', image: '/images/skills/docker.png' },
+      { name: 'MySQL', level: 'Intermediate', description: 'Managing relational data and optimizing SQL queries.', image: '/images/skills/mysql.png' },
+      { name: 'PostgreSQL', level: 'Intermediate', description: 'Managing relational data with SQL.', image: '/images/skills/postgresql.png' },
+      { name: 'MongoDB', level: 'Intermediate', description: 'Handling NoSQL data and basic CRUD operations.', image: '/images/skills/mongodb.png' },
+      { name: 'FastAPI', level: 'Beginner', description: 'Developing asynchronous, fast, and type-driven APIs.', image: '/images/skills/fastAPI.png' },
+      { name: 'Neo4j', level: 'Beginner', description: 'Working with graph databases and complex relation modeling.', image: '/images/skills/neo4j.png' },
     ]
   },
   {
     title: 'Software Development & Testing',
     skills: [
       { name: 'C#', level: 'Competent', description: 'Developing robust desktop and web applications with .NET technologies.', image: '/images/skills/csharp.png' },
-      { name: '.NET Framework', level: 'Competent', description: 'Building and maintaining scalable enterprise solutions.', image: '/images/skills/dotnet.png' },
       { name: 'Java', level: 'Intermediate', description: 'Writing and maintaining cross-platform software solutions.', image: '/images/skills/java.png' },
       { name: 'JUnit', level: 'Foundation', description: 'Writing and executing unit tests for Java applications.', image: '/images/skills/junit.png' },
       { name: 'xUnit', level: 'Foundation', description: 'Testing .NET applications to ensure code reliability.', image: '/images/skills/xunit.png' },
+      { name: 'Selenium', level: 'Beginner', description: 'Automating browser tests and end-to-end testing.', image: '/images/skills/selenium.png' },
     ]
   },
   {
     title: 'AI & Machine Learning',
     skills: [
       { name: 'Python', level: 'Competent', description: 'Using Python for data tasks and scripting.', image: '/images/skills/python.png' },
+      { name: 'LLMs', level: 'Foundation', description: 'Working with LLMs and prompt engineering (GPT, Ollama, Qwen, DeepSeek, Gemini, Claude).', image: '/images/skills/llm.png' },
       { name: 'TensorFlow', level: 'Intermediate', description: 'Experimenting with basic neural network models.', image: '/images/skills/tensorflow.png' },
+      { name: 'PyTorch', level: 'Beginner', description: 'Practical experience building and training neural networks with PyTorch.', image: '/images/skills/PyTorch.png' },
       { name: 'Keras', level: 'Intermediate', description: 'Building simple deep learning models.', image: '/images/skills/keras.png' },
       { name: 'Scikit-learn', level: 'Intermediate', description: 'Working with standard machine learning techniques.', image: '/images/skills/scikit-learn.png' },
-      { name: 'Pandas & NumPy', level: 'Competent', description: 'Handling and exploring data in Python.', image: '/images/skills/pandas-numpy.png' },
+    { name: 'Pandas & NumPy', level: 'Competent', description: 'Handling and exploring data in Python.', image: '/images/skills/pandas-numpy.png' },
+    { name: 'SQLAlchemy', level: 'Beginner', description: 'Basic ORM usage for database integration and data pipelines.', image: '/images/skills/SQLAlchemy.png' },
+    
+    ]
+  },
+  {
+    title: 'Mobile Development',
+    skills: [
+      { name: 'React Native', level: 'Beginner', description: 'Building cross-platform mobile apps using React Native and Expo.', image: '/images/skills/react-native.png' },
+      { name: 'SQLite', level: 'Beginner', description: 'Lightweight SQL database commonly used in mobile apps.', image: '/images/skills/sqlite.png' },
+      { name: 'Firebase', level: 'Beginner', description: 'Realtime database, authentication, and hosting for mobile apps.', image: '/images/skills/firebase.png' },
     ]
   },
   {
     title: 'Softwares and Tools',
     skills: [
-      { name: 'Visual Studio Code', level: 'Competent', description: 'Using as a code editor for multiple languages.', image: '/images/skills/vscode.png' },
+      { name: 'VS Code', level: 'Competent', description: 'Using as a code editor for multiple languages.', image: '/images/skills/vscode.png' },
       { name: 'IntelliJ IDEA', level: 'Competent', description: 'Editing and managing Java projects.', image: '/images/skills/intellij.png' },
       { name: 'Git & GitHub', level: 'Foundation', description: 'Managing version control and collaborating on projects.', image: '/images/skills/git-github.png' },
-      { name: 'Figma', level: 'Beginner', description: 'Exploring basic UI/UX design concepts.', image: '/images/skills/figma.png' },
+      { name: 'Postman', level: 'Competent', description: 'Testing APIs and managing collections.', image: '/images/skills/postman.png' },
+      { name: 'Mermaid', level: 'Foundation', description: 'Visualizing diagrams and flowcharts using Mermaid syntax.', image: '/images/skills/mermaid.png' },
+      { name: 'Metabase', level: 'Foundation', description: 'Self-serve analytics and dashboarding for teams.', image: '/images/skills/metabase.png' },
+            { name: 'Figma', level: 'Competent', description: 'Exploring basic UI/UX design concepts.', image: '/images/skills/figma.png' },
     ]
   }
 ];
@@ -74,6 +92,22 @@ const skillCategories: SkillCategory[] = [
 // Reusable SkillCard component with the 3D flip animation
 const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  // Map skill levels to subtle, diff-like color classes
+  const levelColorClass = (level: string) => {
+    switch (level) {
+      case 'Competent':
+        return 'text-green-300 bg-green-500/20 border border-green-400/30';
+      case 'Intermediate':
+        return 'text-red-300 bg-red-500/20 border border-red-400/30';
+      case 'Foundation':
+        return 'text-yellow-300/80 bg-yellow-500/20 border border-yellow-400/30';
+      case 'Beginner':
+        return 'text-indigo-300 bg-indigo-500/20 border border-indigo-400/30';
+      default:
+        return 'text-white bg-white/5 border border-white/10';
+    }
+  };
 
   // Animation variants for the card's appearance
   const cardVariants = {
@@ -88,29 +122,34 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) 
   return (
     <motion.div
       variants={cardVariants}
-      className="[perspective:1000px] h-48 w-full"
+      className="[perspective:1000px] h-44 w-full max-w-[230px] mx-auto"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
       <div
-        className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
+        className={`relative w-full h-full transition-transform duration-700 ease-in-out [transform-style:preserve-3d] [will-change:transform] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
       >
         {/* Front of the card */}
-        <div className="absolute inset-0 [backface-visibility:hidden] bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40 backdrop-blur-lg border border-blue-400/30 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300">
-          <div className="w-16 h-16 mb-4 flex items-center justify-center p-3 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 border border-blue-400/40">
+        <div className="absolute inset-0 [backface-visibility:hidden] bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40 backdrop-blur-lg border border-blue-400/30 rounded-2xl p-6 grid grid-rows-[4.5rem_1fr_3rem] items-center justify-items-center text-center hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300">
+          <div className={`w-16 h-16 flex items-center justify-center p-3 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 border border-blue-400/40 transform-gpu transition-transform duration-700 ease-in-out [will-change:transform] ${isFlipped ? 'translate-y-2' : 'translate-y-0'}`}>
             <img src={skill.image} alt={skill.name} className="w-full h-full object-contain filter drop-shadow-lg" />
           </div>
-          <h3 className="text-lg font-poppins font-bold text-white mb-2 tracking-wide">{skill.name}</h3>
-          <div className="text-blue-300 text-sm font-semibold px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30">{skill.level}</div>
+          <h3 className={`text-lg font-poppins font-bold text-white tracking-wide h-12 flex items-center justify-center transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.name}</h3>
+          <div
+            aria-label={`${skill.level} level`}
+            className={`text-sm font-semibold px-3 py-1 rounded-full ${levelColorClass(skill.level)} transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-90' : 'scale-100'}`}
+          >
+            {skill.level}
+          </div>
         </div>
 
         {/* Back of the card */}
-        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gradient-to-br from-blue-600/30 via-purple-600/30 to-cyan-600/30 backdrop-blur-xl border border-blue-400/50 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-xl">
-          <div className="w-12 h-12 mb-3 flex items-center justify-center p-2 rounded-full bg-white/10 border border-white/20">
+        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-800/30 backdrop-blur-xl border border-blue-400/30 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-xl">
+          <div className={`w-12 h-12 mb-3 flex items-center justify-center p-2 rounded-full bg-white/10 border border-white/20 transform-gpu transition-transform duration-700 ease-in-out [will-change:transform] ${isFlipped ? 'translate-y-2' : 'translate-y-0'}`}>
             <img src={skill.image} alt={skill.name} className="w-full h-full object-contain filter brightness-110" />
           </div>
-          <h4 className="text-base font-poppins font-bold text-white mb-2">{skill.name}</h4>
-          <p className="text-gray-100 text-sm leading-relaxed font-inter font-medium text-center">{skill.description}</p>
+          <h4 className={`text-base font-poppins font-bold text-white mb-2 transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.name}</h4>
+          <p className={`text-gray-100 text-sm leading-relaxed font-inter font-medium text-center transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.description}</p>
         </div>
       </div>
     </motion.div>
@@ -174,17 +213,17 @@ const Skills = () => {
             <motion.div key={categoryIndex} variants={itemVariants} className="space-y-8">
               {/* Category Header */}
               <div className="text-center">
-                <h3 className="text-3xl md:text-4xl font-poppins font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                <h3 className="text-3xl md:text-4xl font-poppins font-bold mb-2 text-white/95 tracking-tight">
                   {category.title}
                 </h3>
-                <div className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full mx-auto mb-3"></div>
-                <p className="text-gray-400 text-base font-inter font-medium">
+                <div className="w-20 h-1 bg-white/10 rounded-full mx-auto mb-2"></div>
+                <p className="text-white/60 text-sm font-inter font-medium">
                   {category.skills.length} Technologies
                 </p>
               </div>
 
               {/* Grid of Skill Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto justify-items-center">
                 {category.skills.map((skill, skillIndex) => (
                   <SkillCard key={skill.name} skill={skill} index={skillIndex} />
                 ))}

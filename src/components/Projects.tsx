@@ -461,12 +461,12 @@ const Projects = () => {
                   layout
                   whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="group relative cursor-pointer w-full h-[520px]"
+                  className="group relative cursor-pointer w-full h-[450px]"
                   onClick={() => setSelectedProject(project)}
                 >
                   <div className="relative overflow-hidden rounded-3xl bg-white/6 backdrop-blur-xl backdrop-saturate-125 border border-white/12 transition-all duration-500 hover:shadow-lg hover:shadow-indigo-500/6 h-full flex flex-col">
                     {/* Project Image */}
-                    <div className="relative overflow-hidden h-56 flex-shrink-0">
+                    <div className="relative overflow-hidden h-48 flex-shrink-0">
                       <motion.img
                         src={project.image}
                         alt={project.title}
@@ -500,12 +500,10 @@ const Projects = () => {
                     <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-4">
                         
-                        <motion.h3
-                          className="text-xl font-bold transition-colors duration-300 h-14 flex items-center"
-                          
-                        >
+                        <h3 className="text-xl font-bold transition-colors duration-300 h-14 flex items-center">
                           <span className="line-clamp-2">{project.title}</span>
-                        </motion.h3>
+                        </h3>
+                        
 
                         <div className="h-16">
                           <p className="text-gray-400 text-sm leading-relaxed line-clamp-3" style={{ fontFamily: "'Inter', sans-serif" }}>
@@ -515,26 +513,26 @@ const Projects = () => {
 
                         {/* Tech Stack */}
                         <div className="flex flex-wrap gap-2 pt-2 min-h-[2.5rem]">
-                          {project.tech.slice(0, 3).map((tech, index) => (
+                          {project.tech.slice(0, 6).map((tech, index) => (
                             <motion.span
                               key={tech}
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: index * 0.1, duration: 0.3 }}
-                              whileHover={{ scale: 1.05, y: -2 }}
-                              className="px-3 py-1 text-xs bg-gray-700/50 text-purple-300 rounded-full border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300"
+                                whileHover={{ scale: 1.03 }}
+                                  className="px-3 py-1 text-xs bg-white/6 backdrop-blur-sm backdrop-saturate-105 text-white rounded-full border border-white/12 shadow-sm transition-all duration-200 hover:bg-white/10 hover:shadow-md hover:scale-105"
                               style={{ fontFamily: "'Inter', sans-serif" }}
                             >
                               {tech}
                             </motion.span>
                           ))}
-                          {project.tech.length > 3 && (
+                          {project.tech.length > 6 && (
                             <motion.span
-                              className="px-3 py-1 text-xs bg-gray-700/50 text-gray-400 rounded-full border border-gray-600/50"
-                              whileHover={{ scale: 1.05, y: -2 }}
+                              className="px-3 py-1 text-xs bg-white/6 backdrop-blur-sm text-gray-200 rounded-full border border-white/12 shadow-sm transition-all duration-200 hover:bg-white/10 hover:shadow-md hover:scale-105"
+                              whileHover={{ scale: 1.03 }}
                               transition={{ duration: 0.2 }}
                             >
-                              +{project.tech.length - 3}
+                              +{project.tech.length - 6}
                             </motion.span>
                           )}
                         </div>
