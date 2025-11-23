@@ -196,24 +196,15 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                   </h4>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {project.tech.map((tech: string, index: number) => (
-                    <motion.div
+                <div className="flex flex-wrap gap-3">
+                  {project.tech.map((tech: string) => (
+                    <span
                       key={tech}
-                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className="group relative"
+                      className="text-xs font-semibold inline-flex items-center justify-center h-6 min-w-[36px] px-1 rounded-full text-blue-300 bg-blue-500/20 border border-blue-400/30 transform-gpu [will-change:transform] transition-colors duration-200 ease-out hover:bg-blue-500/30 text-center leading-tight whitespace-normal break-words overflow-hidden"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
-                      <div className="relative px-6 py-4 bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300">
-                        <span className="text-white font-medium text-center block" style={{ fontFamily: "'Inter', sans-serif" }}>
-                          {tech}
-                        </span>
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full"></div>
-                      </div>
-                    </motion.div>
+                      {tech}
+                    </span>
                   ))}
                 </div>
               </motion.div>
@@ -236,132 +227,193 @@ const Projects = () => {
   // This tells TypeScript that selectedProject can be a Project object or null.
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filter, setFilter] = useState('all');
+  const [visibleCount, setVisibleCount] = useState<number>(9);
 
   // Provide the 'Project[]' type to the projects array for type safety.
   const projects: Project[] = [
+
     {
       id: 1,
-      title: '3D Portfolio Website',
-      category: 'web',
-      description: 'Interactive 3D portfolio with WebGL animations, particle effects, and smooth scroll interactions.',
-      detailedDescription: 'A cutting-edge portfolio website featuring Three.js 3D animations, particle systems, and interactive elements. Built with React Three Fiber, featuring smooth scroll animations, dynamic lighting, and responsive 3D scenes.',
-      image: '/images/3D_protfolio.png',
-      tech: ['React', 'Three.js', 'GSAP', 'WebGL', 'Framer Motion'],
-      github: 'https://github.com/MinhajulBhuiyan/Portfolio',
-      live: '',
-      gradient: 'from-pink-500 to-rose-600',
-    },
-    {
-      id: 2,
       title: 'DocSchedule',
       category: 'web',
       description: 'A comprehensive doctor appointment scheduling system with secure authentication, role-based access, and real-time appointment management.',
       detailedDescription: 'DocSchedule is a full-stack web application designed to simplify the process of booking and managing doctor appointments. It features role-based access for admins, doctors, and patients, secure authentication, and real-time scheduling. Built with modern technologies, it offers a seamless user experience with responsive design and efficient backend handling.',
-      image: '/images/docschedule.png',
+      image: '/images/projects/docschedule.png',
       tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'JWT Authentication', 'CSS'],
       github: 'https://github.com/MinhajulBhuiyan/docschedule',
-      live: '',
+      live: 'https://docschedule.vercel.app/',
       gradient: 'from-green-500 to-teal-600',
     },
 
     {
+      id: 2,
+      title: 'DataSense',
+      category: 'ai/ml',
+      description: 'Natural language to SQL system with a modern Next.js frontend and Flask orchestrator.',
+      detailedDescription: 'DataSense is a Natural Language to SQL system built for the DataSense ice cream distribution database. Features include natural language to SQL conversion using AI, a modern Next.js web interface, read-only mode with query validation, table-formatted results with CSV export, dynamic data visualizations, and responsive design. Quick start: start the Flask backend in `orchestrator/` (create venv, install requirements, run `app.py`) then start the frontend in `frontend/` with `npm run dev`. Configure the backend via a `.env` file (OLLAMA_API_URL, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME).',
+      image: '/images/projects/datasense.jpg',
+      tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Flask', 'Python', 'MySQL', 'Ollama'],
+      github: 'https://github.com/MinhajulBhuiyan/DataSense',
+      live: '',
+      gradient: 'from-indigo-500 to-purple-600',
+    },
+    {
       id: 3,
+      title: 'FL Security',
+      category: 'ai/ml',
+      description: 'Research platform analyzing data poisoning attacks in collaborative machine learning systems.',
+      detailedDescription: 'A comprehensive research platform that simulates how malicious participants can poison federated learning models through label-flipping attacks. Enables controlled experiments to measure attack impact, test participant selection strategies, and evaluate defense mechanisms through detailed metrics and visualizations.',
+      image: '/images/projects/fl-security.png',
+      tech: ['Python', 'PyTorch', 'FastAPI', 'React', 'scikit-learn'],
+      github: 'https://github.com/MinhajulBhuiyan/fl-security',
+      live: '',
+      gradient: 'from-purple-500 to-blue-600',
+    },
+    {
+      id: 4,
+      title: 'LinkShort',
+      category: 'web',
+      description: 'URL shortening service with Next.js frontend and Laravel microservices.',
+      detailedDescription: `LinkShort is a URL shortening service. Stack: Next.js frontend + Laravel microservices (gateway, identity, links, stats). Frontend: Next.js, React, TypeScript, Tailwind, pnpm, Node.js. Backend: Laravel (PHP), Composer, Vite. Database: MySQL/PostgreSQL.
+
+Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, link management (create/list/delete), click tracking, analytics dashboard, and a public tracking endpoint (/r/{code}/track). API client base: http://localhost:5050/api. Endpoints include auth (/api/auth/*), links (/api/links), and redirect (/api/r/{code}).`,
+      image: '/images/projects/linkshort.png',
+      tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'pnpm', 'Node.js', 'Laravel', 'PHP', 'MySQL'],
+      github: 'https://github.com/MinhajulBhuiyan/LinkShort',
+      live: '',
+      gradient: 'from-yellow-400 to-orange-500',
+    },
+    {
+      id: 5,
+      title: 'Streamify',
+      category: 'web',
+      description: 'Production-grade real-time video calling and chat application with friends system and multiple themes',
+      detailedDescription: 'A full-stack real-time communication platform featuring 1-on-1 video calls, group calls, screen sharing, instant messaging with typing indicators, friend management system, and JWT authentication with 32 customizable UI themes',
+      image: '/images/projects/streamify.png',
+      tech: ['React', 'Node.js', 'MongoDB', 'Stream', 'TanStack Query', 'Tailwind CSS', 'Zustand', 'JWT', 'Express.js'],
+      github: 'https://github.com/MinhajulBhuiyan/streamify.git',
+      live: 'https://streamify-yejo.onrender.com/',
+      gradient: 'from-blue-500 to-cyan-600',
+    },
+    {
+      id: 6,
+      title: 'HomeSeek',
+      category: 'web',
+      description: 'A property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages.',
+      detailedDescription: 'HomeSeek is a property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages. It includes secure user authentication, profile management, and real-time chat via Socket.IO, providing a streamlined and engaging experience for property seekers and owners alike.',
+      image: '/images/projects/real-estate.png',
+      tech: ['React', 'Node.js', 'MongoDB', 'Prisma', 'JWT', 'Socket.IO', 'React Router'],
+      github: 'https://github.com/MinhajulBhuiyan/HomeSeek',
+      live: '',
+      gradient: 'from-cyan-500 to-blue-600',
+    },
+
+    {
+      id: 7,
+      title: 'LinkUp',
+      category: 'mobile',
+      description: 'A real-time mobile chat application built with React Native and Firebase, featuring user authentication, friend management, and seamless messaging experience.',
+      detailedDescription: 'LinkUp is a real-time mobile chat application developed with React Native and Expo. It provides features like secure Firebase authentication, real-time messaging with Firestore, and profile management. The app includes friend requests, dark and light theme support, and a modern, responsive UI to enhance user experience.',
+      image: '/images/projects/linkup.jpg',
+      tech: ['React Native', 'Expo', 'Firebase', 'Firestore', 'Authentication'],
+      github: 'https://github.com/MinhajulBhuiyan/LinkUp',
+      live: '',
+      gradient: 'from-violet-500 to-purple-600',
+    },
+    {
+      id: 8,
+      title: 'Parkspace',
+      category: 'web',
+      description: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface.',
+      detailedDescription: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface. The application provides a seamless experience by connecting a robust backend API with a responsive frontend, featuring role management and comprehensive parking management functionality.',
+      image: '/images/projects/parkspace.png',
+      tech: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Authentication'],
+      github: 'https://github.com/MinhajulBhuiyan/Parkspace',
+      live: '',
+      gradient: 'from-orange-500 to-red-600',
+    },
+    
+
+
+    {
+      id: 9,
       title: 'Machine Learning Project Collection',
-      category: 'ai',
+      category: 'ai/ml',
       description: 'A collection of practical machine learning projects built with Python, Scikit-learn, TensorFlow, and Keras.',
       detailedDescription: 'A collection of practical machine learning projects built with Python, Scikit-learn, TensorFlow, and Keras. This repository features hands-on examples of data preprocessing, model development, and evaluation, covering both classical and deep learning techniques for real-world problems.',
-      image: '/images/hand-gesture-rec-ML.png',
+      image: '/images/projects/hand-gesture-rec-ML.png',
       tech: ['Python', 'Scikit-learn', 'TensorFlow', 'Keras'],
       github: 'https://github.com/MinhajulBhuiyan/Machine-Learning-Project',
       live: '',
       gradient: 'from-green-500 to-teal-600',
     },
     {
-      id: 4,
-      title: 'HomeSeek',
-      category: 'web',
-      description: 'A property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages.',
-      detailedDescription: 'HomeSeek is a property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages. It includes secure user authentication, profile management, and real-time chat via Socket.IO, providing a streamlined and engaging experience for property seekers and owners alike.',
-      image: '/images/real-estate.png',
-      tech: ['React', 'Node.js', 'MongoDB', 'Prisma', 'JWT', 'Socket.IO', 'React Router'],
-      github: 'https://github.com/MinhajulBhuiyan/HomeSeek',
-      live: '',
-      gradient: 'from-cyan-500 to-blue-600',
-    },
-    {
-      id: 5,
-      title: 'Parkspace',
-      category: 'web',
-      description: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface.',
-      detailedDescription: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface. The application provides a seamless experience by connecting a robust backend API with a responsive frontend, featuring role management and comprehensive parking management functionality.',
-      image: '/images/parkspace.png',
-      tech: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Authentication'],
-      github: 'https://github.com/MinhajulBhuiyan/Parkspace',
-      live: '',
-      gradient: 'from-orange-500 to-red-600',
-    },
-    {
-      id: 6,
+      id: 10,
       title: 'Medibot',
       category: 'desktop',
       description: 'Medibot is a Hospital Management System developed in C# using the .NET Framework with a Windows Forms user interface. The application streamlines hospital operations by providing modules for patient management, disease identification, and medicine inventory.',
       detailedDescription: 'Medibot is a Hospital Management System developed in C# using the .NET Framework with a Windows Forms user interface. The application streamlines hospital operations by providing modules for patient management, disease identification, and medicine inventory. It enables efficient tracking of patient records, supports basic disease identification, and helps manage medicine stocks through an intuitive desktop interface.',
-      image: '/images/medobot.gif',
+      image: '/images/projects/medobot.gif',
       tech: ['C#', '.NET Framework', 'Windows Forms', 'Visual Studio'],
       github: 'https://github.com/MinhajulBhuiyan/Medibot',
       live: '',
       gradient: 'from-purple-500 to-indigo-600',
     },
+
+
+
     {
-      id: 7,
-      title: 'AnimeInsights',
-      category: 'web',
-      description: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations.',
-      detailedDescription: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations, and integrates data from the AniList API. Built with ASP.NET MVC framework for robust web application development.',
-      image: '/images/anime-insights.png',
-      tech: ['ASP.NET MVC', 'C#', 'CSHTML', 'Oracle SQL Developer', 'AniList API'],
-      github: 'https://github.com/MinhajulBhuiyan/AnimeInsights',
-      live: '',
-      gradient: 'from-pink-500 to-rose-600',
-    },
-    {
-      id: 8,
+      id: 11,
       title: 'PixelForge',
       category: 'games',
       description: 'Immersive voxel-based exploration game inspired by Minecraft.',
       detailedDescription: 'PixelForge is an immersive and dynamic game project crafted by team-20. Drawing inspiration from the acclaimed Minecraft, our game focuses on delivering a captivating gaming experience centered around voxel-based exploration, creative building, and survival challenges.',
-      image: '/images/PixelForge_Game.png',
-      tech: ['Unity', 'C#', 'Voxel Engine', 'Game Development'],
+      image: '/images/projects/PixelForge_Game.png',
+      tech: ['Unity', 'C#', 'Voxel Engine', 'Game Development', '3D Graphics'],
       github: 'https://github.com/MinhajulBhuiyan/PixelForge.git',
       live: '',
       gradient: 'from-emerald-500 to-teal-600',
     },
 
     {
-      id: 9,
+      id: 12,
       title: 'MathHub',
       category: 'desktop',
       description: 'MathHub is a console-based learning platform for math enthusiasts. It offers a variety of mathematical operations and tools, including arithmetic, trigonometry, statistics, graph plotting, matrix manipulation, and physics formulas.',
       detailedDescription: 'MathHub is a console-based learning platform for math enthusiasts. It offers a variety of mathematical operations and tools, including arithmetic, trigonometry, statistics, graph plotting, matrix manipulation, and physics formulas, all accessible through a simple command-line interface. Built with modular architecture using C++ and STL for optimal performance.',
-      image: '/images/mathhub.jpg',
+      image: '/images/projects/mathhub.jpg',
       tech: ['C++', 'Console Application', 'STL', 'Modular Architecture', 'Visual Studio Code'],
       github: 'https://github.com/MinhajulBhuiyan/MathHub',
       live: '',
       gradient: 'from-blue-500 to-indigo-600',
     },
-    {
-      id: 10,
-      title: 'LinkUp',
-      category: 'mobile',
-      description: 'A real-time mobile chat application built with React Native and Firebase, featuring user authentication, friend management, and seamless messaging experience.',
-      detailedDescription: 'LinkUp is a real-time mobile chat application developed with React Native and Expo. It provides features like secure Firebase authentication, real-time messaging with Firestore, and profile management. The app includes friend requests, dark and light theme support, and a modern, responsive UI to enhance user experience.',
-      image: '/images/linkup.jpg',
-      tech: ['React Native', 'Expo', 'Firebase', 'Firestore', 'Authentication'],
-      github: 'https://github.com/MinhajulBhuiyan/LinkUp',
-      live: '',
-      gradient: 'from-violet-500 to-purple-600',
-    }
 
+
+    {    
+      id: 13,
+      title: 'AnimeInsights',
+      category: 'web',
+      description: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations.',
+      detailedDescription: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations, and integrates data from the AniList API. Built with ASP.NET MVC framework for robust web application development.',
+      image: '/images/projects/anime-insights.png',
+      tech: ['ASP.NET MVC', 'C#', 'CSHTML', 'Oracle SQL Developer', 'AniList API'],
+      github: 'https://github.com/MinhajulBhuiyan/AnimeInsights',
+      live: '',
+      gradient: 'from-pink-500 to-rose-600',
+    },
+
+    {
+      id: 14,
+      title: '3D Portfolio Website',
+      category: 'web',
+      description: 'Interactive 3D portfolio with WebGL animations, particle effects, and smooth scroll interactions.',
+      detailedDescription: 'A cutting-edge portfolio website featuring Three.js 3D animations, particle systems, and interactive elements. Built with React Three Fiber, featuring smooth scroll animations, dynamic lighting, and responsive 3D scenes.',
+      image: '/images/projects/3D_protfolio.png',
+      tech: ['React', 'Three.js', 'GSAP', 'WebGL', 'Framer Motion'],
+      github: 'https://github.com/MinhajulBhuiyan/Portfolio',
+      live: '',
+      gradient: 'from-pink-500 to-rose-600',
+    },
 
   ];
 
@@ -369,7 +421,7 @@ const Projects = () => {
     { id: 'all', label: 'All Projects' },
     { id: 'web', label: 'Web Apps' },
     { id: 'mobile', label: 'Mobile Apps' },
-    { id: 'ai', label: 'AI Projects' },
+    { id: 'ai/ml', label: 'AI/ML Projects' },
     { id: 'desktop', label: 'Desktop Software' },
     { id: 'games', label: 'Games' },
   ];
@@ -407,7 +459,7 @@ const Projects = () => {
           className="space-y-20"
         >
           {/* Header Section */}
-          <motion.div variants={itemVariants} className="text-center space-y-6">
+          <motion.div variants={itemVariants} className="mb-12 text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -416,14 +468,11 @@ const Projects = () => {
 
             </motion.div>
 
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight" style={{ fontFamily: "'Poppins', sans-serif" }}>
-              My{' '}
-              <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Projects
-              </span>
+            <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-3">
+              My <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Projects</span>
             </h2>
 
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <p className="text-text-secondary max-w-2xl mx-auto">
               Discover my journey through innovative solutions, creative designs, and cutting-edge technologies.
               Each project represents a unique challenge conquered with passion and precision.
             </p>
@@ -451,7 +500,7 @@ const Projects = () => {
           {/* Projects Grid */}
           <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <AnimatePresence mode="wait">
-              {filteredProjects.map((project) => (
+              {filteredProjects.slice(0, visibleCount).map((project) => (
                 <motion.div
                   key={project.id}
                   variants={cardVariants}
@@ -513,27 +562,21 @@ const Projects = () => {
 
                         {/* Tech Stack */}
                         <div className="flex flex-wrap gap-2 pt-2 min-h-[2.5rem]">
-                          {project.tech.slice(0, 6).map((tech, index) => (
-                            <motion.span
+                          {project.tech.slice(0, 6).map((tech) => (
+                            <span
                               key={tech}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.1, duration: 0.3 }}
-                                whileHover={{ scale: 1.03 }}
-                                  className="px-3 py-1 text-xs bg-white/6 backdrop-blur-sm backdrop-saturate-105 text-white rounded-full border border-white/12 shadow-sm transition-all duration-200 hover:bg-white/10 hover:shadow-md hover:scale-105"
+                              className="text-xs font-semibold inline-flex items-center justify-center h-6 min-w-[36px] px-1 rounded-full text-blue-300 bg-blue-500/20 border border-blue-400/30 transform-gpu [will-change:transform] transition-colors duration-200 ease-out hover:bg-blue-500/30 text-center leading-tight whitespace-normal break-words overflow-hidden"
                               style={{ fontFamily: "'Inter', sans-serif" }}
                             >
                               {tech}
-                            </motion.span>
+                            </span>
                           ))}
                           {project.tech.length > 6 && (
-                            <motion.span
-                              className="px-3 py-1 text-xs bg-white/6 backdrop-blur-sm text-gray-200 rounded-full border border-white/12 shadow-sm transition-all duration-200 hover:bg-white/10 hover:shadow-md hover:scale-105"
-                              whileHover={{ scale: 1.03 }}
-                              transition={{ duration: 0.2 }}
+                            <span
+                              className="text-xs font-semibold inline-flex items-center justify-center h-6 min-w-[36px] px-1 rounded-full text-blue-300 bg-blue-500/20 border border-blue-400/30 transform-gpu [will-change:transform] transition-colors duration-200 ease-out hover:bg-blue-500/30 text-center leading-tight whitespace-normal break-words overflow-hidden"
                             >
                               +{project.tech.length - 6}
-                            </motion.span>
+                            </span>
                           )}
                         </div>
                       </div>
@@ -574,6 +617,32 @@ const Projects = () => {
               ))}
             </AnimatePresence>
           </motion.div>
+
+          {/* Show more / Show less control */}
+          {filteredProjects.length > 9 && (
+            <motion.div 
+              variants={itemVariants}
+              className="flex justify-center mt-12"
+            >
+              {filteredProjects.length > visibleCount ? (
+                <button
+                  onClick={() => setVisibleCount(filteredProjects.length)}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Show more ({filteredProjects.length - visibleCount})
+                </button>
+              ) : (
+                <button
+                  onClick={() => setVisibleCount(9)}
+                  className="px-8 py-4 bg-gray-800/60 text-white rounded-full font-semibold border border-white/20 hover:bg-gray-700/60 hover:scale-105 transition-all duration-300"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Show less
+                </button>
+              )}
+            </motion.div>
+          )}
         </motion.div>
       </div>
 

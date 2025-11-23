@@ -188,22 +188,17 @@ const Skills = () => {
           className="space-y-16"
         >
           {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center">
+          <motion.div variants={itemVariants} className="mb-12 text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h2 className="text-5xl md:text-6xl font-poppins font-bold mb-6">
-                My <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Skills</span>
+              <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-3">
+                My <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Skills</span>
               </h2>
-              <div className="flex items-center justify-center space-x-4 mb-8">
-                <div className="h-px bg-gradient-to-r from-transparent via-blue-400/40 to-transparent w-32"></div>
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"></div>
-                <div className="h-px bg-gradient-to-r from-transparent via-purple-400/40 to-transparent w-32"></div>
-              </div>
             </motion.div>
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto font-inter leading-relaxed">
+            <p className="text-text-secondary max-w-2xl mx-auto">
               A comprehensive showcase of my technical expertise across various domains of modern software development, emerging technologies, and innovative solutions.
             </p>
           </motion.div>
