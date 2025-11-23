@@ -13,26 +13,26 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-20">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <Scene3D />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-4 sm:space-y-6 lg:space-y-8"
           >
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-poppins font-bold leading-tight"
             >
               Hi, I'm{' '}
               <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
@@ -44,7 +44,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl lg:text-3xl font-poppins font-medium text-text-secondary"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-poppins font-medium text-text-secondary"
             >
               <TypeAnimation
                 sequence={[
@@ -165,7 +165,7 @@ const Hero = () => {
               <motion.div
                 animate={{ y: [0, -20, 0] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="relative z-10 w-96 h-96 rounded-full overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/20 p-2"
+                className="relative z-10 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden bg-gradient-to-br from-secondary/20 to-accent/20 p-2"
               >
                 <img
                   src="/images/profile_img.png"

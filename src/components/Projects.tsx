@@ -66,16 +66,16 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 100 }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative max-w-6xl w-full mx-auto bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border border-purple-500/20 rounded-3xl shadow-2xl backdrop-blur-2xl outline-none overflow-hidden z-[60] mt-4"
+          className="relative max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full mx-auto bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border border-purple-500/20 rounded-3xl shadow-2xl backdrop-blur-2xl outline-none overflow-hidden z-[60] mt-4"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Decorative border gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 rounded-3xl blur-sm"></div>
           <div className="absolute inset-[1px] bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 rounded-3xl"></div>
 
-          <div className="relative max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent">
+          <div className="relative max-h-[85vh] sm:max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent">
             {/* Hero Image Section */}
-            <div className="relative h-80 overflow-hidden">
+            <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
@@ -100,7 +100,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
               </motion.button>
 
               {/* Project title overlay */}
-              <div className="absolute bottom-6 left-8 right-8">
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-8 right-4 sm:right-8">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
                   className="flex items-end justify-between"
                 >
                   <div>
-                    <h3 className="text-5xl font-bold text-white mb-2 drop-shadow-2xl" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 drop-shadow-2xl" style={{ fontFamily: "'Poppins', sans-serif" }}>
                       {project.title}
                     </h3>
                     <motion.span
@@ -126,7 +126,7 @@ const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
             </div>
 
             {/* Content Section */}
-            <div className="p-10 space-y-10">
+            <div className="p-4 sm:p-6 md:p-8 lg:p-10 space-y-6 sm:space-y-8 md:space-y-10">
               {/* Action Buttons - Moved before Description */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -447,7 +447,7 @@ Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, 
   };
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
+    <section id="projects" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
       {/* Background Elements */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -456,10 +456,10 @@ Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, 
           variants={sectionVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="space-y-20"
+          className="space-y-8 sm:space-y-12 lg:space-y-16"
         >
           {/* Header Section */}
-          <motion.div variants={itemVariants} className="mb-12 text-center">
+          <motion.div variants={itemVariants} className="mb-6 sm:mb-8 lg:mb-10 text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -498,7 +498,7 @@ Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, 
           </motion.div>
 
           {/* Projects Grid */}
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
             <AnimatePresence mode="wait">
               {filteredProjects.slice(0, visibleCount).map((project) => (
                 <motion.div
@@ -510,7 +510,7 @@ Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, 
                   layout
                   whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="group relative cursor-pointer w-full h-[450px]"
+                  className="group relative cursor-pointer w-full h-auto min-h-[400px] sm:min-h-[420px] md:h-[450px]"
                   onClick={() => setSelectedProject(project)}
                 >
                   <div className="relative overflow-hidden rounded-3xl bg-white/6 backdrop-blur-xl backdrop-saturate-125 border border-white/12 transition-all duration-500 hover:shadow-lg hover:shadow-indigo-500/6 h-full flex flex-col">
@@ -622,7 +622,7 @@ Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, 
           {filteredProjects.length > 9 && (
             <motion.div 
               variants={itemVariants}
-              className="flex justify-center mt-12"
+              className="flex justify-center mt-6 sm:mt-8 lg:mt-10"
             >
               {filteredProjects.length > visibleCount ? (
                 <button

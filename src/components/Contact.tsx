@@ -83,17 +83,17 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-12 sm:py-16 lg:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="space-y-16"
+          className="space-y-8 sm:space-y-12"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="text-center">
+          <motion.div variants={itemVariants} className="text-center mb-4 sm:mb-6">
             <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-4">
               Get In <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Touch</span>
             </h2>
@@ -102,7 +102,7 @@ const Contact = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             {/* Contact Info */}
             <motion.div variants={itemVariants} className="space-y-8">
               <div>
@@ -139,8 +139,8 @@ const Contact = () => {
 
             {/* Contact Form */}
             <motion.div variants={itemVariants}>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <input
                     type="text"
                     name="name"

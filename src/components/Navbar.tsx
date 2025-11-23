@@ -125,10 +125,11 @@ const Navbar = () => {
               onClick={() => scrollToSection('#home')}
             >
               <span
-                className={`text-2xl font-poppins font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent transition-opacity duration-150 ${active === 'Home' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`text-lg sm:text-xl md:text-2xl font-poppins font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent transition-opacity duration-150 ${active === 'Home' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                 aria-hidden={active === 'Home'}
               >
-                Minhajul Abedin Bhuiyan
+                <span className="hidden sm:inline">Minhajul Abedin Bhuiyan</span>
+                <span className="sm:hidden">Minhajul</span>
               </span>
             </motion.div>
 
@@ -161,7 +162,7 @@ const Navbar = () => {
                       <span className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                     </span>
 
-                    <span className="relative z-10">{item.name}</span>
+                    <span className="relative z-10 text-xs lg:text-sm xl:text-base">{item.name}</span>
                   </motion.button>
                 ))}
               </div>

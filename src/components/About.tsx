@@ -30,14 +30,14 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="py-20 relative">
+    <section id="about" className="py-12 sm:py-16 lg:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="space-y-16"
+          className="space-y-8 sm:space-y-12 lg:space-y-16"
         >
           {/* Section Header */}
           <motion.div variants={itemVariants} className="text-center">
@@ -52,7 +52,7 @@ const About = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
             {/* My Journey */}
             <motion.div variants={itemVariants} className="flex">
               <motion.div
@@ -297,11 +297,11 @@ const About = () => {
           {/* Stats */}
           <motion.div
             variants={itemVariants}
-            className="pt-16"
+            className="pt-8 sm:pt-12 lg:pt-16"
           >
             <div className="relative max-w-5xl mx-auto">
               {/* Minimalist divider */}
-              <div className="flex items-center justify-center mb-16">
+              <div className="flex items-center justify-center mb-8 sm:mb-12">
                 <motion.div 
                   className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
                   initial={{ scaleX: 0 }}
@@ -326,7 +326,7 @@ const About = () => {
               </div>
 
               {/* Elegant Stats Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {[
                   { 
                     number: '20+', 
@@ -376,7 +376,7 @@ const About = () => {
                     <div className={`absolute -inset-1 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-20 rounded-3xl blur-xl transition-all duration-700 group-hover:blur-2xl`}></div>
                     
                     {/* Main card */}
-                    <div className={`relative h-44 ${stat.bgColor} backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-white/20 transition-all duration-500 ${stat.shadowColor} shadow-xl group-hover:shadow-2xl overflow-hidden`}>
+                    <div className={`relative h-36 sm:h-40 lg:h-44 ${stat.bgGradient} backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-white/20 transition-all duration-500 ${stat.shadowColor} shadow-xl group-hover:shadow-2xl overflow-hidden`}>
                       {/* Gradient overlay */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                       
@@ -384,7 +384,7 @@ const About = () => {
                       <div className="relative h-full flex flex-col items-center justify-center p-6 text-center">
                         {/* Number */}
                         <motion.div 
-                          className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-3 font-poppins tracking-tight`}
+                          className={`text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-2 sm:mb-3 font-poppins tracking-tight`}
                           whileHover={{ scale: 1.1 }}
                           transition={{ duration: 0.3 }}
                         >
@@ -392,8 +392,8 @@ const About = () => {
                         </motion.div>
                         
                         {/* Label */}
-                        <div className="space-y-1">
-                          <div className="text-white/90 font-semibold text-base font-inter group-hover:text-white transition-colors duration-300">
+                        <div className="space-y-0.5 sm:space-y-1">
+                          <div className="text-white/90 font-semibold text-sm sm:text-base font-inter group-hover:text-white transition-colors duration-300">
                             {stat.label}
                           </div>
                           <div className="text-white/60 text-sm font-medium font-inter group-hover:text-white/80 transition-colors duration-300">

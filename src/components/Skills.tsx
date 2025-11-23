@@ -122,7 +122,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) 
   return (
     <motion.div
       variants={cardVariants}
-      className="[perspective:1000px] h-44 w-full max-w-[230px] mx-auto"
+      className="[perspective:1000px] h-40 sm:h-44 w-full sm:max-w-[200px] md:max-w-[220px] lg:max-w-[230px] mx-auto"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
@@ -178,17 +178,17 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 relative">
+    <section id="skills" className="py-12 sm:py-16 lg:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="space-y-16"
+          className="space-y-8 sm:space-y-12"
         >
           {/* Section Header */}
-          <motion.div variants={itemVariants} className="mb-12 text-center">
+          <motion.div variants={itemVariants} className="mb-6 sm:mb-8 lg:mb-10 text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -205,7 +205,7 @@ const Skills = () => {
 
           {/* Skill Categories and Flipping Cards */}
           {skillCategories.map((category, categoryIndex) => (
-            <motion.div key={categoryIndex} variants={itemVariants} className="space-y-8">
+            <motion.div key={categoryIndex} variants={itemVariants} className="space-y-4 sm:space-y-6">
               {/* Category Header */}
               <div className="text-center">
                 <h3 className="text-3xl md:text-4xl font-poppins font-bold mb-2 text-white/95 tracking-tight">
@@ -218,7 +218,7 @@ const Skills = () => {
               </div>
 
               {/* Grid of Skill Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto justify-items-center">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 max-w-7xl mx-auto justify-items-center">
                 {category.skills.map((skill, skillIndex) => (
                   <SkillCard key={skill.name} skill={skill} index={skillIndex} />
                 ))}
@@ -229,7 +229,7 @@ const Skills = () => {
           {/* "Always Learning" Section */}
           <motion.div
             variants={itemVariants}
-            className="relative max-w-4xl mx-auto"
+            className="relative max-w-4xl mx-auto mt-4 sm:mt-6"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -237,27 +237,27 @@ const Skills = () => {
             {/* Background glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-3xl"></div>
             
-            <div className="relative p-10 rounded-3xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl border border-white/10 text-center overflow-hidden">
+            <div className="relative p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl border border-white/10 text-center overflow-hidden">
               {/* Decorative elements */}
               <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-pink-400/20 to-transparent rounded-full blur-3xl"></div>
               
-              <div className="relative space-y-6">
+              <div className="relative space-y-4 sm:space-y-5">
                 <motion.div
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.6, delay: 1 }}
                 >
-                  <h3 className="text-3xl font-poppins font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
+                  <h3 className="text-2xl sm:text-3xl font-poppins font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-3 sm:mb-4">
                     Always Learning, Always Growing
                   </h3>
                 </motion.div>
                 
-                <p className="text-xl text-gray-300 font-inter leading-relaxed max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg lg:text-xl text-gray-300 font-inter leading-relaxed max-w-2xl mx-auto">
                   Technology evolves rapidly, and so do I. I'm constantly exploring new frameworks, languages, and methodologies to stay at the forefront of innovation and deliver cutting-edge solutions.
                 </p>
                 
-                <div className="flex flex-wrap justify-center gap-3 pt-4">
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 pt-3 sm:pt-4">
                  {['Federated Learning', 'Flutter', 'DevOps', 'Microservices Architecture', 'React Native', 'Neo4j', 'GraphQL', 'Kubernetes', 'LLMs', 'AR/VR', 'Prompt Engineering'].map((tech, index) => (
                     <span 
                       key={index} 

@@ -113,16 +113,17 @@ export default function Services() {
 		}, delay)
 	}
 
-	// template layout constants
-	const GAP = 30 // px gap between carousel items (template uses 30)
-
-	const SIDE_REDUCTION = 100 // px to reduce each item's side-wise length (increased to make cards narrower)
 	const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
+
+	// template layout constants - now responsive (after windowWidth declaration)
+	const GAP = windowWidth < 640 ? 16 : windowWidth < 1024 ? 24 : 30 // responsive gap
+	const SIDE_REDUCTION = windowWidth < 640 ? 20 : windowWidth < 1024 ? 60 : 100 // responsive side reduction
 
 	const getItemsPerView = () => {
 		if (typeof window === 'undefined') return 3
 		if (window.innerWidth < 640) return 1
-		if (window.innerWidth < 1024) return 2
+		if (window.innerWidth < 768) return 2
+		if (window.innerWidth < 1280) return 3
 		return 3
 	}
 
@@ -219,10 +220,10 @@ export default function Services() {
 
 
 	return (
-		<section id="services" className="py-12">
+		<section id="services" className="py-10 sm:py-12 lg:py-16">
 			<motion.div ref={ref} variants={containerVariants} initial="hidden" animate={inView ? 'visible' : 'hidden'} className="container mx-auto px-4">
 				{/* Section Header - styled to match other sections */}
-				<motion.div variants={itemVariants} className="mb-12 text-center">
+				<motion.div variants={itemVariants} className="mb-6 sm:mb-8 lg:mb-12 text-center">
 
 
 					<h2 className="text-4xl md:text-5xl font-poppins font-bold mb-3">
@@ -237,7 +238,7 @@ export default function Services() {
 
 
 				{/* Carousel Container */}
-				<motion.div variants={itemVariants} className="relative mt-2">
+				<motion.div variants={itemVariants} className="relative mt-6 sm:mt-8">
 					<div
 						ref={carouselRef}
 						className="overflow-hidden"
@@ -320,7 +321,7 @@ export default function Services() {
 					)}
 
 					{/* Minimal styled dots below carousel */}
-					<div className="mt-6 flex items-center justify-center gap-2">
+					<div className="mt-4 sm:mt-6 flex items-center justify-center gap-2">
 						{Array.from({ length: maxIndex + 1 }).map((_, i) => {
 							// i is the carousel start index (page). Active when it equals `currentIndex`.
 							const isActive = i === currentIndex
@@ -345,10 +346,10 @@ export default function Services() {
 				</motion.div>
 
 				{/* CTA Banner: Let's Work Together (bottom of Services, no background) */}
-				<motion.div variants={itemVariants} className="mt-12 rounded-2xl overflow-hidden p-8 text-center">
+				<motion.div variants={itemVariants} className="mt-8 sm:mt-10 lg:mt-12 rounded-2xl overflow-hidden p-6 sm:p-8 text-center">
 					<div className="max-w-4xl mx-auto">
-						<h3 className="text-4xl md:text-5xl font-poppins font-bold text-white mb-4">Let&apos;s Work Together</h3>
-						<p className="text-text-secondary max-w-2xl mx-auto mb-6">Ready to bring your ideas to life? Let&apos;s create something amazing together</p>
+						<h3 className="text-3xl sm:text-4xl md:text-5xl font-poppins font-bold text-white mb-3 sm:mb-4">Let&apos;s Work Together</h3>
+						<p className="text-text-secondary max-w-2xl mx-auto mb-4 sm:mb-6">Ready to bring your ideas to life? Let&apos;s create something amazing together</p>
 						<button
 							onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
 							className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-accent-purple to-accent-pink text-white font-semibold shadow-lg hover:opacity-95 transition-all duration-200"
