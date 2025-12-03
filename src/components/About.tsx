@@ -376,7 +376,7 @@ const About = () => {
                     <div className={`absolute -inset-1 bg-gradient-to-r ${stat.gradient} opacity-0 group-hover:opacity-20 rounded-3xl blur-xl transition-all duration-700 group-hover:blur-2xl`}></div>
                     
                     {/* Main card */}
-                    <div className={`relative h-36 sm:h-40 lg:h-44 ${stat.bgGradient} backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-white/20 transition-all duration-500 ${stat.shadowColor} shadow-xl group-hover:shadow-2xl overflow-hidden`}>
+                    <div className={`relative h-36 sm:h-40 lg:h-44 ${stat.bgColor} backdrop-blur-xl rounded-3xl border border-white/10 group-hover:border-white/20 transition-all duration-500 ${stat.shadowColor} shadow-xl group-hover:shadow-2xl overflow-hidden`}>
                       {/* Gradient overlay */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                       

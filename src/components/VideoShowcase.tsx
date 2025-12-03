@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Play, X } from 'lucide-react';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal';
+
+// Type assertion for ReactPlayer to bypass type issues
+const VideoPlayer = ReactPlayer as any;
 
 const VideoShowcase = () => {
   const [ref, inView] = useInView({
@@ -11,7 +14,17 @@ const VideoShowcase = () => {
     threshold: 0.1,
   });
 
-  const [selectedVideo, setSelectedVideo] = useState<any>(null);
+  interface Video {
+    id: number;
+    title: string;
+    description: string;
+    thumbnail: string;
+    url: string;
+    duration: string;
+    category: string;
+  }
+
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   const videos = [
     
@@ -129,7 +142,7 @@ const VideoShowcase = () => {
 
           {/* Video Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {videos.slice(1).map((video, index) => (
+            {videos.slice(1).map((video) => (
               <motion.div
                 key={video.id}
                 variants={itemVariants}
@@ -223,12 +236,12 @@ const VideoShowcase = () => {
             {/* Video Player */}
             <div className="relative">
               <div className="aspect-video">
-                <ReactPlayer
+                <VideoPlayer
                   url={selectedVideo.url}
                   width="100%"
                   height="100%"
-                  controls
-                  playing
+                  controls={true}
+                  playing={true}
                 />
               </div>
               <button
