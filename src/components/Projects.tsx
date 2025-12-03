@@ -1,0 +1,658 @@
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { ExternalLink, Github, X } from 'lucide-react';
+// FIX 1: Define a type for a single project.
+// This ensures that all project objects have a consistent structure.
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  detailedDescription: string;
+  image: string;
+  tech: string[];
+  github: string;
+  live: string;
+  gradient: string;
+}
+
+// FIX 2: Define a type for the props of the ProjectModal component.
+// This resolves the "implicitly has an 'any' type" errors for isOpen, onClose, and project.
+interface ProjectModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  project: Project | null; // The project can be a Project object or null.
+}
+
+// --- Custom Modal Component ---
+const ProjectModal = ({ isOpen, onClose, project }: ProjectModalProps) => {
+  useEffect(() => {
+    // FIX 3: Add a type for the 'event' parameter.
+    // KeyboardEvent is the correct type for keyboard-related DOM events.
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [onClose]);
+
+  // If the modal isn't open or there's no project data, render nothing.
+  if (!isOpen || !project) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 pt-20 z-[50]"
+        onClick={onClose}
+      >
+        {/* Animated background particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-3/4 left-3/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-500"></div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 100 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 100 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="relative max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full mx-auto bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 border border-purple-500/20 rounded-3xl shadow-2xl backdrop-blur-2xl outline-none overflow-hidden z-[60] mt-4"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Decorative border gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 rounded-3xl blur-sm"></div>
+          <div className="absolute inset-[1px] bg-gradient-to-br from-gray-900/95 via-gray-800/95 to-gray-900/95 rounded-3xl"></div>
+
+          <div className="relative max-h-[85vh] sm:max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent">
+            {/* Hero Image Section */}
+            <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+              {/* Multi-layer gradients for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-transparent to-blue-900/30"></div>
+
+              {/* Floating close button */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.3 }}
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={onClose}
+                className="absolute top-6 right-6 p-4 rounded-full bg-black/90 backdrop-blur-md text-white hover:bg-red-500/40 hover:text-red-400 transition-all duration-300 border-2 border-white/30 hover:border-red-400/60 shadow-2xl z-[70]"
+                style={{ zIndex: 70, position: 'absolute' }}
+              >
+                <X className="h-6 w-6" />
+              </motion.button>
+
+              {/* Project title overlay */}
+              <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-8 right-4 sm:right-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                  className="flex items-end justify-between"
+                >
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 drop-shadow-2xl" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                      {project.title}
+                    </h3>
+                    <motion.span
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4, duration: 0.4 }}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/80 to-blue-500/80 backdrop-blur-md text-white rounded-full text-sm font-semibold border border-white/20 shadow-lg"
+                    >
+                      <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                      {project.category.toUpperCase()}
+                    </motion.span>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Content Section */}
+            <div className="p-4 sm:p-6 md:p-8 lg:p-10 space-y-6 sm:space-y-8 md:space-y-10">
+              {/* Action Buttons - Moved before Description */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="flex flex-wrap gap-4 pt-2"
+              >
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={project.live}
+                  className="group relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                  <div className="relative inline-flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl font-semibold text-white shadow-lg hover:shadow-purple-500/30 transition-all duration-300 border border-purple-400/30 text-sm">
+                    <ExternalLink className="h-4 w-4" />
+                    <span style={{ fontFamily: "'Inter', sans-serif" }}>Live Demo</span>
+                  </div>
+                </motion.a>
+
+                <motion.a
+                  whileHover={{ scale: 1.05, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={project.github}
+                  className="group relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-600 rounded-xl blur-sm group-hover:blur-none transition-all duration-300"></div>
+                  <div className="relative inline-flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-gray-800/80 to-gray-700/80 backdrop-blur-sm rounded-xl font-semibold text-white border-2 border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 hover:bg-gray-700/60 text-sm">
+                    <Github className="h-4 w-4" />
+                    <span style={{ fontFamily: "'Inter', sans-serif" }}>Source Code</span>
+                  </div>
+                </motion.a>
+              </motion.div>
+
+              {/* Description */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.6 }}
+                className="space-y-6"
+              >
+                <div className="relative">
+                  <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-purple-500 to-blue-500 rounded-full"></div>
+                  <p className="text-gray-100 leading-relaxed text-lg pl-8" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    {project.detailedDescription}
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Technologies Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="space-y-6"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                    <span className="w-2 h-2 bg-white rounded-full"></span>
+                  </div>
+                  <h4 className="text-2xl font-bold text-white" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    Technologies & Tools
+                  </h4>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  {project.tech.map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="text-xs font-semibold inline-flex items-center justify-center h-6 min-w-[36px] px-1 rounded-full text-blue-300 bg-blue-500/20 border border-blue-400/30 transform-gpu [will-change:transform] transition-colors duration-200 ease-out hover:bg-blue-500/30 text-center leading-tight whitespace-normal break-words overflow-hidden"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+
+const Projects = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  // FIX 5: Provide an explicit type for the useState hook.
+  // This tells TypeScript that selectedProject can be a Project object or null.
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [filter, setFilter] = useState('all');
+  const [visibleCount, setVisibleCount] = useState<number>(9);
+
+  // Provide the 'Project[]' type to the projects array for type safety.
+  const projects: Project[] = [
+
+    {
+      id: 1,
+      title: 'DocSchedule',
+      category: 'web',
+      description: 'A comprehensive doctor appointment scheduling system with secure authentication, role-based access, and real-time appointment management.',
+      detailedDescription: 'DocSchedule is a full-stack web application designed to simplify the process of booking and managing doctor appointments. It features role-based access for admins, doctors, and patients, secure authentication, and real-time scheduling. Built with modern technologies, it offers a seamless user experience with responsive design and efficient backend handling.',
+      image: '/images/projects/docschedule.png',
+      tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'JWT Authentication', 'CSS'],
+      github: 'https://github.com/MinhajulBhuiyan/docschedule',
+      live: 'https://docschedule.vercel.app/',
+      gradient: 'from-green-500 to-teal-600',
+    },
+
+    {
+      id: 2,
+      title: 'DataSense',
+      category: 'ai/ml',
+      description: 'Natural language to SQL system with a modern Next.js frontend and Flask orchestrator.',
+      detailedDescription: 'DataSense is a Natural Language to SQL system built for the DataSense ice cream distribution database. Features include natural language to SQL conversion using AI, a modern Next.js web interface, read-only mode with query validation, table-formatted results with CSV export, dynamic data visualizations, and responsive design. Quick start: start the Flask backend in `orchestrator/` (create venv, install requirements, run `app.py`) then start the frontend in `frontend/` with `npm run dev`. Configure the backend via a `.env` file (OLLAMA_API_URL, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME).',
+      image: '/images/projects/datasense.jpg',
+      tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Flask', 'Python', 'MySQL', 'Ollama'],
+      github: 'https://github.com/MinhajulBhuiyan/DataSense',
+      live: '',
+      gradient: 'from-indigo-500 to-purple-600',
+    },
+    {
+      id: 3,
+      title: 'FL Security',
+      category: 'ai/ml',
+      description: 'Research platform analyzing data poisoning attacks in collaborative machine learning systems.',
+      detailedDescription: 'A comprehensive research platform that simulates how malicious participants can poison federated learning models through label-flipping attacks. Enables controlled experiments to measure attack impact, test participant selection strategies, and evaluate defense mechanisms through detailed metrics and visualizations.',
+      image: '/images/projects/fl-security.png',
+      tech: ['Python', 'PyTorch', 'FastAPI', 'React', 'scikit-learn'],
+      github: 'https://github.com/MinhajulBhuiyan/fl-security',
+      live: '',
+      gradient: 'from-purple-500 to-blue-600',
+    },
+    {
+      id: 4,
+      title: 'LinkShort',
+      category: 'web',
+      description: 'URL shortening service with Next.js frontend and Laravel microservices.',
+      detailedDescription: `LinkShort is a URL shortening service. Stack: Next.js frontend + Laravel microservices (gateway, identity, links, stats). Frontend: Next.js, React, TypeScript, Tailwind, pnpm, Node.js. Backend: Laravel (PHP), Composer, Vite. Database: MySQL/PostgreSQL.
+
+Core features: shorten URLs (custom codes), fast redirects (301/302), JWT auth, link management (create/list/delete), click tracking, analytics dashboard, and a public tracking endpoint (/r/{code}/track). API client base: http://localhost:5050/api. Endpoints include auth (/api/auth/*), links (/api/links), and redirect (/api/r/{code}).`,
+      image: '/images/projects/linkshort.png',
+      tech: ['Next.js', 'React', 'TypeScript', 'Tailwind', 'pnpm', 'Node.js', 'Laravel', 'PHP', 'MySQL'],
+      github: 'https://github.com/MinhajulBhuiyan/LinkShort',
+      live: '',
+      gradient: 'from-yellow-400 to-orange-500',
+    },
+    {
+      id: 5,
+      title: 'Streamify',
+      category: 'web',
+      description: 'Production-grade real-time video calling and chat application with friends system and multiple themes',
+      detailedDescription: 'A full-stack real-time communication platform featuring 1-on-1 video calls, group calls, screen sharing, instant messaging with typing indicators, friend management system, and JWT authentication with 32 customizable UI themes',
+      image: '/images/projects/streamify.png',
+      tech: ['React', 'Node.js', 'MongoDB', 'Stream', 'TanStack Query', 'Tailwind CSS', 'Zustand', 'JWT', 'Express.js'],
+      github: 'https://github.com/MinhajulBhuiyan/streamify.git',
+      live: 'https://streamify-yejo.onrender.com/',
+      gradient: 'from-blue-500 to-cyan-600',
+    },
+    {
+      id: 6,
+      title: 'HomeSeek',
+      category: 'web',
+      description: 'A property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages.',
+      detailedDescription: 'HomeSeek is a property listing platform that allows users to search and filter real estate listings, view properties on interactive maps, and access detailed property pages. It includes secure user authentication, profile management, and real-time chat via Socket.IO, providing a streamlined and engaging experience for property seekers and owners alike.',
+      image: '/images/projects/real-estate.png',
+      tech: ['React', 'Node.js', 'MongoDB', 'Prisma', 'JWT', 'Socket.IO', 'React Router'],
+      github: 'https://github.com/MinhajulBhuiyan/HomeSeek',
+      live: '',
+      gradient: 'from-cyan-500 to-blue-600',
+    },
+
+    {
+      id: 7,
+      title: 'LinkUp',
+      category: 'mobile',
+      description: 'A real-time mobile chat application built with React Native and Firebase, featuring user authentication, friend management, and seamless messaging experience.',
+      detailedDescription: 'LinkUp is a real-time mobile chat application developed with React Native and Expo. It provides features like secure Firebase authentication, real-time messaging with Firestore, and profile management. The app includes friend requests, dark and light theme support, and a modern, responsive UI to enhance user experience.',
+      image: '/images/projects/linkup.jpg',
+      tech: ['React Native', 'Expo', 'Firebase', 'Firestore', 'Authentication'],
+      github: 'https://github.com/MinhajulBhuiyan/LinkUp',
+      live: '',
+      gradient: 'from-violet-500 to-purple-600',
+    },
+    {
+      id: 8,
+      title: 'Parkspace',
+      category: 'web',
+      description: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface.',
+      detailedDescription: 'This project is a full-stack parking application built using a modern monorepo architecture. It allows users to search for parking spots, manage bookings, and handle user authentication, all through an integrated web interface. The application provides a seamless experience by connecting a robust backend API with a responsive frontend, featuring role management and comprehensive parking management functionality.',
+      image: '/images/projects/parkspace.png',
+      tech: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL', 'MongoDB', 'Authentication'],
+      github: 'https://github.com/MinhajulBhuiyan/Parkspace',
+      live: '',
+      gradient: 'from-orange-500 to-red-600',
+    },
+    
+
+
+    {
+      id: 9,
+      title: 'Machine Learning Project Collection',
+      category: 'ai/ml',
+      description: 'A collection of practical machine learning projects built with Python, Scikit-learn, TensorFlow, and Keras.',
+      detailedDescription: 'A collection of practical machine learning projects built with Python, Scikit-learn, TensorFlow, and Keras. This repository features hands-on examples of data preprocessing, model development, and evaluation, covering both classical and deep learning techniques for real-world problems.',
+      image: '/images/projects/hand-gesture-rec-ML.png',
+      tech: ['Python', 'Scikit-learn', 'TensorFlow', 'Keras'],
+      github: 'https://github.com/MinhajulBhuiyan/Machine-Learning-Project',
+      live: '',
+      gradient: 'from-green-500 to-teal-600',
+    },
+    {
+      id: 10,
+      title: 'Medibot',
+      category: 'desktop',
+      description: 'Medibot is a Hospital Management System developed in C# using the .NET Framework with a Windows Forms user interface. The application streamlines hospital operations by providing modules for patient management, disease identification, and medicine inventory.',
+      detailedDescription: 'Medibot is a Hospital Management System developed in C# using the .NET Framework with a Windows Forms user interface. The application streamlines hospital operations by providing modules for patient management, disease identification, and medicine inventory. It enables efficient tracking of patient records, supports basic disease identification, and helps manage medicine stocks through an intuitive desktop interface.',
+      image: '/images/projects/medobot.gif',
+      tech: ['C#', '.NET Framework', 'Windows Forms', 'Visual Studio'],
+      github: 'https://github.com/MinhajulBhuiyan/Medibot',
+      live: '',
+      gradient: 'from-purple-500 to-indigo-600',
+    },
+
+
+
+    {
+      id: 11,
+      title: 'PixelForge',
+      category: 'games',
+      description: 'Immersive voxel-based exploration game inspired by Minecraft.',
+      detailedDescription: 'PixelForge is an immersive and dynamic game project crafted by team-20. Drawing inspiration from the acclaimed Minecraft, our game focuses on delivering a captivating gaming experience centered around voxel-based exploration, creative building, and survival challenges.',
+      image: '/images/projects/PixelForge_Game.png',
+      tech: ['Unity', 'C#', 'Voxel Engine', 'Game Development', '3D Graphics'],
+      github: 'https://github.com/MinhajulBhuiyan/PixelForge.git',
+      live: '',
+      gradient: 'from-emerald-500 to-teal-600',
+    },
+
+    {
+      id: 12,
+      title: 'MathHub',
+      category: 'desktop',
+      description: 'MathHub is a console-based learning platform for math enthusiasts. It offers a variety of mathematical operations and tools, including arithmetic, trigonometry, statistics, graph plotting, matrix manipulation, and physics formulas.',
+      detailedDescription: 'MathHub is a console-based learning platform for math enthusiasts. It offers a variety of mathematical operations and tools, including arithmetic, trigonometry, statistics, graph plotting, matrix manipulation, and physics formulas, all accessible through a simple command-line interface. Built with modular architecture using C++ and STL for optimal performance.',
+      image: '/images/projects/mathhub.jpg',
+      tech: ['C++', 'Console Application', 'STL', 'Modular Architecture', 'Visual Studio Code'],
+      github: 'https://github.com/MinhajulBhuiyan/MathHub',
+      live: '',
+      gradient: 'from-blue-500 to-indigo-600',
+    },
+
+
+    {    
+      id: 13,
+      title: 'AnimeInsights',
+      category: 'web',
+      description: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations.',
+      detailedDescription: 'AnimeInsights is an online platform where users can discover anime, manage reviews, and engage with the anime community. The system supports secure authentication, community features, and CRUD operations, and integrates data from the AniList API. Built with ASP.NET MVC framework for robust web application development.',
+      image: '/images/projects/anime-insights.png',
+      tech: ['ASP.NET MVC', 'C#', 'CSHTML', 'Oracle SQL Developer', 'AniList API'],
+      github: 'https://github.com/MinhajulBhuiyan/AnimeInsights',
+      live: '',
+      gradient: 'from-pink-500 to-rose-600',
+    },
+
+    {
+      id: 14,
+      title: '3D Portfolio Website',
+      category: 'web',
+      description: 'Interactive 3D portfolio with WebGL animations, particle effects, and smooth scroll interactions.',
+      detailedDescription: 'A cutting-edge portfolio website featuring Three.js 3D animations, particle systems, and interactive elements. Built with React Three Fiber, featuring smooth scroll animations, dynamic lighting, and responsive 3D scenes.',
+      image: '/images/projects/3D_protfolio.png',
+      tech: ['React', 'Three.js', 'GSAP', 'WebGL', 'Framer Motion'],
+      github: 'https://github.com/MinhajulBhuiyan/Portfolio',
+      live: '',
+      gradient: 'from-pink-500 to-rose-600',
+    },
+
+  ];
+
+  const categories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'web', label: 'Web Apps' },
+    { id: 'mobile', label: 'Mobile Apps' },
+    { id: 'ai/ml', label: 'AI/ML Projects' },
+    { id: 'desktop', label: 'Desktop Software' },
+    { id: 'games', label: 'Games' },
+  ];
+
+  const filteredProjects = filter === 'all'
+    ? projects
+    : projects.filter(project => project.category === filter);
+
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
+    exit: { opacity: 0, y: -30, scale: 0.95, transition: { duration: 0.3, ease: "easeIn" } }
+  };
+
+  return (
+    <section id="projects" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+      {/* Background Elements */}
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          ref={ref}
+          variants={sectionVariants}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          className="space-y-8 sm:space-y-12 lg:space-y-16"
+        >
+          {/* Header Section */}
+          <motion.div variants={itemVariants} className="mb-6 sm:mb-8 lg:mb-10 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              >
+
+            </motion.div>
+
+            <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-3">
+              My <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Projects</span>
+            </h2>
+
+            <p className="text-text-secondary max-w-2xl mx-auto">
+              Discover my journey through innovative solutions, creative designs, and cutting-edge technologies.
+              Each project represents a unique challenge conquered with passion and precision.
+            </p>
+          </motion.div>
+
+          {/* Filter Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <motion.button
+                key={category.id}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setFilter(category.id)}
+                className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 backdrop-blur-sm ${filter === category.id
+                  ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg shadow-purple-500/25 border border-purple-400/50'
+                  : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50 hover:border-gray-600/50'
+                  }`}
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                {category.label}
+              </motion.button>
+            ))}
+          </motion.div>
+
+          {/* Projects Grid */}
+          <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto">
+            <AnimatePresence mode="wait">
+              {filteredProjects.slice(0, visibleCount).map((project) => (
+                <motion.div
+                  key={project.id}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  layout
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="group relative cursor-pointer w-full h-auto min-h-[400px] sm:min-h-[420px] md:h-[450px]"
+                  onClick={() => setSelectedProject(project)}
+                >
+                  <div className="relative overflow-hidden rounded-3xl bg-white/6 backdrop-blur-xl backdrop-saturate-125 border border-white/12 transition-all duration-500 hover:shadow-lg hover:shadow-indigo-500/6 h-full flex flex-col">
+                    {/* Project Image */}
+                    <div className="relative overflow-hidden h-48 flex-shrink-0">
+                      <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.03 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                      {/* Enhanced Hover Overlay */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 0.12 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                      />
+
+                      {/* Category Badge */}
+                      <motion.div
+                        className="absolute top-4 left-4"
+                        whileHover={{ scale: 1.03, y: -1 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <span className="px-3 py-1 bg-black/70 backdrop-blur-sm text-purple-300 rounded-full text-xs font-medium border border-purple-500/30">
+                          {project.category.toUpperCase()}
+                        </span>
+                      </motion.div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-4">
+                        
+                        <h3 className="text-xl font-bold transition-colors duration-300 h-14 flex items-center">
+                          <span className="line-clamp-2">{project.title}</span>
+                        </h3>
+                        
+
+                        <div className="h-16">
+                          <p className="text-gray-400 text-sm leading-relaxed line-clamp-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+                            {project.description}
+                          </p>
+                        </div>
+
+                        {/* Tech Stack */}
+                        <div className="flex flex-wrap gap-2 pt-2 min-h-[2.5rem]">
+                          {project.tech.slice(0, 6).map((tech) => (
+                            <span
+                              key={tech}
+                              className="text-xs font-semibold inline-flex items-center justify-center h-6 min-w-[36px] px-1 rounded-full text-blue-300 bg-blue-500/20 border border-blue-400/30 transform-gpu [will-change:transform] transition-colors duration-200 ease-out hover:bg-blue-500/30 text-center leading-tight whitespace-normal break-words overflow-hidden"
+                              style={{ fontFamily: "'Inter', sans-serif" }}
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {project.tech.length > 6 && (
+                            <span
+                              className="text-xs font-semibold inline-flex items-center justify-center h-6 min-w-[36px] px-1 rounded-full text-blue-300 bg-blue-500/20 border border-blue-400/30 transform-gpu [will-change:transform] transition-colors duration-200 ease-out hover:bg-blue-500/30 text-center leading-tight whitespace-normal break-words overflow-hidden"
+                            >
+                              +{project.tech.length - 6}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Folder Icon - Bottom Right */}
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setSelectedProject(project)}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedProject(project); } }}
+                      aria-label={`Open ${project.title} details`}
+                      className="absolute top-1/2 right-4 cursor-pointer opacity-60 group-hover:opacity-90 transition-all duration-300 z-30 -translate-y-1/2 sm:right-6 md:right-4"
+                    >
+                      <div className="relative group/file">
+                        <div className="file relative w-16 h-11 origin-bottom [perspective:1500px]">
+                          {/* Folder outer shell - amber */}
+                          <div className="work-5 bg-amber-600 w-full h-full origin-top rounded-xl rounded-tl-none group-hover:shadow-[0_8px_16px_rgba(217,119,6,.3)] transition-all ease duration-300 relative after:absolute after:content-[''] after:bottom-[99%] after:left-0 after:w-7 after:h-1.5 after:bg-amber-600 after:rounded-t-xl before:absolute before:content-[''] before:-top-[5px] before:left-[26px] before:w-1.5 before:h-1.5 before:bg-amber-600 before:[clip-path:polygon(0_35%,0%_100%,50%_100%);]"></div>
+                          
+                          {/* Inner papers - zinc colors */}
+                          <div className="work-4 absolute inset-0.5 bg-zinc-400 rounded-xl transition-all ease duration-300 origin-bottom select-none group-hover:[transform:rotateX(-20deg)]"></div>
+                          <div className="work-3 absolute inset-0.5 bg-zinc-300 rounded-xl transition-all ease duration-300 origin-bottom group-hover:[transform:rotateX(-30deg)]"></div>
+                          <div className="work-2 absolute inset-0.5 bg-zinc-200 rounded-xl transition-all ease duration-300 origin-bottom group-hover:[transform:rotateX(-38deg)]"></div>
+                          
+                          {/* Front paper - amber gradient */}
+                          <div className="work-1 absolute bottom-0 bg-gradient-to-t from-amber-500 to-amber-400 w-full h-[40px] rounded-xl rounded-tr-none after:absolute after:content-[''] after:bottom-[99%] after:right-0 after:w-[38px] after:h-[5px] after:bg-amber-400 after:rounded-t-xl before:absolute before:content-[''] before:-top-[3px] before:right-[36px] before:w-1.5 before:h-1.5 before:bg-amber-400 before:[clip-path:polygon(100%_14%,50%_100%,100%_100%);] transition-all ease duration-300 origin-bottom flex items-end group-hover:shadow-[inset_0_8px_16px_rgba(251,191,36,.4),_inset_0_-8px_16px_rgba(245,158,11,.3)] group-hover:[transform:rotateX(-46deg)_translateY(0.5px)]"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Gradient Border Effect */}
+                    <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${project.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500`}></div>
+
+                    {/* Glow Effect */}
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/8 to-blue-500/8 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"></div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Show more / Show less control */}
+          {filteredProjects.length > 9 && (
+            <motion.div 
+              variants={itemVariants}
+              className="flex justify-center mt-6 sm:mt-8 lg:mt-10"
+            >
+              {filteredProjects.length > visibleCount ? (
+                <button
+                  onClick={() => setVisibleCount(filteredProjects.length)}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Show more ({filteredProjects.length - visibleCount})
+                </button>
+              ) : (
+                <button
+                  onClick={() => setVisibleCount(9)}
+                  className="px-8 py-4 bg-gray-800/60 text-white rounded-full font-semibold border border-white/20 hover:bg-gray-700/60 hover:scale-105 transition-all duration-300"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Show less
+                </button>
+              )}
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+
+      <ProjectModal
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        project={selectedProject}
+      />
+    </section>
+  );
+};
+
+export default Projects;
