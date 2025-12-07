@@ -140,31 +140,31 @@ const About = () => {
                   className="absolute left-1/2 transform -translate-x-1/2 top-[4.5rem] hidden md:block h-1 bg-gradient-to-r from-emerald-500/60 via-blue-500/60 to-zinc-500/55 opacity-60 rounded-full w-[86vw] md:w-[1266px] lg:w-[1266px]"
                 ></div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mt-4 items-stretch">
                   {EDUCATION.map((edu, index) => {
                     return (
                       <motion.div
                         key={`${edu.title}-${edu.year}`}
-                        className="flex flex-col items-center text-center"
+                        className="flex flex-col items-center text-center md:items-stretch"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
                       >
                         {/* Icon / Image Circle */}
-                        <div className={`relative z-10 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 rounded-full bg-transparent p-2 flex items-center justify-center mb-6 shadow-md ${index === 0 ? 'md:-translate-x-6 lg:-translate-x-8 xl:-translate-x-12' : index === 2 ? 'md:translate-x-6 lg:translate-x-8 xl:translate-x-12' : ''}`}>
+                        <div className={`relative z-10 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 rounded-full bg-transparent p-2 flex items-center justify-center mb-6 shadow-md mx-auto ${index === 0 ? 'md:-translate-x-8 lg:-translate-x-10' : index === 2 ? 'md:translate-x-8 lg:translate-x-10' : ''}`}>
                           <img src={edu.image} alt={`${edu.title} logo`} className="w-full h-full object-contain rounded-full" />
-                          {/* badge removed per request */}
+                          {/* subtle left/right offsets for first/last logos */}
                         </div>
 
                         {/* Content Card */}
-                        <div className={`w-full max-w-[20rem] sm:max-w-[22rem] md:max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
-                          <div className="inline-flex items-center mb-3 px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10">
+                        <div className={`w-full max-w-[20rem] sm:max-w-[22rem] md:max-w-[24rem] min-h-[10.5rem] sm:min-h-[11.5rem] md:min-h-[13rem] lg:min-h-[13rem] mx-auto h-full flex flex-col justify-between ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
+                          <div className="inline-flex items-center mb-3 px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10 mx-auto">
                             <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 flex-shrink-0" aria-hidden="true"></span>
                             <span className="leading-none">{edu.year}</span>
                           </div>
-                          <h4 className="text-xl md:text-lg font-bold text-white mb-1">{edu.title}</h4>
-                          <div className="text-sm md:text-xs text-gray-400 mb-2">{edu.address}</div>
-                          <div className="text-base md:text-sm text-gray-300 font-medium">{edu.detail}</div>
+                          <h4 className="text-xl sm:text-xl md:text-xl font-bold text-white mb-1">{edu.title}</h4>
+                          <div className="text-sm md:text-sm text-gray-400 mb-2">{edu.address}</div>
+                          <div className="text-base text-gray-300 font-medium">{edu.detail}</div>
                         </div>
                       </motion.div>
                     );
@@ -242,7 +242,7 @@ const About = () => {
                     const isLeft = index % 2 === 0;
 
                     const Card = (
-                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[36rem] lg:max-w-[44rem] mx-auto min-h-[10rem] md:min-h-[12rem] lg:min-h-[10rem]`}>
+                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[36rem] lg:max-w-[44rem] mx-auto min-h-[10.5rem] sm:min-h-[11.5rem] md:min-h-[13rem] lg:min-h-[13rem] h-full flex flex-col justify-between`}>
                         <div className="space-y-1 md:space-y-2">
                           <div className="flex items-start justify-between">
                             <div className="min-w-0 flex items-start">
