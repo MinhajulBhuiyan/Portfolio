@@ -157,9 +157,8 @@ const About = () => {
                         </div>
 
                         {/* Content Card */}
-                        <div className={`w-full max-w-[20rem] sm:max-w-[22rem] md:max-w-[24rem] min-h-[10.5rem] sm:min-h-[11.5rem] md:min-h-[13rem] lg:min-h-[13rem] mx-auto h-full flex flex-col justify-between ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
+                        <div className={`w-full max-w-[19rem] sm:max-w-[21rem] md:max-w-[23rem] min-h-[10rem] sm:min-h-[11rem] md:min-h-[12rem] lg:min-h-[12rem] mx-auto h-full flex flex-col justify-between ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
                           <div className="inline-flex items-center mb-3 px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10 mx-auto">
-                            <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 flex-shrink-0" aria-hidden="true"></span>
                             <span className="leading-none">{edu.year}</span>
                           </div>
                           <h4 className="text-xl sm:text-xl md:text-xl font-bold text-white mb-1">{edu.title}</h4>
@@ -230,8 +229,8 @@ const About = () => {
               </motion.h3>
 
               <div className="relative max-w-full md:max-w-7xl mx-auto px-4 md:px-0">
-                {/* vertical timeline line (md+) */}
-                <div className="hidden md:block absolute left-1/2 top-6 bottom-6 w-0.5 bg-gradient-to-b from-white/10 via-white/5 to-white/10"></div>
+                {/* vertical timeline line (md+) - styled to match Education horizontal line */}
+                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500/60 via-emerald-500/60 to-zinc-500/55 opacity-60 rounded-full"></div>
 
                 <div className="mt-6 space-y-8">
                   {WORK_EXPERIENCE.map((job, index) => {
@@ -242,21 +241,21 @@ const About = () => {
                     const isLeft = index % 2 === 0;
 
                     const Card = (
-                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[36rem] lg:max-w-[44rem] mx-auto min-h-[10.5rem] sm:min-h-[11.5rem] md:min-h-[13rem] lg:min-h-[13rem] h-full flex flex-col justify-between`}>
+                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[20rem] sm:max-w-[26rem] md:max-w-[34rem] lg:max-w-[42rem] mx-auto min-h-[9rem] sm:min-h-[10rem] md:min-h-[11rem] lg:min-h-[11rem] h-full flex flex-col justify-between`}>
                         <div className="space-y-1 md:space-y-2">
                           <div className="flex items-start justify-between">
                             <div className="min-w-0 flex items-start">
                               <div>
-                                <h4 className="text-xl md:text-lg font-bold text-white leading-tight md:truncate">{job.company}</h4>
-                                <div className="text-base md:text-sm text-gray-100 mt-0 md:mt-1 font-semibold md:truncate">{job.title}</div>
+                                <h4 className="text-xl sm:text-xl md:text-2xl font-bold text-white mb-1">{job.company}</h4>
+                                <div className="text-base text-gray-300 font-medium">{job.title}</div>
                               </div>
                             </div>
 
                           </div>
 
-                          <div className="text-sm md:text-xs text-gray-300 uppercase tracking-wide">{job.department}</div>
+                          <div className="text-sm md:text-sm text-gray-400 uppercase tracking-wide">{job.department}</div>
 
-                          <div className="text-sm md:text-xs text-gray-400 mb-2">{job.location}</div>
+                          <div className="text-sm md:text-sm text-gray-400 mb-2">{job.location}</div>
                         </div>
                       </div>
                     );
