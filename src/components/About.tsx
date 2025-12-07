@@ -135,8 +135,10 @@ const About = () => {
 
               {/* Timeline grid (demo-like structure): icon/image above, year, title, address, detail */}
               <div className="relative">
-                {/* Decorative horizontal line (adjusted to intersect image centers) */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 top-[4.5rem] w-full max-w-[75rem] h-1 bg-gradient-to-r from-emerald-500/60 via-blue-500/60 to-zinc-500/55 opacity-60 hidden md:block rounded-full"></div>
+                {/* Decorative horizontal line (desktop width matches card row) */}
+                <div
+                  className="absolute left-1/2 transform -translate-x-1/2 top-[4.5rem] hidden md:block h-1 bg-gradient-to-r from-emerald-500/60 via-blue-500/60 to-zinc-500/55 opacity-60 rounded-full w-[86vw] md:w-[1266px] lg:w-[1266px]"
+                ></div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mt-4">
                   {EDUCATION.map((edu, index) => {
@@ -149,13 +151,13 @@ const About = () => {
                         transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
                       >
                         {/* Icon / Image Circle */}
-                        <div className={`relative z-10 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 rounded-full bg-transparent p-2 flex items-center justify-center mb-6 shadow-md`}>
+                        <div className={`relative z-10 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 rounded-full bg-transparent p-2 flex items-center justify-center mb-6 shadow-md ${index === 0 ? 'md:-translate-x-6 lg:-translate-x-8 xl:-translate-x-12' : index === 2 ? 'md:translate-x-6 lg:translate-x-8 xl:translate-x-12' : ''}`}>
                           <img src={edu.image} alt={`${edu.title} logo`} className="w-full h-full object-contain rounded-full" />
                           {/* badge removed per request */}
                         </div>
 
                         {/* Content Card */}
-                          <div className={`w-full max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out`}>
+                          <div className={`w-full max-w-[20rem] sm:max-w-[22rem] md:max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
                           <div className="inline-flex items-center mb-3 px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10">
                             <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 flex-shrink-0" aria-hidden="true"></span>
                             <span className="leading-none">{edu.year}</span>
@@ -227,50 +229,103 @@ const About = () => {
                 </span>
               </motion.h3>
 
-              <div className="relative max-w-full md:max-w-3xl mx-auto px-4 md:px-0">
-                <div className="space-y-4 mt-3">
+              <div className="relative max-w-full md:max-w-7xl mx-auto px-4 md:px-0">
+                {/* vertical timeline line (md+) */}
+                <div className="hidden md:block absolute left-1/2 top-6 bottom-6 w-0.5 bg-gradient-to-b from-white/10 via-white/5 to-white/10"></div>
+
+                <div className="mt-6 space-y-8">
                   {WORK_EXPERIENCE.map((job, index) => {
                     const gradientClass = job.cardBg && job.cardBg.includes('bg-gradient-to-br')
                       ? job.cardBg.replace('bg-gradient-to-br', 'bg-gradient-to-b')
                       : (job.cardBg || 'bg-white/10');
 
+                    const isLeft = index % 2 === 0;
+
+                    const Card = (
+                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[36rem] lg:max-w-[44rem] mx-auto min-h-[10rem] md:min-h-[12rem] lg:min-h-[10rem]`}> 
+                        <div className="space-y-1 md:space-y-2">
+                                <div className="flex items-start justify-between">
+                            <div className="min-w-0 flex items-start">
+                              <div>
+                                <h4 className="text-xl font-bold text-white leading-tight md:truncate">{job.company}</h4>
+                                <div className="text-base text-gray-100 mt-0 md:mt-1 font-semibold md:truncate">{job.title}</div>
+                              </div>
+                            </div>
+                          
+                          </div>
+
+                          <div className="text-sm text-gray-300 uppercase tracking-wide">{job.department}</div>
+
+                          <div className="text-sm text-gray-400 mb-2">{job.location}</div>
+                        </div>
+                      </div>
+                    );
+
                     return (
                       <motion.div
                         key={`${job.title}-${job.year}`}
-                        className="relative flex flex-col md:flex-row md:items-stretch gap-4"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.15 + index * 0.12 }}
+                        className="relative"
                       >
-                        {/* Logo separate from the rounded card; responsive sizes */}
-                        <div className="flex-shrink-0 self-start md:self-start md:self-center">
-                          <div className="w-12 sm:w-16 md:w-24 h-12 sm:h-16 md:h-24 md:aspect-square bg-transparent p-0 flex items-center justify-center">
-                            <img src={job.image} alt={`${job.company} logo`} className="w-full h-full object-contain" />
-                          </div>
-                        </div>
-
-                        {/* Content Card */}
-                        <div className={`${job.cardBg} ${job.cardBorder} rounded-xl p-3 sm:p-4 md:p-5 backdrop-blur-sm transition-all duration-300 ease-in-out flex-1`}>
-                          {/* Content stack with consistent vertical gaps */}
-                          <div className="space-y-1 md:space-y-2">
-                            <div className="flex items-start justify-between">
-                              <div className="min-w-0">
-                                <h4 className="text-2xl md:text-3xl font-bold text-white leading-tight md:truncate">{job.company}</h4>
-                                <div className="text-lg md:text-xl text-gray-100 mt-0 md:mt-1 font-semibold md:truncate">{job.title}</div>
+                        <div className="md:grid md:grid-cols-3 md:items-center md:gap-4">
+                          {/* left column (card on md if isLeft) */}
+                          <div className={`md:flex md:justify-end md:pr-0 md:-mr-12 ${isLeft ? 'md:block' : 'md:invisible'}`}>
+                            <div className="w-full md:max-w-[72rem]">
+                              {/* small screens: show single date badge above the card, then image + card stacked */}
+                              <div className="md:hidden">
+                                <div className="flex flex-col items-center">
+                                  <div className="mb-2">
+                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-sm font-semibold uppercase tracking-wide border border-white/10">
+                                      <span className="sr-only">Date</span>
+                                      <span className="leading-none">{job.year}</span>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-4">
+                                    <img src={job.image} alt={`${job.company} logo`} className="w-16 h-16 rounded-full object-contain flex-shrink-0" />
+                                    {Card}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="ml-4 flex-shrink-0">
-                                <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10">
-                                  <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 flex-shrink-0" aria-hidden="true"></span>
-                                  <span className="leading-none">{job.year}</span>
+
+                              {/* md+: render image separate and to the left of the card */}
+                              <div className="hidden md:flex md:items-center md:justify-end">
+                                <div className="flex items-center space-x-6">
+                                  <img src={job.image} alt={`${job.company} logo`} className="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-contain flex-shrink-0" />
+                                  <div>{isLeft ? Card : null}</div>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
-                            <div className="flex items-center justify-between">
-                              <div className="text-sm md:text-base text-gray-300 uppercase tracking-wide">{job.department}</div>
+                          {/* center column: icon + connector */}
+                          <div className="hidden md:flex items-center justify-center md:col-span-1">
+                            <div className="relative flex flex-col items-center">
+                                  {/* Year badge centered on the timeline (dot removed) */}
+                                  <div className="mt-1">
+                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-base font-semibold uppercase tracking-wide border border-white/10">
+                                      <span className="sr-only">Date</span>
+                                      <span className="leading-none">{job.year}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+
+                          {/* right column (card on md if !isLeft) */}
+                          <div className={`md:flex md:justify-start md:pl-0 md:-ml-12 ${!isLeft ? 'md:block' : 'md:invisible'}`}>
+                            <div className="w-full md:max-w-[72rem]">
+                              {/* small screens: show image + card stacked/inline (left column handles md:hidden) */}
+                              <div className="md:hidden">{/* small screens handled above in the first column */}</div>
+
+                              {/* md+: render image separate and to the right of the card */}
+                              <div className="hidden md:flex md:items-center md:justify-start">
+                                <div className="flex items-center space-x-6">
+                                  <div>{!isLeft ? Card : null}</div>
+                                  <img src={job.image} alt={`${job.company} logo`} className="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-contain flex-shrink-0" />
+                                </div>
+                              </div>
                             </div>
-
-                            <div className="text-sm md:text-base text-gray-300 font-medium leading-relaxed break-words">{job.location}</div>
                           </div>
                         </div>
                       </motion.div>
