@@ -39,7 +39,7 @@ const About = () => {
       image: '/images/iut-image.png',
       cardBg: 'bg-gradient-to-br from-emerald-400/20 to-green-600/20',
       cardBorder: 'border border-emerald-400/20',
-      
+
     },
     {
       year: '2018 – 2020',
@@ -49,7 +49,7 @@ const About = () => {
       image: '/images/ndc-image.png',
       cardBg: 'bg-gradient-to-br from-blue-400/20 to-indigo-600/20',
       cardBorder: 'border border-blue-400/20',
-      
+
     },
     {
       year: '2010 – 2018',
@@ -59,7 +59,7 @@ const About = () => {
       image: '/images/isc-image.png',
       cardBg: 'bg-gradient-to-br from-zinc-400/20 to-zinc-600/20',
       cardBorder: 'border border-zinc-400/20',
-      
+
     },
   ];
 
@@ -74,7 +74,7 @@ const About = () => {
       image: '/images/data-limited.png',
       cardBg: 'bg-gradient-to-br from-indigo-400/20 to-blue-600/20',
       cardBorder: 'border border-indigo-400/20',
-      
+
     },
     {
       year: 'Oct 2025 – Feb 2026',
@@ -85,7 +85,7 @@ const About = () => {
       image: '/images/data-limited.png',
       cardBg: 'bg-gradient-to-br from-emerald-400/20 to-green-600/20',
       cardBorder: 'border border-emerald-400/20',
-      
+
     },
   ];
 
@@ -157,14 +157,14 @@ const About = () => {
                         </div>
 
                         {/* Content Card */}
-                          <div className={`w-full max-w-[20rem] sm:max-w-[22rem] md:max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
+                        <div className={`w-full max-w-[20rem] sm:max-w-[22rem] md:max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out ${index === 0 ? 'md:-translate-x-4 lg:-translate-x-6 xl:-translate-x-10' : index === 2 ? 'md:translate-x-4 lg:translate-x-6 xl:translate-x-10' : ''}`}>
                           <div className="inline-flex items-center mb-3 px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10">
                             <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 flex-shrink-0" aria-hidden="true"></span>
                             <span className="leading-none">{edu.year}</span>
                           </div>
-                          <h4 className="text-xl font-bold text-white mb-1">{edu.title}</h4>
-                          <div className="text-sm text-gray-400 mb-2">{edu.address}</div>
-                          <div className="text-base text-gray-300 font-medium">{edu.detail}</div>
+                          <h4 className="text-xl md:text-lg font-bold text-white mb-1">{edu.title}</h4>
+                          <div className="text-sm md:text-xs text-gray-400 mb-2">{edu.address}</div>
+                          <div className="text-base md:text-sm text-gray-300 font-medium">{edu.detail}</div>
                         </div>
                       </motion.div>
                     );
@@ -182,13 +182,13 @@ const About = () => {
             <div className="relative max-w-5xl mx-auto">
               {/* Minimalist divider */}
               <div className="flex items-center justify-center mb-8 sm:mb-12">
-                <motion.div 
+                <motion.div
                   className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 1.2, delay: 0.5 }}
                 ></motion.div>
-                <motion.div 
+                <motion.div
                   className="mx-6 relative"
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
@@ -197,7 +197,7 @@ const About = () => {
                   <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full shadow-lg shadow-blue-500/25"></div>
                   <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-ping opacity-20"></div>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
@@ -205,7 +205,7 @@ const About = () => {
                 ></motion.div>
               </div>
 
-              
+
               {/* Decorative elements removed per request */}
             </div>
           </motion.div>
@@ -218,7 +218,7 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-                <motion.h3
+              <motion.h3
                 className="text-2xl sm:text-3xl md:text-5xl font-poppins font-bold text-center mb-6 md:mb-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -242,21 +242,21 @@ const About = () => {
                     const isLeft = index % 2 === 0;
 
                     const Card = (
-                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[36rem] lg:max-w-[44rem] mx-auto min-h-[10rem] md:min-h-[12rem] lg:min-h-[10rem]`}> 
+                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-2 sm:p-3 md:p-4 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[22rem] sm:max-w-[28rem] md:max-w-[36rem] lg:max-w-[44rem] mx-auto min-h-[10rem] md:min-h-[12rem] lg:min-h-[10rem]`}>
                         <div className="space-y-1 md:space-y-2">
-                                <div className="flex items-start justify-between">
+                          <div className="flex items-start justify-between">
                             <div className="min-w-0 flex items-start">
                               <div>
-                                <h4 className="text-xl font-bold text-white leading-tight md:truncate">{job.company}</h4>
-                                <div className="text-base text-gray-100 mt-0 md:mt-1 font-semibold md:truncate">{job.title}</div>
+                                <h4 className="text-xl md:text-lg font-bold text-white leading-tight md:truncate">{job.company}</h4>
+                                <div className="text-base md:text-sm text-gray-100 mt-0 md:mt-1 font-semibold md:truncate">{job.title}</div>
                               </div>
                             </div>
-                          
+
                           </div>
 
-                          <div className="text-sm text-gray-300 uppercase tracking-wide">{job.department}</div>
+                          <div className="text-sm md:text-xs text-gray-300 uppercase tracking-wide">{job.department}</div>
 
-                          <div className="text-sm text-gray-400 mb-2">{job.location}</div>
+                          <div className="text-sm md:text-xs text-gray-400 mb-2">{job.location}</div>
                         </div>
                       </div>
                     );
@@ -302,14 +302,14 @@ const About = () => {
                           {/* center column: icon + connector */}
                           <div className="hidden md:flex items-center justify-center md:col-span-1">
                             <div className="relative flex flex-col items-center">
-                                  {/* Year badge centered on the timeline (dot removed) */}
-                                  <div className="mt-1">
-                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-base font-semibold uppercase tracking-wide border border-white/10">
-                                      <span className="sr-only">Date</span>
-                                      <span className="leading-none">{job.year}</span>
-                                    </div>
-                                  </div>
+                              {/* Year badge centered on the timeline (dot removed) */}
+                              <div className="mt-1">
+                                <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-base font-semibold uppercase tracking-wide border border-white/10">
+                                  <span className="sr-only">Date</span>
+                                  <span className="leading-none">{job.year}</span>
                                 </div>
+                              </div>
+                            </div>
                           </div>
 
                           {/* right column (card on md if !isLeft) */}
@@ -338,13 +338,13 @@ const About = () => {
           {/* Duplicate minimalist divider below Work Experience (matches design above) */}
           <div className="relative max-w-5xl mx-auto">
             <div className="flex items-center justify-center mb-8 sm:mb-12">
-              <motion.div 
+              <motion.div
                 className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 1.2, delay: 0.5 }}
               ></motion.div>
-              <motion.div 
+              <motion.div
                 className="mx-6 relative"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -353,7 +353,7 @@ const About = () => {
                 <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full shadow-lg shadow-blue-500/25"></div>
                 <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-ping opacity-20"></div>
               </motion.div>
-              <motion.div 
+              <motion.div
                 className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}

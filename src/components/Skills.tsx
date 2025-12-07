@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -90,8 +90,8 @@ const skillCategories: SkillCategory[] = [
 ];
 
 // Reusable SkillCard component with the 3D flip animation
-const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }: { skill: Skill; index: number }) => {
+  const [isFlipped, setIsFlipped] = React.useState(false);
 
   // Map skill levels to subtle, diff-like color classes
   const levelColorClass = (level: string) => {
@@ -226,50 +226,7 @@ const Skills = () => {
             </motion.div>
           ))}
 
-          {/* "Always Learning" Section */}
-          <motion.div
-            variants={itemVariants}
-            className="relative max-w-4xl mx-auto mt-4 sm:mt-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            {/* Background glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-3xl"></div>
-            
-            <div className="relative p-6 sm:p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-xl border border-white/10 text-center overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-pink-400/20 to-transparent rounded-full blur-3xl"></div>
-              
-              <div className="relative space-y-4 sm:space-y-5">
-                <motion.div
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.6, delay: 1 }}
-                >
-                  <h3 className="text-2xl sm:text-3xl font-poppins font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-3 sm:mb-4">
-                    Always Learning, Always Growing
-                  </h3>
-                </motion.div>
-                
-                <p className="text-base sm:text-lg lg:text-xl text-gray-300 font-inter leading-relaxed max-w-2xl mx-auto">
-                  Technology evolves rapidly, and so do I. I'm constantly exploring new frameworks, languages, and methodologies to stay at the forefront of innovation and deliver cutting-edge solutions.
-                </p>
-                
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 pt-3 sm:pt-4">
-                 {['Federated Learning', 'Flutter', 'DevOps', 'Microservices Architecture', 'React Native', 'Neo4j', 'GraphQL', 'Kubernetes', 'LLMs', 'AR/VR', 'Prompt Engineering'].map((tech, index) => (
-                    <span 
-                      key={index} 
-                      className="px-4 py-2 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-full text-sm font-inter font-semibold text-white border border-blue-400/30 hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          {/* Always Learning section removed per request */}
         </motion.div>
       </div>
     </section>
