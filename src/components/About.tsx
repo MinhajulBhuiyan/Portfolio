@@ -101,10 +101,10 @@ const About = () => {
         >
           {/* Section Header */}
           <motion.div variants={itemVariants} className="text-center">
-            <h2 className="text-5xl md:text-6xl font-poppins font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-poppins font-bold mb-4">
               About <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Me</span>
             </h2>
-            <p className="text-xl text-text-secondary max-w-3xl mx-auto font-inter">
+            <p className="text-base sm:text-lg text-text-secondary max-w-3xl mx-auto font-inter">
               I am motivated by curiosity and a desire to make a difference. I enjoy solving problems and learning new things every day.
               I am committed to personal growth, teamwork, and creating meaningful results through dedication and hard work. Building
               something valuable and making a positive impact inspires me to keep moving forward.
@@ -121,7 +121,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.h3
-                className="text-4xl md:text-5xl font-poppins font-bold text-center mb-8 md:mb-12"
+                className="text-2xl sm:text-3xl md:text-5xl font-poppins font-bold text-center mb-8 md:mb-12"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -138,7 +138,7 @@ const About = () => {
                 {/* Decorative horizontal line (adjusted to intersect image centers) */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 top-[4.5rem] w-full max-w-[75rem] h-1 bg-gradient-to-r from-emerald-500/60 via-blue-500/60 to-zinc-500/55 opacity-60 hidden md:block rounded-full"></div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mt-4">
                   {EDUCATION.map((edu, index) => {
                     return (
                       <motion.div
@@ -149,13 +149,13 @@ const About = () => {
                         transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
                       >
                         {/* Icon / Image Circle */}
-                        <div className={`relative z-10 w-32 h-32 rounded-full bg-transparent p-2 flex items-center justify-center mb-8 shadow-md`}>
+                        <div className={`relative z-10 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 rounded-full bg-transparent p-2 flex items-center justify-center mb-6 shadow-md`}>
                           <img src={edu.image} alt={`${edu.title} logo`} className="w-full h-full object-contain rounded-full" />
                           {/* badge removed per request */}
                         </div>
 
                         {/* Content Card */}
-                          <div className={`w-full max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-7 backdrop-blur-sm transition-all duration-300 ease-in-out`}>
+                          <div className={`w-full max-w-[24rem] mx-auto ${edu.cardBg} ${edu.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out`}>
                           <div className="inline-flex items-center mb-3 px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10">
                             <span className="w-2 h-2 rounded-full bg-gray-400 mr-2 flex-shrink-0" aria-hidden="true"></span>
                             <span className="leading-none">{edu.year}</span>
@@ -216,8 +216,8 @@ const About = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.h3
-                className="text-4xl md:text-5xl font-poppins font-bold text-center mb-6 md:mb-10"
+                <motion.h3
+                className="text-2xl sm:text-3xl md:text-5xl font-poppins font-bold text-center mb-6 md:mb-10"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -227,7 +227,7 @@ const About = () => {
                 </span>
               </motion.h3>
 
-              <div className="relative max-w-3xl mx-auto">
+              <div className="relative max-w-full md:max-w-3xl mx-auto px-4 md:px-0">
                 <div className="space-y-4 mt-3">
                   {WORK_EXPERIENCE.map((job, index) => {
                     const gradientClass = job.cardBg && job.cardBg.includes('bg-gradient-to-br')
@@ -242,26 +242,21 @@ const About = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                       >
-                        {/* Logo separate from the rounded card; sits to the left on md+ */}
-                        <div className="flex-shrink-0 self-start md:self-start">
-                          <div className="w-16 h-16 md:h-full md:aspect-square bg-transparent p-0 md:p-0 flex items-center justify-center">
+                        {/* Logo separate from the rounded card; responsive sizes */}
+                        <div className="flex-shrink-0 self-start md:self-start md:self-center">
+                          <div className="w-12 sm:w-16 md:w-24 h-12 sm:h-16 md:h-24 md:aspect-square bg-transparent p-0 flex items-center justify-center">
                             <img src={job.image} alt={`${job.company} logo`} className="w-full h-full object-contain" />
                           </div>
                         </div>
 
-                        {/* Vertical divider (visible on md+) that matches the card gradient */}
-                        <div className="hidden md:flex flex-shrink-0 items-stretch">
-                          <div className={`${gradientClass} w-[3px] rounded-full opacity-60 self-stretch`} />
-                        </div>
-
                         {/* Content Card */}
-                        <div className={`${job.cardBg} ${job.cardBorder} rounded-xl p-4 md:p-5 backdrop-blur-sm transition-all duration-300 ease-in-out flex-1`}>
+                        <div className={`${job.cardBg} ${job.cardBorder} rounded-xl p-3 sm:p-4 md:p-5 backdrop-blur-sm transition-all duration-300 ease-in-out flex-1`}>
                           {/* Content stack with consistent vertical gaps */}
                           <div className="space-y-1 md:space-y-2">
                             <div className="flex items-start justify-between">
                               <div className="min-w-0">
-                                <h4 className="text-2xl md:text-3xl font-bold text-white leading-tight truncate">{job.company}</h4>
-                                <div className="text-lg md:text-xl text-gray-100 mt-0 md:mt-1 font-semibold truncate">{job.title}</div>
+                                <h4 className="text-2xl md:text-3xl font-bold text-white leading-tight md:truncate">{job.company}</h4>
+                                <div className="text-lg md:text-xl text-gray-100 mt-0 md:mt-1 font-semibold md:truncate">{job.title}</div>
                               </div>
                               <div className="ml-4 flex-shrink-0">
                                 <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-white/90 text-gray-900 text-sm font-medium uppercase tracking-wide border border-white/10">
@@ -275,7 +270,7 @@ const About = () => {
                               <div className="text-sm md:text-base text-gray-300 uppercase tracking-wide">{job.department}</div>
                             </div>
 
-                            <div className="text-base text-gray-300 font-medium leading-relaxed">{job.location}</div>
+                            <div className="text-sm md:text-base text-gray-300 font-medium leading-relaxed break-words">{job.location}</div>
                           </div>
                         </div>
                       </motion.div>
