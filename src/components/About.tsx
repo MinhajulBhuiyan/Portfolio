@@ -127,7 +127,7 @@ const About = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <span className="inline-flex items-center justify-center">
-                  <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Education</span>
+                  <span className="text-white">Education</span>
                 </span>
               </motion.h3>
 
@@ -224,7 +224,7 @@ const About = () => {
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <span className="inline-flex items-center justify-center">
-                  <span className="bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">Work Experience</span>
+                  <span className="text-white">Work Experience</span>
                 </span>
               </motion.h3>
 

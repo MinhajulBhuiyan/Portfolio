@@ -130,26 +130,28 @@ const SkillCard: React.FC<{ skill: Skill; index: number }> = ({ skill, index }: 
         className={`relative w-full h-full transition-transform duration-700 ease-in-out [transform-style:preserve-3d] [will-change:transform] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
       >
         {/* Front of the card */}
-        <div className="absolute inset-0 [backface-visibility:hidden] bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40 backdrop-blur-lg border border-blue-400/30 rounded-2xl p-6 grid grid-rows-[4.5rem_1fr_3rem] items-center justify-items-center text-center hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300">
-          <div className={`w-16 h-16 flex items-center justify-center p-3 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 border border-blue-400/40 transform-gpu transition-transform duration-700 ease-in-out [will-change:transform] ${isFlipped ? 'translate-y-2' : 'translate-y-0'}`}>
-            <img src={skill.image} alt={skill.name} className="w-full h-full object-contain filter drop-shadow-lg" />
-          </div>
-          <h3 className={`text-lg font-poppins font-bold text-white tracking-wide h-12 flex items-center justify-center transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.name}</h3>
-          <div
-            aria-label={`${skill.level} level`}
-            className={`text-sm font-semibold px-3 py-1 rounded-full ${levelColorClass(skill.level)} transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-90' : 'scale-100'}`}
+        <div className="absolute inset-0 [backface-visibility:hidden] bg-gradient-to-br from-gray-900/40 via-gray-800/30 to-gray-900/40 backdrop-blur-lg border border-blue-400/30 rounded-2xl p-3 sm:p-6 flex flex-col items-center justify-center text-center gap-1 sm:gap-2 hover:border-blue-500/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 overflow-hidden">
+          {/* Diagonal Ribbon */}
+          <div 
+            className={`absolute -left-6 top-2 sm:-left-10 sm:top-4 w-24 sm:w-36 py-1 sm:py-1.5 text-[0.65rem] sm:text-[0.95rem] font-semibold text-center ${levelColorClass(skill.level)} shadow-lg rotate-[-45deg] z-10`}
+            aria-label={`${skill.level} level ribbon`}
           >
             {skill.level}
           </div>
+          
+            <div className={`w-16 h-16 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 flex items-center justify-center p-1.5 sm:p-2 rounded-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 border border-blue-400/40 transform-gpu transition-transform duration-700 ease-in-out [will-change:transform] ${isFlipped ? 'translate-y-2' : 'translate-y-0'}`}>
+              <img src={skill.image} alt={skill.name} className="w-full h-full object-contain filter drop-shadow-lg" />
+            </div>
+          <h3 className={`text-sm sm:text-lg font-poppins font-bold text-white tracking-wide mt-1 sm:mt-4 transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.name}</h3>
         </div>
 
         {/* Back of the card */}
-        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-800/30 backdrop-blur-xl border border-blue-400/30 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-xl">
-          <div className={`w-12 h-12 mb-3 flex items-center justify-center p-2 rounded-full bg-white/10 border border-white/20 transform-gpu transition-transform duration-700 ease-in-out [will-change:transform] ${isFlipped ? 'translate-y-2' : 'translate-y-0'}`}>
+        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-gray-800/30 backdrop-blur-xl border border-blue-400/30 rounded-2xl p-3 sm:p-6 flex flex-col items-center justify-center text-center shadow-xl">
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 mb-2 sm:mb-3 flex items-center justify-center p-1.5 sm:p-2 rounded-full bg-white/10 border border-white/20 transform-gpu transition-transform duration-700 ease-in-out [will-change:transform] ${isFlipped ? 'translate-y-2' : 'translate-y-0'}`}>
             <img src={skill.image} alt={skill.name} className="w-full h-full object-contain filter brightness-110" />
           </div>
-          <h4 className={`text-base font-poppins font-bold text-white mb-2 transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.name}</h4>
-          <p className={`text-gray-100 text-sm leading-relaxed font-inter font-medium text-center transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.description}</p>
+          <h4 className={`text-sm sm:text-base font-poppins font-bold text-white mb-1 sm:mb-2 transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.name}</h4>
+          <p className={`text-gray-100 text-xs sm:text-sm leading-relaxed font-inter font-medium text-center transform-gpu transition-transform duration-700 ease-in-out ${isFlipped ? 'scale-95' : 'scale-100'}`}>{skill.description}</p>
         </div>
       </div>
     </motion.div>

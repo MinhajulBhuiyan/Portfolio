@@ -107,6 +107,7 @@ const Navbar = () => {
   }, [navItems]);
 
   return (
+  <>
   <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -181,39 +182,54 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        animate={{
-          opacity: isOpen ? 1 : 0,
-          height: isOpen ? 'auto' : 0,
-        }}
-        className="md:hidden fixed left-0 right-0 top-12 bottom-0 bg-primary/95 backdrop-blur-md overflow-auto z-50"
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navItems.map((item) => {
-            const Icon = item.icon;
-              return (
-                  <motion.button
-                    key={item.name}
-                    whileHover={{ x: 6 }}
-                    onClick={() => scrollToSection(item.href, item.name)}
-                    className={`group relative text-white/90 hover:text-white hover:bg-white/4 flex items-center px-3 py-2 rounded-md text-base font-medium w-full text-left transition-colors duration-300 ${active === item.name ? 'text-white' : ''}`}
-                  >
-                    <span aria-hidden className={`absolute inset-0 rounded-md pointer-events-none transition-opacity duration-300 ${active === item.name ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}> 
-                      <div className="absolute inset-0 rounded-md border border-white/12 opacity-60" />
-                      <div className="absolute top-0 left-0 h-1 w-full rounded-t-md bg-gradient-to-r from-white/30 via-white/10 to-transparent opacity-60 blur-sm" />
-                      <div className="absolute inset-0 rounded-md bg-white/8 opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
-                    </span>
-                <Icon className="h-5 w-5 mr-3" />
-                {item.name}
-              </motion.button>
-            );
-          })}
-        </div>
-      </motion.div>
     </motion.nav>
+
+      {/* Mobile Menu - Outside nav to avoid overflow:hidden clipping */}
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="md:hidden fixed inset-0 top-12 bg-primary/98 backdrop-blur-xl z-[100]"
+        >
+          <div className="flex flex-col h-full px-4 pt-6 pb-8 space-y-2 overflow-y-auto">
+            {navItems.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.button
+                  key={item.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  onClick={() => scrollToSection(item.href, item.name)}
+                  className={`relative flex items-center px-4 py-4 rounded-xl text-lg font-medium w-full text-left transition-all duration-300 ${
+                    active === item.name
+                      ? 'bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 text-white border border-blue-400/30'
+                      : 'text-white/80 hover:text-white hover:bg-white/5 border border-transparent'
+                  }`}
+                >
+                  <div className={`w-10 h-10 flex items-center justify-center rounded-full mr-4 ${
+                    active === item.name
+                      ? 'bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-cyan-500/30 border border-blue-400/40'
+                      : 'bg-white/5 border border-white/10'
+                  }`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <span>{item.name}</span>
+                  {active === item.name && (
+                    <motion.div
+                      layoutId="mobile-active"
+                      className="absolute right-4 w-2 h-2 rounded-full bg-gradient-to-r from-secondary to-accent"
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 };
 
