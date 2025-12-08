@@ -184,16 +184,16 @@ const Contact = () => {
                 <motion.button
                   type="submit"
                   disabled={formStatus === 'loading'}
-                  whileHover={{ scale: formStatus === 'loading' ? 1 : 1.05 }}
+                  whileHover={{ scale: formStatus === 'loading' ? 1 : 1.01 }}
                   whileTap={{ scale: formStatus === 'loading' ? 1 : 0.95 }}
-                  className={`w-full py-4 px-8 rounded-xl font-semibold text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center space-x-2 ${
+                  className={`w-full py-4 px-8 rounded-xl font-semibold text-sm uppercase tracking-wider transition-all duration-100 flex items-center justify-center space-x-2 ${
                     formStatus === 'success'
                       ? 'bg-green-500 text-white'
                       : formStatus === 'error'
                       ? 'bg-red-500 text-white'
                       : formStatus === 'loading'
                       ? 'bg-secondary/50 text-text-secondary cursor-not-allowed'
-                      : 'bg-gradient-to-r from-accent-purple to-accent-pink hover:shadow-lg hover:shadow-accent/25'
+                      : 'bg-gradient-to-r from-accent-purple to-accent-pink hover:brightness-95'
                   }`}
                 >
                   {formStatus === 'loading' && (
