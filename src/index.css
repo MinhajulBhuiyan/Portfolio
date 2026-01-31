@@ -7,3 +7,34 @@ html, body {
   overflow-x: hidden;
   max-width: 100vw;
 }
+/* Minimal global scrollbar - violet accent */
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+  background: #0f0f1c;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-button {
+  background: #0f0f1c !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #915EFF;
+  border-radius: 9999px;
+  border: 0px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7e22ce;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #915EFF #0f0f1c;
+}
