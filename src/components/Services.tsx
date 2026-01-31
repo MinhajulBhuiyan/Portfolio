@@ -103,21 +103,27 @@ export default function Services() {
 
 	const [windowWidth, setWindowWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
 
-	// template layout constants - responsive but always showing 3 cards
+	// template layout constants - responsive: show 1 card on mobile, otherwise 3 cards
 	const GAP = windowWidth < 640 ? 8 : windowWidth < 1024 ? 12 : 16
 	const HOVER_PADDING = 24 // Extra padding to prevent hover clipping
 
-	const getItemsPerView = () => {
-		return 3
+	const getItemsPerView = (w?: number) => {
+		const width = typeof w === 'number' ? w : windowWidth
+		return width < 640 ? 1 : 3
 	}
 
-	const [itemsPerView, setItemsPerView] = useState(getItemsPerView)
+	const [itemsPerView, setItemsPerView] = useState(() => getItemsPerView(typeof window !== 'undefined' ? window.innerWidth : undefined))
 
 	useEffect(() => {
 		const handleResize = () => {
-			setItemsPerView(getItemsPerView())
-			setWindowWidth(window.innerWidth)
+			const w = window.innerWidth
+			setWindowWidth(w)
+			setItemsPerView(getItemsPerView(w))
 		}
+
+		// run once on mount to ensure correct initial layout
+		handleResize()
+
 		window.addEventListener('resize', handleResize)
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
