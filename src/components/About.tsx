@@ -63,19 +63,7 @@ const About = () => {
     },
   ];
 
-  // Real work experience data
   const WORK_EXPERIENCE = [
-    {
-      year: 'Mar 2026 – Present',
-      title: 'Associate Software Engineer',
-      company: 'Data Limited',
-      department: 'Research & Development',
-      location: 'Navana Tower, 8th Floor, 45 Gulshan Avenue, Gulshan-1, Dhaka 1212.',
-      image: '/images/data-limited.png',
-      cardBg: 'bg-gradient-to-br from-indigo-400/20 to-blue-600/20',
-      cardBorder: 'border border-indigo-400/20',
-
-    },
     {
       year: 'Oct 2025 – Feb 2026',
       title: 'Intern',
@@ -85,7 +73,6 @@ const About = () => {
       image: '/images/data-limited.png',
       cardBg: 'bg-gradient-to-br from-emerald-400/20 to-green-600/20',
       cardBorder: 'border border-emerald-400/20',
-
     },
   ];
 
@@ -173,6 +160,65 @@ const About = () => {
             </motion.div>
           </motion.div>
 
+          {/* Work Experience */}
+          <motion.div variants={itemVariants}>
+            <motion.div
+              className="max-w-7xl mx-auto px-4 py-6 rounded-2xl bg-transparent backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <motion.h3
+                className="text-2xl sm:text-3xl md:text-5xl font-poppins font-bold text-center mb-6 md:mb-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <span className="text-white">Work Experience</span>
+              </motion.h3>
+
+              <div className="relative max-w-full md:max-w-7xl mx-auto px-4 md:px-0">
+                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500/60 to-zinc-500/55 opacity-60 rounded-full"></div>
+                <div className="mt-6 space-y-8">
+                  {WORK_EXPERIENCE.map((job) => (
+                    <motion.div
+                      key={`${job.title}-${job.year}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.15 }}
+                      className="relative"
+                    >
+                      <div className="md:grid md:grid-cols-3 md:items-center md:gap-4">
+                        <div className="md:flex md:justify-end md:-mr-12">
+                          <div className="flex flex-col items-center md:flex-row md:justify-end gap-4 md:gap-6 w-full">
+                            <div className="md:hidden inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-sm font-semibold uppercase tracking-wide">
+                              {job.year}
+                            </div>
+                            <img src={job.image} alt={`${job.company} logo`} className="hidden md:block w-20 h-20 lg:w-24 lg:h-24 rounded-full object-contain flex-shrink-0" />
+                            <div className={`${job.cardBg} ${job.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm w-full max-w-[20rem] sm:max-w-[26rem] md:max-w-[34rem] lg:max-w-[42rem] min-h-[9rem] md:min-h-[11rem] flex flex-col justify-between`}>
+                              <div className="space-y-1 md:space-y-2">
+                                <h4 className="text-xl md:text-2xl font-bold text-white mb-1">{job.company}</h4>
+                                <div className="text-base text-gray-300 font-medium">{job.title}</div>
+                                <div className="text-sm text-gray-400 uppercase tracking-wide">{job.department}</div>
+                                <div className="text-sm text-gray-400 mb-2">{job.location}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="hidden md:flex items-center justify-center">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-base font-semibold uppercase tracking-wide">{job.year}</span>
+                        </div>
+
+                        <div className="hidden md:block"></div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
           {/* Stats */}
           <motion.div
             variants={itemVariants}
@@ -209,157 +255,6 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Work Experience (below the divider) */}
-          <motion.div variants={itemVariants}>
-            <motion.div
-              className="max-w-7xl mx-auto px-4 py-6 rounded-2xl bg-transparent backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <motion.h3
-                className="text-2xl sm:text-3xl md:text-5xl font-poppins font-bold text-center mb-6 md:mb-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <span className="inline-flex items-center justify-center">
-                  <span className="text-white">Work Experience</span>
-                </span>
-              </motion.h3>
-
-              <div className="relative max-w-full md:max-w-7xl mx-auto px-4 md:px-0">
-                {/* vertical timeline line (md+) - styled to match Education horizontal line */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500/60 via-emerald-500/60 to-zinc-500/55 opacity-60 rounded-full"></div>
-
-                <div className="mt-6 space-y-8">
-                  {WORK_EXPERIENCE.map((job, index) => {
-                    const gradientClass = job.cardBg && job.cardBg.includes('bg-gradient-to-br')
-                      ? job.cardBg.replace('bg-gradient-to-br', 'bg-gradient-to-b')
-                      : (job.cardBg || 'bg-white/10');
-
-                    const isLeft = index % 2 === 0;
-
-                    const Card = (
-                      <div className={`${gradientClass} ${job.cardBorder} rounded-xl p-4 sm:p-5 md:p-7 backdrop-blur-sm transition-all duration-300 ease-in-out w-full max-w-[20rem] sm:max-w-[26rem] md:max-w-[34rem] lg:max-w-[42rem] mx-auto min-h-[9rem] sm:min-h-[10rem] md:min-h-[11rem] lg:min-h-[11rem] h-full flex flex-col justify-between`}>
-                        <div className="space-y-1 md:space-y-2">
-                          <div className="flex items-start justify-between">
-                            <div className="min-w-0 flex items-start">
-                              <div>
-                                <h4 className="text-xl sm:text-xl md:text-2xl font-bold text-white mb-1">{job.company}</h4>
-                                <div className="text-base text-gray-300 font-medium">{job.title}</div>
-                              </div>
-                            </div>
-
-                          </div>
-
-                          <div className="text-sm md:text-sm text-gray-400 uppercase tracking-wide">{job.department}</div>
-
-                          <div className="text-sm md:text-sm text-gray-400 mb-2">{job.location}</div>
-                        </div>
-                      </div>
-                    );
-
-                    return (
-                      <motion.div
-                        key={`${job.title}-${job.year}`}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.15 + index * 0.12 }}
-                        className="relative"
-                      >
-                        <div className="md:grid md:grid-cols-3 md:items-center md:gap-4">
-                          {/* left column (card on md if isLeft) */}
-                          <div className={`md:flex md:justify-end md:pr-0 md:-mr-12 ${isLeft ? 'md:block' : 'md:invisible'}`}>
-                            <div className="w-full md:max-w-[72rem]">
-                              {/* small screens: show single date badge above the card, then image + card stacked */}
-                              <div className="md:hidden">
-                                <div className="flex flex-col items-center">
-                                  <div className="mb-2">
-                                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-sm font-semibold uppercase tracking-wide border border-white/10">
-                                      <span className="sr-only">Date</span>
-                                      <span className="leading-none">{job.year}</span>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-4">
-                                    <img src={job.image} alt={`${job.company} logo`} className="w-16 h-16 rounded-full object-contain flex-shrink-0" />
-                                    {Card}
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* md+: render image separate and to the left of the card */}
-                              <div className="hidden md:flex md:items-center md:justify-end">
-                                <div className="flex items-center space-x-6">
-                                  <img src={job.image} alt={`${job.company} logo`} className="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-contain flex-shrink-0" />
-                                  <div>{isLeft ? Card : null}</div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* center column: icon + connector */}
-                          <div className="hidden md:flex items-center justify-center md:col-span-1">
-                            <div className="relative flex flex-col items-center">
-                              {/* Year badge centered on the timeline (dot removed) */}
-                              <div className="mt-1">
-                                <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-gray-900 text-base font-semibold uppercase tracking-wide border border-white/10">
-                                  <span className="sr-only">Date</span>
-                                  <span className="leading-none">{job.year}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* right column (card on md if !isLeft) */}
-                          <div className={`md:flex md:justify-start md:pl-0 md:-ml-12 ${!isLeft ? 'md:block' : 'md:invisible'}`}>
-                            <div className="w-full md:max-w-[72rem]">
-                              {/* small screens: show image + card stacked/inline (left column handles md:hidden) */}
-                              <div className="md:hidden">{/* small screens handled above in the first column */}</div>
-
-                              {/* md+: render image separate and to the right of the card */}
-                              <div className="hidden md:flex md:items-center md:justify-start">
-                                <div className="flex items-center space-x-6">
-                                  <div>{!isLeft ? Card : null}</div>
-                                  <img src={job.image} alt={`${job.company} logo`} className="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-contain flex-shrink-0" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-          {/* Duplicate minimalist divider below Work Experience (matches design above) */}
-          <div className="relative max-w-5xl mx-auto">
-            <div className="flex items-center justify-center mb-8 sm:mb-12">
-              <motion.div
-                className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.2, delay: 0.5 }}
-              ></motion.div>
-              <motion.div
-                className="mx-6 relative"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 0.8, delay: 0.8, type: "spring" }}
-              >
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full shadow-lg shadow-blue-500/25"></div>
-                <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-ping opacity-20"></div>
-              </motion.div>
-              <motion.div
-                className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent w-full max-w-xs"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.2, delay: 0.5 }}
-              ></motion.div>
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>
