@@ -52,8 +52,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'minhajul@iut-dhaka.edu',
-      href: 'https://mail.google.com/mail/?view=cm&to=minhajul@iut-dhaka.edu',
+      value: 'bhuiyan.minhajul@gmail.com',
+      href: 'https://mail.google.com/mail/?view=cm&to=bhuiyan.minhajul@gmail.com',
       external: true,
     },
     {
@@ -66,8 +66,8 @@ const Contact = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Banasree, Dhaka-1219',
-      href: 'https://www.google.com/maps/place/Banasree,+Dhaka',
+      value: 'Dhaka',
+      href: 'https://www.google.com/maps?q=23.8103,90.4125',
       external: true,
     },
   ];
